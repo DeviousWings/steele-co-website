@@ -241,9 +241,9 @@ Contact: constituent-sovereign@steele-infrastructure.org`;
         setCopiedLetter(true);
         setTimeout(() => setCopiedLetter(false), 2500);
       };
-
+      const [pdfNoticeOpen, setPdfNoticeOpen] = useState(false);
       const handlePrintDocument = () => {
-        window.print();
+        setPdfNoticeOpen(true); // <--- CHANGE THIS later when your PDF is ready
       };
 
       return (
@@ -1226,10 +1226,10 @@ Contact: constituent-sovereign@steele-infrastructure.org`;
                     <button
                       onClick={handlePrintDocument}
                       className="bg-[#f59e0b] hover:bg-[#d97706] text-[#0a0a0c] font-black px-3.5 py-2 rounded text-xs uppercase transition-all flex items-center gap-1.5"
-                    >
-                      <Printer className="w-4 h-4" />
-                      <span>Print / Save as PDF</span>
-                    </button>
+                      >
+                      <Download className="w-4 h-4" />
+                      <span>Download Master PDF</span>
+                    </button>>
                     <button 
                       onClick={() => setFullDraftModalOpen(false)}
                       className="p-2 text-[#94a3b8] hover:text-white bg-[#0a0a0c] rounded border border-[#262630]"
@@ -1480,8 +1480,24 @@ Contact: constituent-sovereign@steele-infrastructure.org`;
               </div>
             </div>
           )}
-
-        </div>
+          {pdfNoticeOpen && (
+            <div className="fixed inset-0 z-50 bg-[#0a0a0c]/90 backdrop-blur-md flex justify-center items-center p-4">
+              <div className="bg-[#121216] border border-[#f59e0b] rounded-xl max-w-md w-full p-6 space-y-6 shadow-[0_0_30px_rgba(245,158,11,0.2)] text-center">
+                <div className="text-sm font-bold text-[#f59e0b] uppercase tracking-wider">
+                  [ SYSTEM NOTICE // CODING IN PROGRESS ]
+                </div>
+                <p className="text-xs text-[#94a3b8] leading-relaxed font-mono">
+                  The statutory PDF compilation system is currently offline for remote baseline rendering. The comprehensive physical document download repository will be linked directly to this node shortly.
+                </p>
+                <button
+                  onClick={() => setPdfNoticeOpen(false)}
+                  className="w-full py-2.5 bg-[#181820] hover:bg-[#f59e0b] hover:text-[#0a0a0c] text-[#e2e8f0] border border-[#262630] font-bold text-xs uppercase rounded transition-all"
+                >
+                  Return to Core Data Core
+                </button>
+              </div>
+            </div>
+          )}
       );
     }
 
