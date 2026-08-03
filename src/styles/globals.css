@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-base: #0a0a0c;
+  --bg-surface: #121216;
+  --bg-card: #181820;
+  --cyber-blue: #00e5ff;
+  --warning-amber: #f59e0b;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: #e2e8f0;
+  font-family: 'Courier New', Courier, monospace;
+}
