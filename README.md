@@ -8,7 +8,7 @@ Steele Co. is an advocacy-driven physical trade enterprise specializing in on-pr
 
 Commercial trade services exist to provide immediate physical containment against corporate data harvesting while directly funding public legislative reform via The Sovereign Digital Identity and Resource Nationalization Act (SDI Act of 2026).
 
-#📐 Financial & Cryptographic Models
+# 📐 Financial & Cryptographic Models
 
 The architecture and financial transition models embedded in this web engine rely on precise mathematical formulations:
 
@@ -36,7 +36,7 @@ Local homomorphic compute sandboxes execute private inferences without network e
 
 $$f(E(\text{Data})) = E(f(\text{Data}))$$
 
-⚡ Quick Deployment (GitHub Pages)
+# ⚡ Quick Deployment (GitHub Pages)
 
 This web engine is engineered as an isolated, high-speed static web application with zero external tracking scripts, zero advertising pixels, and zero third-party telemetry.
 
@@ -52,16 +52,16 @@ Set Source to Deploy from a branch, choose main branch and / (root).
 
 Click Save. Your site will be live at https://<your-username>.github.io/<repo-name>/.
 
-🛠️ System Architecture & File Structure
+# 🛠️ System Architecture & File Structure
 
-steele-co-website/
+* **steele-co-website/
 ├── index.html              # Complete Single-File React Engine + Tailwind + Lucide Icons
 ├── domain_strategy.md      # Dual-Domain Commercial vs. Legislative Strategy
 ├── robots.txt              # Zero-Tracking Privacy-First Search Indexing Protocol
 └── README.md               # Repository Specification & Trade Documentation
 
 
-🏗️ Web Engine Features
+# 🏗️ Web Engine Features
 
 Anti-Cloud Landing Matrix: High-contrast split-screen comparison between on-premise containment and corporate cloud subscription bleed.
 
@@ -75,7 +75,7 @@ Network Packet Capture Simulator: Live interactive tool demonstrating raw packet
 
 Cloud Bleed ROI Calculator: Financial comparison tool calculating multi-year cloud savings vs. a one-time fixed rack investment.
 
-📦 Sovereign Infrastructure Tiers
+# 📦 Sovereign Infrastructure Tiers
 
 Platform Tier
 
@@ -117,7 +117,7 @@ Estates, Offline AI Vision, 10Gbps LAN
 
 $\$18,500$
 
-📄 Trade Philosophy & Guarantees
+# 📄 Trade Philosophy & Guarantees
 
 Fixed Published Price Sheets: Zero hidden diagnostic retainers or predatory hourly billing loops.
 
@@ -125,11 +125,11 @@ Fixed Published Price Sheets: Zero hidden diagnostic retainers or predatory hour
 
 Root Hardware Ownership: Clients receive $100\%$ administrative root credentials for all firewalls, NAS vaults, and AI containers. Zero master backdoors.
 
-🤖 Radical Transparency Note
+# 🤖 Radical Transparency Note
 
 🤖 Full Disclosure: This site was built using a mix of AI assistance and my expert web dev skills. Look, I’m just a guy on a budget with very little free time, and every hour saved wrestling with React code at 2 AM is an extra hour I get to spend playing with my kids and hanging out with my family. Hardware is my trade—AI was just my shortcut home for dinner!
 
-📜 License
+# 📜 License
 
 Distributed under the Open Sovereign Infrastructure License. See LICENSE for details.
 
