@@ -15,7 +15,10 @@ export default function Footer({ onOpenQuote }) {
               No sales calls. No predatory scripts. Just elite physical trade engineering.
             </p>
           </div>
-          <button onClick={onOpenQuote} className="bg-[#00e5ff] text-[#0a0a0c] font-bold px-6 py-3 rounded text-xs uppercase">
+          <button 
+            onClick={onOpenQuote} 
+            className="bg-[#00e5ff] text-[#0a0a0c] font-bold px-6 py-3 rounded text-xs uppercase hover:bg-[#00b8cc] transition-all"
+          >
             Request Deployment Intake
           </button>
         </div>
