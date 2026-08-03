@@ -18,9 +18,13 @@
     }
   </script>
 
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" crossorigin></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.12/babel.min.js" crossorigin></script>
 
   <style>
     /* Custom Scrollbar for Terminal aesthetics */
@@ -72,7 +76,42 @@
 </head>
 <body class="bg-[#0a0a0c] text-[#e2e8f0] font-mono selection:bg-[#00e5ff] selection:text-[#0a0a0c]">
   
-  <div id="root"></div>
+  <script>
+    window.onerror = function(msg, url, lineNo, columnNo, error) {
+      var debugBox = document.getElementById('debug-box');
+      if (debugBox) {
+        debugBox.style.display = 'block';
+        debugBox.innerHTML += '<div style="color:#ef4444; margin-top:8px;">[JS ERROR] ' + msg + ' (Line ' + lineNo + ')</div>';
+      }
+      return false;
+    };
+    window.addEventListener('error', function(e) {
+      if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+        var debugBox = document.getElementById('debug-box');
+        if (debugBox) {
+          debugBox.style.display = 'block';
+          debugBox.innerHTML += '<div style="color:#f59e0b; margin-top:8px;">[NETWORK BLOCKED] Failed to load external asset: ' + (e.target.src || e.target.href) + '</div>';
+        }
+      }
+    }, true);
+  </script>
+
+  <div id="root">
+    <div style="background:#0a0a0c; color:#00e5ff; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; font-family:monospace; padding:20px; text-align:center;">
+      <div style="font-size:14px; font-weight:bold; letter-spacing:1px;">
+        [ STEELE CO. // INITIALIZING ON-PREM SOVEREIGN CORE... ]
+      </div>
+      <div style="font-size:11px; color:#94a3b8; margin-top:10px;">
+        Loading local React dependencies & security modules...
+      </div>
+
+      <div id="debug-box" style="display:none; margin-top:20px; max-width:600px; width:100%; background:#121216; border:1px solid #ef4444; border-radius:6px; padding:12px; font-size:11px; text-align:left;">
+        <div style="color:#ef4444; font-weight:bold; border-bottom:1px solid #262630; padding-bottom:4px;">
+          ⚠ DIAGNOSTIC SYSTEM LOG (F12 BYPASS ACTIVE)
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script type="text/babel">
     const { useState, useEffect, useMemo } = React;
