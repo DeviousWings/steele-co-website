@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>STEELE CO. // Sovereign Infrastructure & Data Defense</title>
 
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -19,7 +18,6 @@
     }
   </script>
 
-  <!-- React 18 & Babel Standalone for in-browser JSX compilation -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -100,10 +98,8 @@
     const SlidersHorizontal = (p) => <Svg {...p}><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="10" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></Svg>;
     const Activity = (p) => <Svg {...p}><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></Svg>;
     const Copy = (p) => <Svg {...p}><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></Svg>;
-    const Printer = (p) => <Svg {...p}><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></Svg>;
     const BookOpen = (p) => <Svg {...p}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></Svg>;
     const Download = (p) => <Svg {...p}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></Svg>;
-    const ExternalLink = (p) => <Svg {...p}><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></Svg>;
 
     function App() {
       // Navigation State
@@ -111,6 +107,7 @@
       const [quoteModalOpen, setQuoteModalOpen] = useState(false);
       const [contractModalOpen, setContractModalOpen] = useState(false);
       const [fullDraftModalOpen, setFullDraftModalOpen] = useState(false);
+      const [pdfNoticeOpen, setPdfNoticeOpen] = useState(false);
 
       // Home Terminal Simulation State
       const [terminalLogs, setTerminalLogs] = useState([
@@ -241,9 +238,9 @@ Contact: constituent-sovereign@steele-infrastructure.org`;
         setCopiedLetter(true);
         setTimeout(() => setCopiedLetter(false), 2500);
       };
-      const [pdfNoticeOpen, setPdfNoticeOpen] = useState(false);
+
       const handlePrintDocument = () => {
-        setPdfNoticeOpen(true); // <--- CHANGE THIS later when your PDF is ready
+        setPdfNoticeOpen(true);
       };
 
       return (
@@ -793,7 +790,7 @@ Contact: constituent-sovereign@steele-infrastructure.org`;
                           <div className="p-3 bg-[#0a0a0c] border-l-2 border-[#10b981] space-y-1">
                             <span className="font-bold text-white">SECTION 203: HOMOMORPHIC COMPUTE GRID (SHCG)</span>
                             <p className="text-[#00e5ff] font-mono text-[11px]">Formula: f(E(Data)) = E(f(Data))</p>
-                            <p className="text-[#94a3b8]">Corporate algorithms run against homomorphically encrypted data inside sandboxes. RAM nodes power-cycle immediately after generating blind tokens, vaporizing all trace data.</p>
+                            <p className="text-[#94a3b8]">Corporate algorithms run against homomorphically encrypted data inside sandboxes. RAM nodes power-cycle immediately after generating blind tokens, vaporizing all query trails.</p>
                           </div>
 
                           <div className="p-3 bg-[#0a0a0c] border-l-2 border-[#10b981] space-y-1">
@@ -812,8 +809,8 @@ Contact: constituent-sovereign@steele-infrastructure.org`;
                             <span className="font-bold text-white">SECTION 303: THREE-TIER SELECTION</span>
                             <ul className="space-y-1 text-[#94a3b8]">
                               <li>• <strong className="text-white">Tier 1 (Sovereign Purist):</strong> Absolute commercial opt-out + baseline subscription dividend (~$20/yr).</li>
-                              <li>• <strong className="text-white">Tier 2 (Commonwealth Trust):</strong> Aggregated pool, uniform egalitarian dividend (~$100/yr).</li>
-                              <li>• <strong className="text-white">Tier 3 (Individual Lease):</strong> 100% direct dynamic royalty yield (~$250+/yr) routed through 30-45 day anonymous escrow.</li>
+                              <li>• <strong className="text-white">Tier 2 (Commonwealth Member):</strong> Aggregated pool, uniform egalitarian dividend (~$100/yr).</li>
+                              <li>• <strong className="text-white">Tier 3 (Sovereign Landowner):</strong> 100% direct dynamic royalty yield (~$250+/yr) routed through 30-45 day anonymous escrow.</li>
                             </ul>
                           </div>
 
@@ -1226,10 +1223,10 @@ Contact: constituent-sovereign@steele-infrastructure.org`;
                     <button
                       onClick={handlePrintDocument}
                       className="bg-[#f59e0b] hover:bg-[#d97706] text-[#0a0a0c] font-black px-3.5 py-2 rounded text-xs uppercase transition-all flex items-center gap-1.5"
-                      >
+                    >
                       <Download className="w-4 h-4" />
                       <span>Download Master PDF</span>
-                    </button>>
+                    </button>
                     <button 
                       onClick={() => setFullDraftModalOpen(false)}
                       className="p-2 text-[#94a3b8] hover:text-white bg-[#0a0a0c] rounded border border-[#262630]"
@@ -1480,6 +1477,10 @@ Contact: constituent-sovereign@steele-infrastructure.org`;
               </div>
             </div>
           )}
+
+          {/* ========================================================================= */}
+          {/* MODAL 4: "CODING IN PROGRESS" PDF POPUP PLACEHOLDER                       */}
+          {/* ========================================================================= */}
           {pdfNoticeOpen && (
             <div className="fixed inset-0 z-50 bg-[#0a0a0c]/90 backdrop-blur-md flex justify-center items-center p-4">
               <div className="bg-[#121216] border border-[#f59e0b] rounded-xl max-w-md w-full p-6 space-y-6 shadow-[0_0_30px_rgba(245,158,11,0.2)] text-center">
@@ -1487,7 +1488,7 @@ Contact: constituent-sovereign@steele-infrastructure.org`;
                   [ SYSTEM NOTICE // CODING IN PROGRESS ]
                 </div>
                 <p className="text-xs text-[#94a3b8] leading-relaxed font-mono">
-                  The statutory PDF compilation system is currently offline for remote baseline rendering. The comprehensive physical document download repository will be linked directly to this node shortly.
+                  The statutory PDF compilation system is currently offline for remote rendering parameters. The comprehensive physical document download repository will be linked directly to this node shortly.
                 </p>
                 <button
                   onClick={() => setPdfNoticeOpen(false)}
@@ -1498,6 +1499,8 @@ Contact: constituent-sovereign@steele-infrastructure.org`;
               </div>
             </div>
           )}
+
+        </div>
       );
     }
 
