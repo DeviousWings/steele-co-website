@@ -1,10 +1,10 @@
 # steele-co-website
 
-steele-co-website/
-├── public/
-│   ├── favicon.ico
-│   └── robots.txt
-├── src/
+steele-co-website/ </br>
+├── public/</br>
+│   ├── favicon.ico</br>
+│   └── robots.txt</br>
+├── src/</br>
 │   ├── assets/                    # Images, hardware diagrams, branding graphics
 │   │   └── server-rack-matrix.svg
 │   │
