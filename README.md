@@ -8,11 +8,11 @@
 </br>
 Commercial trade services exist to provide immediate physical containment against corporate data harvesting while directly funding public legislative reform via The Sovereign Digital Identity and Resource Nationalization Act (SDI Act of 2026).
 
-# 📐 Financial & Cryptographic Models
+## 📐 Financial & Cryptographic Models
 
 The architecture and financial transition models embedded in this web engine rely on precise mathematical formulations:
 
-1. Cloud Bleed Savings Formula
+### 1. Cloud Bleed Savings Formula
 
 The multi-year net capital savings $S_{\text{net}}$ over a projection horizon of $N$ years is calculated as:
 
@@ -24,33 +24,29 @@ $C_{\text{monthly}} = C_{\text{storage}} + C_{\text{SaaS/AI}} + C_{\text{cameras
 
 $I_{\text{steele}}$ represents the one-time fixed capital investment for the Steele Co. hardware deployment (e.g., $\$7,800$ for Tier 2 SOHO Vault).
 
-2. Investment Break-Even Timeline
+### 2. Investment Break-Even Timeline
 
 The break-even point in months $M_{\text{breakeven}}$ is determined by:
 
 $$M_{\text{breakeven}} = \left\lceil \frac{I_{\text{steele}}}{\sum C_{\text{monthly}}} \right\rceil$$
 
-3. Blind Homomorphic Containment
+### 3. Blind Homomorphic Containment
 
 Local homomorphic compute sandboxes execute private inferences without network egress following:
 
 $$f(E(\text{Data})) = E(f(\text{Data}))$$
 
-# ⚡ Quick Deployment (GitHub Pages)
+## ⚡ Quick Deployment (GitHub Pages)
 
 This web engine is engineered as an isolated, high-speed static web application with zero external tracking scripts, zero advertising pixels, and zero third-party telemetry.
 
-Direct Browser Deployment (Single-File)
+### Direct Browser Deployment (Single-File)
 
-Copy the contents of index.html.
-
-Commit index.html to the root directory of your GitHub repository.
-
-In GitHub, go to Settings > Pages.
-
-Set Source to Deploy from a branch, choose main branch and / (root).
-
-Click Save. Your site will be live at https://<your-username>.github.io/<repo-name>/.
+1. Copy the contents of index.html.
+2. Commit index.html to the root directory of your GitHub repository.
+3. In GitHub, go to Settings > Pages.
+4. Set Source to Deploy from a branch, choose main branch and / (root).
+5. Click Save. Your site will be live at https://<your-username>.github.io/<repo-name>/.
 
 # 🛠️ System Architecture & File Structure
 
