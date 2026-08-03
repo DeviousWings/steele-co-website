@@ -1,6 +1,6 @@
 # steele-co-website
 
-🛡️ STEELE CO. // Sovereign Hardware Engine
+# 🛡️ STEELE CO. // Sovereign Hardware Engin
 
 "If your data lives on their cloud, you don't really own your life."
 
@@ -8,7 +8,7 @@ Steele Co. is an advocacy-driven physical trade enterprise specializing in on-pr
 
 Commercial trade services exist to provide immediate physical containment against corporate data harvesting while directly funding public legislative reform via The Sovereign Digital Identity and Resource Nationalization Act (SDI Act of 2026).
 
-📐 Financial & Cryptographic Models
+#📐 Financial & Cryptographic Models
 
 The architecture and financial transition models embedded in this web engine rely on precise mathematical formulations:
 
