@@ -1,1 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STEELE CO. // Sovereign Infrastructure & Data Defense</title>
 
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            mono: ['Courier New', 'Courier', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- React 18 UMD -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+
+  <!-- Babel Standalone for JSX compilation in browser -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Lucide Icons React UMD -->
+  <script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.min.js" crossorigin></script>
+
+  <style>
+    /* Custom Scrollbar for Terminal aesthetics */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0a0c;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #262630;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00e5ff;
+    }
+  </style>
+</head>
+<body class="bg-[#0a0a0c] text-[#e2e8f0] font-mono selection:bg-[#00e5ff] selection:text-[#0a0a0c]">
+  
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useMemo } = React;
+
+    // Safely extract Lucide React icons
+    const icons = window.lucideReact || window.LucideReact || {};
+    
+    // Fallback Icon component in case an icon isn't loaded
+    const Icon = ({ name, className = "w-4 h-4" }) => {
+      const Component = icons[name];
+      if (Component) return <Component className={className} />;
+      return <span className={`inline-block border border-current rounded px-1 text-[9px] ${className}`}>[{name}]</span>;
+    };
+
+    // Specific Icon aliases
+    const Terminal = (p) => <Icon name="Terminal" {...p} />;
+    const Shield = (p) => <Icon name="Shield" {...p} />;
+    const Cpu = (p) => <Icon name="Cpu" {...p} />;
+    const Server = (p) => <Icon name="Server" {...p} />;
+    const HardDrive = (p) => <Icon name="HardDrive" {...p} />;
+    const Lock = (p) => <Icon name="Lock" {...p} />;
+    const FileText = (p) => <Icon name="FileText" {...p} />;
+    const CheckCircle = (p) => <Icon name="CheckCircle" {...p} />;
+    const AlertTriangle = (p) => <Icon name="AlertTriangle" {...p} />;
+    const Zap = (p) => <Icon name="Zap" {...p} />;
+    const Copy = (p) => <Icon name="Copy" {...p} />;
+    const Check = (p) => <Icon name="Check" {...p} />;
+    const ExternalLink = (p) => <Icon name="ExternalLink" {...p} />;
+    const Activity = (p) => <Icon name="Activity" {...p} />;
+    const DollarSign = (p) => <Icon name="DollarSign" {...p} />;
+    const Radio = (p) => <Icon name="Radio" {...p} />;
+    const Eye = (p) => <Icon name="Eye" {...p} />;
+    const RefreshCw = (p) => <Icon name="RefreshCw" {...p} />;
+    const Sliders = (p) => <Icon name="Sliders" {...p} />;
+    const ChevronRight = (p) => <Icon name="ChevronRight" {...p} />;
+    const Download = (p) => <Icon name="Download" {...p} />;
+    const Send = (p) => <Icon name="Send" {...p} />;
+    const Layers = (p) => <Icon name="Layers" {...p} />;
+    const Wifi = (p) => <Icon name="Wifi" {...p} />;
+    const X = (p) => <Icon name="X" {...p} />;
+    const Database = (p) => <Icon name="Database" {...p} />;
+    const SlidersHorizontal = (p) => <Icon name="SlidersHorizontal" {...p} />;
+    const ChevronDown = (p) => <Icon name="ChevronDown" {...p} />;
+    const Info = (p) => <Icon name="Info" {...p} />;
+
+    function App() {
+      // Navigation State
+      const [activeTab, setActiveTab] = useState('home'); // 'home' | 'tiers' | 'sdi-act' | 'expose' | 'roi'
+      const [quoteModalOpen, setQuoteModalOpen] = useState(false);
+      const [contractModalOpen, setContractModalOpen] = useState(false);
+
+      // Home Terminal Simulation State
+      const [terminalLogs, setTerminalLogs] = useState([
+        { id: 1, type: 'info', text: 'STEELE_CO Local Firewall Engine v4.12 initialized.' },
+        { id: 2, type: 'success', text: 'On-premise NAS vault mounted on 10Gbps isolated VLAN.' },
+        { id: 3, type: 'warning', text: 'BLOCKED: Smart TV attempted outbound telemetry sync to [vendor-ad-tracker.cloud].' },
+        { id: 4, type: 'success', text: 'Local LLM Inference Sandbox ready. Zero cloud network egress detected.' }
+      ]);
+
+      // Periodic terminal logs simulation
+      useEffect(() => {
+        const intervals = [
+          'Encrypted backup verification complete (0 errors, 100% data integrity).',
+          'Homomorphic compute sandbox: 14 encrypted packets processed locally.',
+          'BLOCKED: Cloud Ring doorbell attempt to upload unencrypted stream packet.',
+          'UPS Status: Nominal (100% capacity, 48 min runtime on grid failure).'
+        ];
+
+        const timer = setInterval(() => {
+          const randomLog = intervals[Math.floor(Math.random() * intervals.length)];
+          const logType = randomLog.includes('BLOCKED') ? 'warning' : 'success';
+          setTerminalLogs(prev => [
+            ...prev.slice(-5),
+            { id: Date.now(), type: logType, text: randomLog }
+          ]);
+        }, 6000);
+
+        return () => clearInterval(timer);
+      }, []);
+
+      // Tier Selector State
+      const [selectedTier, setSelectedTier] = useState('tier2');
+
+      // Interactive Configurator State
+      const [customBuild, setCustomBuild] = useState({
+        tier: 'tier2',
+        upsUpgrade: true,
+        dualGpu: true,
+        liquidCooling: true,
+        acousticPanels: true,
+        tenGbSwitch: true,
+        storageCapacity: '32TB'
+      });
+
+      // Calculate Custom Build Price
+      const buildPrice = useMemo(() => {
+        let base = 2450;
+        if (customBuild.tier === 'tier2') base = 7800;
+        if (customBuild.tier === 'tier3') base = 18500;
+
+        let extras = 0;
+        if (customBuild.upsUpgrade) extras += 650;
+        if (customBuild.dualGpu) extras += 2200;
+        if (customBuild.liquidCooling) extras += 1200;
+        if (customBuild.acousticPanels) extras += 450;
+        if (customBuild.tenGbSwitch) extras += 850;
+
+        const storagePrices = { '16TB': 0, '32TB': 550, '64TB': 1400, '128TB': 3200 };
+        extras += storagePrices[customBuild.storageCapacity] || 0;
+
+        return base + extras;
+      }, [customBuild]);
+
+      // SDI Act State
+      const [sdiActiveSection, setSdiActiveSection] = useState('exec-summary');
+      const [constituentForm, setConstituentForm] = useState({
+        name: 'J. Steele',
+        district: 'Utah 3rd District',
+        representative: 'Representative John Curtis / Senator',
+        tradeRole: 'On-Premises Infrastructure Technician & Constituent'
+      });
+      const [copiedLetter, setCopiedLetter] = useState(false);
+
+      // Packet Auditor Simulator State
+      const [packetMode, setPacketMode] = useState('steele');
+      const [inspectedPacket, setInspectedPacket] = useState(null);
+
+      // ROI Calculator State
+      const [roiInputs, setRoiInputs] = useState({
+        cloudStorageMonthly: 45,
+        saasAImonthly: 60,
+        securityCloudMonthly: 35,
+        businessCloudServers: 250,
+        years: 3
+      });
+
+      const roiCalculations = useMemo(() => {
+        const monthlyBleed =
+          Number(roiInputs.cloudStorageMonthly) +
+          Number(roiInputs.saasAImonthly) +
+          Number(roiInputs.securityCloudMonthly) +
+          Number(roiInputs.businessCloudServers);
+        const yearlyBleed = monthlyBleed * 12;
+        const totalBleed = yearlyBleed * Number(roiInputs.years);
+        const steeleInvestment = 7800;
+        const netSavings = totalBleed - steeleInvestment;
+        const breakEvenMonths = Math.ceil(steeleInvestment / (monthlyBleed || 1));
+
+        return { monthlyBleed, yearlyBleed, totalBleed, netSavings, breakEvenMonths };
+      }, [roiInputs]);
+
+      // Letter Generator Content
+      const letterText = useMemo(() => {
+        return `Dear ${constituentForm.representative},
+
+My name is ${constituentForm.name}, and I am a constituent in ${constituentForm.district} working as a ${constituentForm.tradeRole}. 
+
+I am writing to formally present a critical legislative policy framework regarding constitutional property rights, digital sovereignty, and consumer device protection: The Sovereign Digital Identity and Resource Nationalization Act (SDI Act of 2026).
+
+Currently, corporate entities exploit statutory loopholes in software licensing to deprive American consumers of true personal property ownership. Devices we purchase are degraded remotely behind forced micro-subscriptions, and our personal, business, and biometric data is harvested without warrant or equitable compensation.
+
+The SDI Act establishes three key conservative property pillars:
+1. STATUTORY DATA PROPERTY RIGHTS: Establishing that personal and business data generated on physical devices remains the unalienable property of the user. If third-party platforms monetize user metrics under valid agreement, the user is entitled to a mandatory 10% gross dividend.
+2. CONSUMER ENJOYMENT & SUBSCRIPTION LOCK PROTECTION: Outlawing remote software degradation, forced ad-injection, or retroactively placing physical hardware features behind subscription paywalls after point-of-sale.
+3. ON-PREMISE ENCLAVE RIGHTS: Guaranteeing the right of individuals and small-to-mid-sized businesses to operate air-gapped, sovereign infrastructure without remote cloud killswitches or forced vendor telemetry.
+
+As your constituent, I request an in-district briefing meeting with your senior legislative director during the upcoming congressional recess to deliver the complete statutory text and technical brief.
+
+Respectfully submitted,
+
+${constituentForm.name}
+${constituentForm.tradeRole}
+Contact: constituent-sovereign@steele-infrastructure.org`;
+      }, [constituentForm]);
+
+      const handleCopyLetter = () => {
+        navigator.clipboard.writeText(letterText);
+        setCopiedLetter(true);
+        setTimeout(() => setCopiedLetter(false), 2500);
+      };
+
+      return (
+        <div className="min-h-screen bg-[#0a0a0c] text-[#e2e8f0]">
+          
+          {/* --- TOP BANNER / SYSTEM BAR --- */}
+          <div className="bg-[#121216] border-b border-[#262630] text-xs py-2 px-4 flex justify-between items-center text-[#94a3b8] overflow-x-auto whitespace-nowrap">
+            <div className="flex items-center gap-3">
+              <span className="flex items-center gap-1.5 text-[#10b981]">
+                <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse"></span>
+                SYSTEM STATUS: ON-PREM SOVEREIGN
+              </span>
+              <span className="text-[#262630]">|</span>
+              <span>ZERO THIRD-PARTY TRACKERS</span>
+              <span className="text-[#262630]">|</span>
+              <span className="text-[#00e5ff]">ENCRYPTED LOCAL CONTAINMENT</span>
+            </div>
+            <div className="flex items-center gap-4 font-semibold">
+              <span className="text-[#f59e0b]">SDI ACT DRAFT: 2026 EDITION</span>
+              <button 
+                onClick={() => setContractModalOpen(true)}
+                className="hover:text-[#00e5ff] underline transition-colors"
+              >
+                "NO DATA, NO FEE" CODE
+              </button>
+            </div>
+          </div>
+
+          {/* --- MAIN NAVIGATION BAR --- */}
+          <nav className="sticky top-0 z-40 bg-[#0a0a0c]/90 backdrop-blur-md border-b border-[#262630] px-4 lg:px-8 py-3.5 flex justify-between items-center">
+            <div 
+              onClick={() => setActiveTab('home')}
+              className="cursor-pointer flex items-center gap-2 group"
+            >
+              <div className="p-2 bg-[#181820] border border-[#262630] rounded group-hover:border-[#00e5ff] transition-colors">
+                <Server className="w-5 h-5 text-[#00e5ff]" />
+              </div>
+              <div>
+                <div className="font-bold text-base tracking-wider text-[#e2e8f0] flex items-center gap-2">
+                  STEELE CO. <span className="text-[#00e5ff] text-xs px-1.5 py-0.5 border border-[#00e5ff]/30 rounded bg-[#00e5ff]/10">HARDWARE</span>
+                </div>
+                <div className="text-[10px] text-[#94a3b8] tracking-widest uppercase">Sovereign Data Infrastructure</div>
+              </div>
+            </div>
+
+            <div className="hidden md:flex items-center gap-1 lg:gap-2 text-xs">
+              {[
+                { id: 'home', label: 'Home // Positioning' },
+                { id: 'tiers', label: 'Sovereign Tiers & BOM' },
+                { id: 'sdi-act', label: 'The SDI Act Vault' },
+                { id: 'expose', label: 'Tech Exposé & Inspector' },
+                { id: 'roi', label: 'Cloud Bleed Calculator' }
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`px-3 py-2 rounded transition-all uppercase tracking-wide font-medium ${
+                    activeTab === tab.id
+                      ? 'bg-[#181820] text-[#00e5ff] border border-[#00e5ff]/40 shadow-[0_0_10px_rgba(0,229,255,0.15)]'
+                      : 'text-[#94a3b8] hover:text-[#e2e8f0] hover:bg-[#121216]'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            <button
+              onClick={() => setQuoteModalOpen(true)}
+              className="bg-[#00e5ff] hover:bg-[#00b8cc] text-[#0a0a0c] font-bold px-4 py-2.5 rounded text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(0,229,255,0.25)] flex items-center gap-2"
+            >
+              <Shield className="w-4 h-4" />
+              <span>Secure Space</span>
+            </button>
+          </nav>
+
+          {/* --- MOBILE NAVIGATION TABS --- */}
+          <div className="md:hidden bg-[#121216] border-b border-[#262630] p-2 flex overflow-x-auto gap-2 text-xs">
+            {[
+              { id: 'home', label: 'Home' },
+              { id: 'tiers', label: 'Tiers & Config' },
+              { id: 'sdi-act', label: 'SDI Act Vault' },
+              { id: 'expose', label: 'Exposé & Packets' },
+              { id: 'roi', label: 'Cloud ROI' }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-3 py-1.5 rounded whitespace-nowrap text-[11px] ${
+                  activeTab === tab.id
+                    ? 'bg-[#00e5ff] text-[#0a0a0c] font-bold'
+                    : 'bg-[#181820] text-[#94a3b8]'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* ========================================================================= */}
+          {/* PAGE 1: HOME // ANTI-CLOUD POSITIONING                                    */}
+          {/* ========================================================================= */}
+          {activeTab === 'home' && (
+            <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 lg:py-12 space-y-16">
+              
+              {/* HERO SECTION */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-[#262630] pb-16">
+                <div className="lg:col-span-7 space-y-6">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] text-xs font-semibold">
+                    <AlertTriangle className="w-3.5 h-3.5" />
+                    <span>ANTI-CLOUD // PHYSICAL PROPERTY ADVOCACY</span>
+                  </div>
+                  
+                  <h1 className="text-3xl lg:text-5xl font-black tracking-tight leading-tight uppercase text-white">
+                    If your data lives on their cloud, <br className="hidden sm:inline" />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00e5ff] via-white to-[#00e5ff]">
+                      you don’t really own your life.
+                    </span>
+                  </h1>
+
+                  <p className="text-[#94a3b8] text-base leading-relaxed">
+                    Elite physical infrastructure builds for the data sovereignty era. We design, wire, and deploy whisper-quiet private server racks, armored local firewalls, and self-hosted storage vaults. Zero predatory subscriptions. Zero corporate tracking loops. Absolute physical containment.
+                  </p>
+
+                  <div className="flex flex-wrap gap-4 pt-2">
+                    <button
+                      onClick={() => setActiveTab('tiers')}
+                      className="bg-[#00e5ff] text-[#0a0a0c] font-bold px-6 py-3.5 rounded text-xs uppercase tracking-wider hover:bg-[#00b8cc] transition-all shadow-[0_0_20px_rgba(0,229,255,0.3)] flex items-center gap-2"
+                    >
+                      <span>View Flat-Rate Sovereign Tiers</span>
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('sdi-act')}
+                      className="bg-[#181820] hover:bg-[#22222e] text-[#e2e8f0] border border-[#262630] font-bold px-6 py-3.5 rounded text-xs uppercase tracking-wider transition-all flex items-center gap-2"
+                    >
+                      <FileText className="w-4 h-4 text-[#f59e0b]" />
+                      <span>Read SDI Act Draft (2026)</span>
+                    </button>
+                  </div>
+
+                  {/* Guarantees Bar */}
+                  <div className="grid grid-cols-3 gap-3 pt-6 border-t border-[#262630]/60 text-xs">
+                    <div>
+                      <div className="text-white font-bold flex items-center gap-1.5">
+                        <CheckCircle className="w-3.5 h-3.5 text-[#10b981]" />
+                        <span>Fixed Pricing</span>
+                      </div>
+                      <div className="text-[11px] text-[#94a3b8] mt-0.5">Published hardware BOM & labor sheets.</div>
+                    </div>
+                    <div>
+                      <div className="text-white font-bold flex items-center gap-1.5">
+                        <CheckCircle className="w-3.5 h-3.5 text-[#10b981]" />
+                        <span>No Data, No Fee</span>
+                      </div>
+                      <div className="text-[11px] text-[#94a3b8] mt-0.5">Zero charge if recovery test fails.</div>
+                    </div>
+                    <div>
+                      <div className="text-white font-bold flex items-center gap-1.5">
+                        <CheckCircle className="w-3.5 h-3.5 text-[#10b981]" />
+                        <span>100% On-Prem</span>
+                      </div>
+                      <div className="text-[11px] text-[#94a3b8] mt-0.5">Zero external telemetry reliance.</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* LIVE TERMINAL / MATRIX VISUAL */}
+                <div className="lg:col-span-5">
+                  <div className="bg-[#121216] border border-[#262630] rounded-lg overflow-hidden shadow-2xl">
+                    <div className="bg-[#181820] px-4 py-3 border-b border-[#262630] flex justify-between items-center">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full bg-[#ef4444]"></div>
+                        <div className="w-3 h-3 rounded-full bg-[#f59e0b]"></div>
+                        <div className="w-3 h-3 rounded-full bg-[#10b981]"></div>
+                        <span className="text-xs font-bold text-[#94a3b8] ml-2">STEELE_DEFENSE_MONITOR // TERMINAL</span>
+                      </div>
+                      <span className="text-[10px] text-[#10b981] font-mono">DEMO PREVIEW // SIMULATED ON-PREM LOGS</span>
+                    </div>
+
+                    <div className="p-4 space-y-3 bg-[#06080a] text-xs font-mono h-64 overflow-y-auto">
+                      <div className="text-[#94a3b8] border-b border-[#181820] pb-2">
+                        <span className="text-[#00e5ff]">root@steele-rack-node:~#</span> systemctl status sovereign-containment
+                      </div>
+                      
+                      {terminalLogs.map((log) => (
+                        <div key={log.id} className="flex items-start gap-2 text-[11px] leading-relaxed">
+                          <span className="text-[#94a3b8] text-[10px]">{'>'}</span>
+                          <span className={log.type === 'warning' ? 'text-[#f59e0b]' : log.type === 'info' ? 'text-[#00e5ff]' : 'text-[#10b981]'}>
+                            {log.text}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="p-3 bg-[#121216] border-t border-[#262630] grid grid-cols-2 gap-2 text-[11px]">
+                      <div className="bg-[#0a0a0c] p-2 rounded border border-[#262630]">
+                        <div className="text-[#94a3b8] text-[10px]">CONTAINMENT</div>
+                        <div className="text-[#10b981] font-bold">100% PHYSICAL</div>
+                      </div>
+                      <div className="bg-[#0a0a0c] p-2 rounded border border-[#262630]">
+                        <div className="text-[#94a3b8] text-[10px]">OUTBOUND EGRESS</div>
+                        <div className="text-[#00e5ff] font-bold">0.00 KB/s (ISOLATED)</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* SECTION 1: MANIFESTO */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div className="lg:col-span-4 space-y-4 sticky top-24">
+                  <div className="text-xs text-[#00e5ff] font-bold uppercase tracking-widest">// THE MANIFESTO</div>
+                  <h2 className="text-2xl lg:text-3xl font-bold uppercase text-white">Digital Feudalism and the Illusion of Ownership</h2>
+                  <div className="p-4 bg-[#121216] border-l-4 border-[#00e5ff] rounded text-xs text-[#94a3b8] leading-relaxed">
+                    "If you buy a car, a server, or a smart home array, you should own every electrical pulse, copper trace, and data packet inside it. Silicon Valley treats your life as unowned inventory. We build physical hardware to take it back."
+                  </div>
+                </div>
+
+                <div className="lg:col-span-8 bg-[#121216] border border-[#262630] rounded-xl p-6 lg:p-8 space-y-6">
+                  <p className="text-[#e2e8f0] text-sm lg:text-base leading-relaxed">
+                    Modern consumer and business technology has been hijacked by continuous digital trespass. You spend thousands of dollars on network hardware, smart devices, or office infrastructure, only to find your privacy held hostage behind mandatory cloud logins, invasive telemetry syncs, and predatory micro-subscriptions.
+                  </p>
+                  
+                  <p className="text-[#94a3b8] text-sm leading-relaxed">
+                    Big Tech treats your private habits, purchasing indices, legal records, and family media as raw, unowned commodities to be harvested, refined, and sold for corporate attention algorithms. When cloud providers decide to shut down a service or alter terms of service, your access vanishes overnight.
+                  </p>
+
+                  <div className="p-5 bg-[#181820] border border-[#262630] rounded-lg space-y-3">
+                    <h4 className="text-sm font-bold text-[#f59e0b] uppercase flex items-center gap-2">
+                      <Shield className="w-4 h-4" />
+                      <span>The Steele Co. Physical Boundary Principle</span>
+                    </h4>
+                    <p className="text-xs text-[#94a3b8] leading-relaxed">
+                      We apply strict constitutional property rights to the digital self. Your smart home commands, legal document summaries, camera feeds, and client databases must never leave your property line unless you explicitly transmit them.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* SECTION 2: ROSSMANN EMBED & RADICAL TRANSPARENCY */}
+              <div className="bg-gradient-to-b from-[#121216] to-[#0a0a0c] border border-[#262630] rounded-2xl p-6 lg:p-10 space-y-8">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[#262630] pb-6">
+                  <div>
+                    <div className="text-xs text-[#00e5ff] font-bold uppercase tracking-widest">// THE ROSSMANN PHILOSOPHY</div>
+                    <h2 className="text-2xl font-bold uppercase text-white mt-1">Radical Transparency & Trade Code</h2>
+                  </div>
+                  <button 
+                    onClick={() => setContractModalOpen(true)}
+                    className="bg-[#181820] hover:bg-[#22222e] text-[#00e5ff] border border-[#00e5ff]/40 px-4 py-2 rounded text-xs font-bold uppercase transition-all"
+                  >
+                    Inspect Complete Trade Code
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="bg-[#181820]/80 p-6 rounded-xl border border-[#262630] space-y-3">
+                    <div className="p-2 bg-[#00e5ff]/10 text-[#00e5ff] w-fit rounded">
+                      <DollarSign className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-bold text-white text-base">Fixed Published Price Sheets</h3>
+                    <p className="text-xs text-[#94a3b8] leading-relaxed">
+                      Zero hidden diagnostic retainers. Zero predatory hourly billing loops. Every server rack build, airflow optimization, and network firewall setup has a published price sheet.
+                    </p>
+                  </div>
+
+                  <div className="bg-[#181820]/80 p-6 rounded-xl border border-[#262630] space-y-3">
+                    <div className="p-2 bg-[#10b981]/10 text-[#10b981] w-fit rounded">
+                      <Shield className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-bold text-white text-base">"No Data, No Fee" Guarantee</h3>
+                    <p className="text-xs text-[#94a3b8] leading-relaxed">
+                      If we deploy an on-prem backup vault or network failover array, and your localized recovery system does not parse or restore during integration testing, the labor cost is $0.
+                    </p>
+                  </div>
+
+                  <div className="bg-[#181820]/80 p-6 rounded-xl border border-[#262630] space-y-3">
+                    <div className="p-2 bg-[#f59e0b]/10 text-[#f59e0b] w-fit rounded">
+                      <Layers className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-bold text-white text-base">Funding Political Reform</h3>
+                    <p className="text-xs text-[#94a3b8] leading-relaxed">
+                      Commercial services exist to solve corporate surveillance abuses today while funding public legislative reform (The SDI Act) to protect consumer rights tomorrow.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* SECTION 3: TIERS PREVIEW */}
+              <div className="space-y-8">
+                <div className="text-center max-w-3xl mx-auto space-y-3">
+                  <div className="text-xs text-[#00e5ff] font-bold uppercase tracking-widest">// REVENUE ENGINE</div>
+                  <h2 className="text-3xl font-black uppercase text-white">Productized Sovereign Architecture</h2>
+                  <p className="text-xs text-[#94a3b8]">
+                    Select a solution-based deployment tier. Built with custom thermal cooling, whisper-quiet acoustic paneling, and zero cloud lock-in.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Tier 1 */}
+                  <div className="bg-[#121216] border border-[#262630] hover:border-[#00e5ff]/50 rounded-xl p-6 flex flex-col justify-between transition-all group">
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-start">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#00e5ff] px-2 py-1 bg-[#00e5ff]/10 rounded">Tier 1</span>
+                        <span className="text-xl font-bold text-white">$2,450</span>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-white uppercase group-hover:text-[#00e5ff] transition-colors">The Sovereign Desk Node</h3>
+                        <p className="text-xs text-[#94a3b8] mt-1">Compact 4U Workstation / Mini-Rack</p>
+                      </div>
+                      <p className="text-xs text-[#e2e8f0] leading-relaxed">
+                        Designed for private journaling, local smart home control (Home Assistant), and isolated document vaults.
+                      </p>
+                      <ul className="text-xs text-[#94a3b8] space-y-2 border-t border-[#262630] pt-4">
+                        <li className="flex items-center gap-2">
+                          <Check className="w-3.5 h-3.5 text-[#10b981]" />
+                          <span>Quiet 4U desktop acoustic chassis</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Check className="w-3.5 h-3.5 text-[#10b981]" />
+                          <span>Local NAS file vault (Up to 32TB)</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Check className="w-3.5 h-3.5 text-[#10b981]" />
+                          <span>Zero-cloud home automation engine</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setSelectedTier('tier1');
+                        setActiveTab('tiers');
+                      }}
+                      className="mt-6 w-full py-2.5 bg-[#181820] hover:bg-[#00e5ff] hover:text-[#0a0a0c] text-[#e2e8f0] font-bold text-xs uppercase rounded transition-all border border-[#262630]"
+                    >
+                      Configure Desk Node
+                    </button>
+                  </div>
+
+                  {/* Tier 2 */}
+                  <div className="bg-[#181820] border-2 border-[#00e5ff] rounded-xl p-6 flex flex-col justify-between shadow-[0_0_25px_rgba(0,229,255,0.15)] relative">
+                    <div className="absolute -top-3 right-6 bg-[#00e5ff] text-[#0a0a0c] text-[10px] font-extrabold uppercase px-3 py-0.5 rounded-full">
+                      MOST POPULAR FOR SOHO
+                    </div>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-start">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#00e5ff] px-2 py-1 bg-[#00e5ff]/10 rounded">Tier 2</span>
+                        <span className="text-xl font-bold text-white">$7,800</span>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-white uppercase">The Enterprise SOHO Vault</h3>
+                        <p className="text-xs text-[#00e5ff] mt-1">12U/24U Liquid-Cooled Mobile Server Cabinet</p>
+                      </div>
+                      <p className="text-xs text-[#e2e8f0] leading-relaxed">
+                        Designed for home-based businesses, lawyers, CPAs, and remote executives handling confidential client records.
+                      </p>
+                      <ul className="text-xs text-[#94a3b8] space-y-2 border-t border-[#262630] pt-4">
+                        <li className="flex items-center gap-2">
+                          <Check className="w-3.5 h-3.5 text-[#00e5ff]" />
+                          <span>Dual-GPU local AI inference cluster</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Check className="w-3.5 h-3.5 text-[#00e5ff]" />
+                          <span>Automated UPS battery power fail-safe</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Check className="w-3.5 h-3.5 text-[#00e5ff]" />
+                          <span>Armored dual-WAN firewall with failover</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setSelectedTier('tier2');
+                        setActiveTab('tiers');
+                      }}
+                      className="mt-6 w-full py-2.5 bg-[#00e5ff] hover:bg-[#00b8cc] text-[#0a0a0c] font-bold text-xs uppercase rounded transition-all shadow-[0_0_10px_rgba(0,229,255,0.3)]"
+                    >
+                      Configure SOHO Vault
+                    </button>
+                  </div>
+
+                  {/* Tier 3 */}
+                  <div className="bg-[#121216] border border-[#262630] hover:border-[#00e5ff]/50 rounded-xl p-6 flex flex-col justify-between transition-all group">
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-start">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#00e5ff] px-2 py-1 bg-[#00e5ff]/10 rounded">Tier 3</span>
+                        <span className="text-xl font-bold text-white">$18,500</span>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-white uppercase group-hover:text-[#00e5ff] transition-colors">The Omniscient Home Core</h3>
+                        <p className="text-xs text-[#94a3b8] mt-1">Whole-House High-Density Server Array</p>
+                      </div>
+                      <p className="text-xs text-[#e2e8f0] leading-relaxed">
+                        Designed for high-end residential estates, heavy local compute, 8K local streaming, and offline vision AI.
+                      </p>
+                      <ul className="text-xs text-[#94a3b8] space-y-2 border-t border-[#262630] pt-4">
+                        <li className="flex items-center gap-2">
+                          <Check className="w-3.5 h-3.5 text-[#10b981]" />
+                          <span>Multi-GPU fluid-cooled thermal loop</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Check className="w-3.5 h-3.5 text-[#10b981]" />
+                          <span>10Gbps line-rate residential backbone</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Check className="w-3.5 h-3.5 text-[#10b981]" />
+                          <span>Local AI security camera vision parser</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setSelectedTier('tier3');
+                        setActiveTab('tiers');
+                      }}
+                      className="mt-6 w-full py-2.5 bg-[#181820] hover:bg-[#00e5ff] hover:text-[#0a0a0c] text-[#e2e8f0] font-bold text-xs uppercase rounded transition-all border border-[#262630]"
+                    >
+                      Configure Home Core
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          )}
+
+          {/* ========================================================================= */}
+          {/* PAGE 2: SERVICES & SOVEREIGN TIERS CONFIGURATOR                            */}
+          {/* ========================================================================= */}
+          {activeTab === 'tiers' && (
+            <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 lg:py-12 space-y-12">
+              
+              <div className="border-b border-[#262630] pb-6 space-y-2">
+                <div className="text-xs text-[#00e5ff] font-bold uppercase tracking-widest">// INFRASTRUCTURE CATALOG</div>
+                <h1 className="text-3xl font-black uppercase text-white">Sovereign Deployment Tiers & Hardware BOM</h1>
+                <p className="text-xs text-[#94a3b8] max-w-3xl">
+                  Transparent fixed-rate pricing. Every package includes custom length cable trimming, thermal testing, acoustic dampening, and full root hardware access.
+                </p>
+              </div>
+
+              {/* HARDWARE CONFIGURATOR TOOL */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                {/* CONFIGURATOR CONTROLS */}
+                <div className="lg:col-span-7 bg-[#121216] border border-[#262630] rounded-xl p-6 space-y-6">
+                  <div className="flex items-center justify-between border-b border-[#262630] pb-4">
+                    <div className="flex items-center gap-2 text-sm font-bold text-white uppercase">
+                      <SlidersHorizontal className="w-4 h-4 text-[#00e5ff]" />
+                      <span>Interactive Bill of Materials Configurator</span>
+                    </div>
+                    <span className="text-xs text-[#94a3b8]">Live Price Matrix</span>
+                  </div>
+
+                  {/* TIER SELECTION */}
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-[#94a3b8] uppercase">1. Select Baseline Chassis Platform</label>
+                    <div className="grid grid-cols-3 gap-3">
+                      {[
+                        { id: 'tier1', label: 'Tier 1: Desk Node', base: '$2,450' },
+                        { id: 'tier2', label: 'Tier 2: SOHO Vault', base: '$7,800' },
+                        { id: 'tier3', label: 'Tier 3: Home Core', base: '$18,500' }
+                      ].map((t) => (
+                        <button
+                          key={t.id}
+                          onClick={() => setCustomBuild(prev => ({ ...prev, tier: t.id }))}
+                          className={`p-3 rounded text-left border transition-all text-xs ${
+                            customBuild.tier === t.id
+                              ? 'bg-[#181820] border-[#00e5ff] text-white shadow-[0_0_10px_rgba(0,229,255,0.15)]'
+                              : 'bg-[#0a0a0c] border-[#262630] text-[#94a3b8] hover:border-[#94a3b8]'
+                          }`}
+                        >
+                          <div className="font-bold">{t.label}</div>
+                          <div className="text-[10px] text-[#00e5ff] mt-1">Base: {t.base}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* HARDWARE COMPONENT TOGGLES */}
+                  <div className="space-y-3 border-t border-[#262630] pt-4">
+                    <label className="text-xs font-bold text-[#94a3b8] uppercase">2. Thermal, Power & Compute Upgrades</label>
+                    
+                    <div className="space-y-2">
+                      {[
+                        { key: 'upsUpgrade', title: 'Automated Battery UPS Fail-Safe', desc: '1500VA Smart-UPS with automated graceful Linux shutdown', price: 650 },
+                        { key: 'dualGpu', title: 'Dual-GPU Acceleration Array', desc: '2x RTX local inference GPUs (Combined 48GB VRAM) for offline AI', price: 2200 },
+                        { key: 'liquidCooling', title: 'Whisper-Quiet Fluid Cooling Loop', desc: 'Custom copper liquid loop for continuous 100% compute load silently', price: 1200 },
+                        { key: 'acousticPanels', title: 'AC Infinity Quiet Exhaust & Insulation', desc: 'Acoustic dampening panels + digital thermal fan control', price: 450 },
+                        { key: 'tenGbSwitch', title: '10Gbps Managed SFP+ Switch & Firewall', desc: 'Enterprise routing engine with dedicated physical VLAN isolation', price: 850 }
+                      ].map((item) => (
+                        <div 
+                          key={item.key}
+                          onClick={() => setCustomBuild(prev => ({ ...prev, [item.key]: !prev[item.key] }))}
+                          className={`p-3 rounded border cursor-pointer flex justify-between items-center transition-all ${
+                            customBuild[item.key]
+                              ? 'bg-[#181820] border-[#00e5ff]/60 text-white'
+                              : 'bg-[#0a0a0c] border-[#262630] text-[#94a3b8]'
+                          }`}
+                        >
+                          <div className="space-y-0.5">
+                            <div className="text-xs font-bold flex items-center gap-2">
+                              <span className={customBuild[item.key] ? 'text-[#00e5ff]' : 'text-[#94a3b8]'}>
+                                {customBuild[item.key] ? '[✓]' : '[ ]'}
+                              </span>
+                              <span>{item.title}</span>
+                            </div>
+                            <div className="text-[10px] text-[#94a3b8]">{item.desc}</div>
+                          </div>
+                          <span className="text-xs font-bold text-[#00e5ff] whitespace-nowrap ml-2">+${item.price}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* STORAGE CAPACITY SELECTOR */}
+                  <div className="space-y-2 border-t border-[#262630] pt-4">
+                    <label className="text-xs font-bold text-[#94a3b8] uppercase">3. Local Encrypted Storage Capacity</label>
+                    <div className="grid grid-cols-4 gap-2 text-xs">
+                      {[
+                        { size: '16TB', price: 'Included' },
+                        { size: '32TB', price: '+$550' },
+                        { size: '64TB', price: '+$1,400' },
+                        { size: '128TB', price: '+$3,200' }
+                      ].map((s) => (
+                        <button
+                          key={s.size}
+                          onClick={() => setCustomBuild(prev => ({ ...prev, storageCapacity: s.size }))}
+                          className={`p-2 rounded text-center border transition-all ${
+                            customBuild.storageCapacity === s.size
+                              ? 'bg-[#00e5ff] text-[#0a0a0c] font-bold border-[#00e5ff]'
+                              : 'bg-[#0a0a0c] border-[#262630] text-[#94a3b8]'
+                          }`}
+                        >
+                          <div>{s.size}</div>
+                          <div className="text-[9px] mt-0.5">{s.price}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* LIVE BILL OF MATERIALS SUMMARY */}
+                <div className="lg:col-span-5 space-y-6">
+                  <div className="bg-[#181820] border-2 border-[#00e5ff] rounded-xl p-6 space-y-6 shadow-[0_0_20px_rgba(0,229,255,0.1)]">
+                    <div className="border-b border-[#262630] pb-4 flex justify-between items-center">
+                      <div>
+                        <div className="text-xs text-[#00e5ff] font-bold uppercase">ESTIMATED TOTAL INVESTMENT</div>
+                        <div className="text-3xl font-black text-white mt-1">${buildPrice.toLocaleString()}</div>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-[10px] px-2 py-1 rounded bg-[#10b981]/20 text-[#10b981] border border-[#10b981]/40 font-bold">
+                          FIXED HARDWARE RATE
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3 text-xs">
+                      <div className="font-bold text-[#94a3b8] uppercase">Selected Configuration Breakdown:</div>
+                      
+                      <div className="space-y-1.5 text-[11px] text-[#e2e8f0]">
+                        <div className="flex justify-between border-b border-[#262630]/60 pb-1">
+                          <span>Baseline Platform:</span>
+                          <span className="font-bold uppercase text-[#00e5ff]">
+                            {customBuild.tier === 'tier1' ? 'Desk Node' : customBuild.tier === 'tier2' ? 'SOHO Vault' : 'Home Core'}
+                          </span>
+                        </div>
+
+                        <div className="flex justify-between border-b border-[#262630]/60 pb-1">
+                          <span>Storage Vault:</span>
+                          <span className="font-bold">{customBuild.storageCapacity} Local ZFS Raid-Z2</span>
+                        </div>
+
+                        {customBuild.upsUpgrade && (
+                          <div className="flex justify-between text-[#10b981]">
+                            <span>• Smart-UPS Power Backup</span>
+                            <span>+$650</span>
+                          </div>
+                        )}
+                        {customBuild.dualGpu && (
+                          <div className="flex justify-between text-[#10b981]">
+                            <span>• Dual-GPU AI Compute Node</span>
+                            <span>+$2,200</span>
+                          </div>
+                        )}
+                        {customBuild.liquidCooling && (
+                          <div className="flex justify-between text-[#10b981]">
+                            <span>• Liquid Thermal Loop</span>
+                            <span>+$1,200</span>
+                          </div>
+                        )}
+                        {customBuild.acousticPanels && (
+                          <div className="flex justify-between text-[#10b981]">
+                            <span>• Acoustic Dampening + Thermal Control</span>
+                            <span>+$450</span>
+                          </div>
+                        )}
+                        {customBuild.tenGbSwitch && (
+                          <div className="flex justify-between text-[#10b981]">
+                            <span>• 10Gbps Managed SFP+ Firewall</span>
+                            <span>+$850</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="p-4 bg-[#0a0a0c] border border-[#262630] rounded text-xs space-y-2">
+                      <div className="font-bold text-[#f59e0b] flex items-center gap-1.5">
+                        <Shield className="w-3.5 h-3.5" />
+                        <span>Included Labor & Integration Services:</span>
+                      </div>
+                      <ul className="text-[11px] text-[#94a3b8] space-y-1">
+                        <li>• Custom-length blue & black ethernet patch cabling</li>
+                        <li>• Thermal exhaust airflow modeling in installation closet</li>
+                        <li>• Zero-cloud Local UI (Open WebUI + Home Assistant)</li>
+                        <li>• 1-Year On-Prem Hardware Replacement Warranty</li>
+                      </ul>
+                    </div>
+
+                    <button
+                      onClick={() => setQuoteModalOpen(true)}
+                      className="w-full py-3.5 bg-[#00e5ff] hover:bg-[#00b8cc] text-[#0a0a0c] font-black text-xs uppercase tracking-wider rounded transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)] flex justify-center items-center gap-2"
+                    >
+                      <Send className="w-4 h-4" />
+                      <span>Request Installation Booking</span>
+                    </button>
+                  </div>
+
+                  {/* AUXILIARY REPAIR / AUDIT SERVICES */}
+                  <div className="bg-[#121216] border border-[#262630] rounded-xl p-6 space-y-4">
+                    <h3 className="font-bold text-white text-sm uppercase">Standalone On-Premise Remediation</h3>
+                    
+                    <div className="space-y-3 text-xs">
+                      <div className="p-3 bg-[#181820] rounded border border-[#262630] flex justify-between items-center">
+                        <div>
+                          <div className="font-bold text-white">Server Closet Rescue Package</div>
+                          <div className="text-[10px] text-[#94a3b8]">Airflow correction, cable rewiring, thermal fan controller install</div>
+                        </div>
+                        <span className="font-bold text-[#00e5ff] whitespace-nowrap ml-2">$1,250 Flat</span>
+                      </div>
+
+                      <div className="p-3 bg-[#181820] rounded border border-[#262630] flex justify-between items-center">
+                        <div>
+                          <div className="font-bold text-white">Physical Network Security Audit</div>
+                          <div className="text-[10px] text-[#94a3b8]">Invasive packet tracing, smart device isolation, rogue Wi-Fi sweep</div>
+                        </div>
+                        <span className="font-bold text-[#00e5ff] whitespace-nowrap ml-2">$850 Flat</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+          )}
+
+          {/* ========================================================================= */}
+          {/* PAGE 3: THE SDI ACT VAULT (LEGISLATIVE ADVOCACY BRIDGE)                    */}
+          {/* ========================================================================= */}
+          {activeTab === 'sdi-act' && (
+            <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 lg:py-12 space-y-12">
+              
+              <div className="border-b border-[#262630] pb-6 space-y-2">
+                <div className="text-xs text-[#f59e0b] font-bold uppercase tracking-widest">// PUBLIC READING ROOM // BILL DRAFT</div>
+                <h1 className="text-3xl font-black uppercase text-white">The Sovereign Digital Identity Act (2026)</h1>
+                <p className="text-xs text-[#94a3b8] max-w-3xl">
+                  Commercial infrastructure services exist to shield citizens today. This statutory bill draft is our open-source movement to outlaw corporate data harvesting and software paywalls tomorrow.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                {/* BILL SECTION NAVIGATION & CONTENT */}
+                <div className="lg:col-span-7 bg-[#121216] border border-[#262630] rounded-xl overflow-hidden flex flex-col">
+                  
+                  {/* TAB BAR */}
+                  <div className="bg-[#181820] border-b border-[#262630] p-2 flex overflow-x-auto gap-2 text-xs">
+                    {[
+                      { id: 'exec-summary', label: 'Executive Brief' },
+                      { id: 'title-1', label: 'Title I: Property Rights' },
+                      { id: 'title-2', label: 'Title II: 10% Data Cut' },
+                      { id: 'title-3', label: 'Title III: Consumer Devices' }
+                    ].map((s) => (
+                      <button
+                        key={s.id}
+                        onClick={() => setSdiActiveSection(s.id)}
+                        className={`px-3 py-1.5 rounded font-bold text-[11px] whitespace-nowrap ${
+                          sdiActiveSection === s.id
+                            ? 'bg-[#f59e0b] text-[#0a0a0c]'
+                            : 'text-[#94a3b8] hover:bg-[#121216]'
+                        }`}
+                      >
+                        {s.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* READOUT WINDOW */}
+                  <div className="p-6 space-y-6 text-xs text-[#e2e8f0] leading-relaxed overflow-y-auto max-h-[600px] font-mono">
+                    
+                    {sdiActiveSection === 'exec-summary' && (
+                      <div className="space-y-4">
+                        <div className="p-3 bg-[#f59e0b]/10 border border-[#f59e0b]/30 rounded text-[#f59e0b] text-[11px]">
+                          LEGISLATIVE BRIEF: STATUTORY ANALYSIS FOR CONGRESSIONAL DISTRICT REPRESENTATIVES
+                        </div>
+                        <h3 className="text-lg font-bold text-white uppercase">Legislative Objective</h3>
+                        <p>
+                          The Sovereign Digital Identity and Resource Nationalization Act establishes native, legally binding personal property rights over all digital artifacts, telemetry, biometrics, and behavioral logs generated on physical hardware owned by individuals or small-to-mid-sized businesses.
+                        </p>
+                        <h4 className="font-bold text-white uppercase">The Core Problem</h4>
+                        <p className="text-[#94a3b8]">
+                          Corporations utilize EULAs (End User License Agreements) and forced cloud connectivity as a legal loophole to eliminate the American right to private personal property. Consumers pay full retail price for hardware, yet find features retroactively disabled or placed behind monthly paywalls.
+                        </p>
+                        <h4 className="font-bold text-white uppercase">The Three Statutory Pillars</h4>
+                        <ul className="list-disc pl-5 space-y-2 text-[#94a3b8]">
+                          <li><strong className="text-white">Property Right to Data:</strong> Personal metrics cannot be harvested, processed, or monetized without explicit opt-in contracts.</li>
+                          <li><strong className="text-white">10% User Revenue Dividend:</strong> Mandatory statutory distribution to users if their aggregated data is sold or used to train commercial AI models.</li>
+                          <li><strong className="text-white">Anti-Subscription Hardware Lock:</strong> Prohibiting companies from disabling offline functionality or physical hardware features via software updates.</li>
+                        </ul>
+                      </div>
+                    )}
+
+                    {sdiActiveSection === 'title-1' && (
+                      <div className="space-y-4">
+                        <div className="text-[10px] text-[#94a3b8]">STATUTORY STATUTE // TITLE I</div>
+                        <h3 className="text-lg font-bold text-white uppercase">Title I: Declaration of Digital Property Rights & Anti-Surveillance</h3>
+                        <p className="border-l-2 border-[#00e5ff] pl-3 text-[#94a3b8]">
+                          "Section 101. All digital logs, keystroke metrics, thermal patterns, video streams, and network metadata generated within the physical boundary of a citizen's domicile or real estate property shall remain the unalienable chattel property of said citizen."
+                        </p>
+                        <p>
+                          No corporate entity, network service provider, or software developer shall transmit, log, or inspect telemetry packets from a local area network without explicit, un-coerced written authorization separate from point-of-sale terms of service.
+                        </p>
+                      </div>
+                    )}
+
+                    {sdiActiveSection === 'title-2' && (
+                      <div className="space-y-4">
+                        <div className="text-[10px] text-[#94a3b8]">STATUTORY STATUTE // TITLE II</div>
+                        <h3 className="text-lg font-bold text-white uppercase">Title II: Mandatory 10% Gross Cut for User Data Sale</h3>
+                        <p className="border-l-2 border-[#f59e0b] pl-3 text-[#94a3b8]">
+                          "Section 204. In the event a commercial data broker, social platform, or AI developer monetizes, licenses, or utilizes aggregated user data for commercial model training, a mandatory 10% gross dividend shall be distributed directly to verified data creators."
+                        </p>
+                        <p>
+                          Failure to comply with quarterly gross dividend disclosures results in statutory damages equal to $10,000 per affected constituent, payable directly to the constituent's sovereign vault.
+                        </p>
+                      </div>
+                    )}
+
+                    {sdiActiveSection === 'title-3' && (
+                      <div className="space-y-4">
+                        <div className="text-[10px] text-[#94a3b8]">STATUTORY STATUTE // TITLE III</div>
+                        <h3 className="text-lg font-bold text-white uppercase">Title III: Protection of Device Enjoyment & Anti-Paywall Mandate</h3>
+                        <p className="border-l-2 border-[#10b981] pl-3 text-[#94a3b8]">
+                          "Section 302. No manufacturer of consumer electronics, vehicles, or network appliances shall remotely disable, restrict, or lock physical hardware features behind recurring subscriptions post-purchase."
+                        </p>
+                        <p>
+                          Devices must support offline, air-gapped operation for all primary features without requiring mandatory user registration or persistent cloud connectivity.
+                        </p>
+                      </div>
+                    )}
+
+                  </div>
+
+                </div>
+
+                {/* CONSTITUENT LETTER GENERATOR */}
+                <div className="lg:col-span-5 bg-[#121216] border border-[#262630] rounded-xl p-6 space-y-6">
+                  <div>
+                    <div className="flex items-center gap-2 text-sm font-bold text-[#f59e0b] uppercase">
+                      <Send className="w-4 h-4" />
+                      <span>Constituent Outreach Generator</span>
+                    </div>
+                    <p className="text-xs text-[#94a3b8] mt-1">
+                      Deliver a cited, professional legislative demand directly to your Congressional Representative.
+                    </p>
+                  </div>
+
+                  {/* INPUT FORM */}
+                  <div className="space-y-3 text-xs">
+                    <div>
+                      <label className="text-[10px] font-bold text-[#94a3b8] uppercase">Your Name / Trade Title</label>
+                      <input
+                        type="text"
+                        value={constituentForm.name}
+                        onChange={(e) => setConstituentForm(prev => ({ ...prev, name: e.target.value }))}
+                        className="w-full mt-1 p-2 bg-[#0a0a0c] border border-[#262630] rounded text-white focus:border-[#00e5ff] outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-bold text-[#94a3b8] uppercase">Congressional District</label>
+                      <input
+                        type="text"
+                        value={constituentForm.district}
+                        onChange={(e) => setConstituentForm(prev => ({ ...prev, district: e.target.value }))}
+                        className="w-full mt-1 p-2 bg-[#0a0a0c] border border-[#262630] rounded text-white focus:border-[#00e5ff] outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-bold text-[#94a3b8] uppercase">Representative / Senator Name</label>
+                      <input
+                        type="text"
+                        value={constituentForm.representative}
+                        onChange={(e) => setConstituentForm(prev => ({ ...prev, representative: e.target.value }))}
+                        className="w-full mt-1 p-2 bg-[#0a0a0c] border border-[#262630] rounded text-white focus:border-[#00e5ff] outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  {/* GENERATED LETTER PREVIEW */}
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center text-[10px] text-[#94a3b8]">
+                      <span>GENERATED DRAFT BRIEF:</span>
+                      <button
+                        onClick={handleCopyLetter}
+                        className="text-[#00e5ff] hover:underline flex items-center gap-1 font-bold"
+                      >
+                        {copiedLetter ? <Check className="w-3 h-3 text-[#10b981]" /> : <Copy className="w-3 h-3" />}
+                        <span>{copiedLetter ? 'COPIED TO CLIPBOARD' : 'COPY LETTER'}</span>
+                      </button>
+                    </div>
+
+                    <div className="p-3 bg-[#0a0a0c] border border-[#262630] rounded text-[10px] text-[#94a3b8] h-48 overflow-y-auto whitespace-pre-wrap font-mono">
+                      {letterText}
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+          )}
+
+          {/* ========================================================================= */}
+          {/* PAGE 4: TECH EXPOSÉ & INTERACTIVE PACKET INSPECTOR                        */}
+          {/* ========================================================================= */}
+          {activeTab === 'expose' && (
+            <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 lg:py-12 space-y-12">
+              
+              <div className="border-b border-[#262630] pb-6 space-y-2">
+                <div className="text-xs text-[#00e5ff] font-bold uppercase tracking-widest">// FIELD TEARDOWNS & AUDITS</div>
+                <h1 className="text-3xl font-black uppercase text-white">The Tech Exposé & Network Packet Inspector</h1>
+                <p className="text-xs text-[#94a3b8] max-w-3xl">
+                  Zero marketing fluff. Unfiltered network packet captures, hardware teardowns, and exposure of corporate data tracking vectors.
+                </p>
+              </div>
+
+              {/* INTERACTIVE PACKET INSPECTOR SIMULATOR */}
+              <div className="bg-[#121216] border border-[#262630] rounded-xl p-6 space-y-6">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[#262630] pb-4">
+                  <div>
+                    <div className="flex items-center gap-2 text-sm font-bold text-white uppercase">
+                      <Activity className="w-4 h-4 text-[#00e5ff]" />
+                      <span>Real-Time Network Packet Capture Simulator</span>
+                    </div>
+                    <div className="text-xs text-[#94a3b8] mt-0.5">Toggle network boundary to inspect raw packet telemetry</div>
+                  </div>
+
+                  <div className="flex items-center gap-2 bg-[#0a0a0c] p-1 rounded border border-[#262630] text-xs">
+                    <button
+                      onClick={() => setPacketMode('cloud')}
+                      className={`px-3 py-1.5 rounded font-bold transition-all ${
+                        packetMode === 'cloud'
+                          ? 'bg-[#ef4444] text-white'
+                          : 'text-[#94a3b8] hover:text-white'
+                      }`}
+                    >
+                      Unsecure Cloud Appliance
+                    </button>
+                    <button
+                      onClick={() => setPacketMode('steele')}
+                      className={`px-3 py-1.5 rounded font-bold transition-all ${
+                        packetMode === 'steele'
+                          ? 'bg-[#10b981] text-[#0a0a0c]'
+                          : 'text-[#94a3b8] hover:text-white'
+                      }`}
+                    >
+                      Steele Co. Armored Firewall
+                    </button>
+                  </div>
+                </div>
+
+                {/* PACKET CAPTURE TABLE */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                  
+                  <div className="lg:col-span-7 bg-[#0a0a0c] border border-[#262630] rounded overflow-hidden">
+                    <div className="bg-[#181820] px-3 py-2 text-[10px] text-[#94a3b8] border-b border-[#262630] grid grid-cols-12 font-bold">
+                      <span className="col-span-2">TIME</span>
+                      <span className="col-span-3">DEVICE</span>
+                      <span className="col-span-4">DESTINATION</span>
+                      <span className="col-span-3">ACTION</span>
+                    </div>
+
+                    <div className="divide-y divide-[#181820] text-[11px] font-mono h-64 overflow-y-auto">
+                      {(packetMode === 'cloud' ? [
+                        { id: 1, time: '12:04:11', device: 'Smart TV', dest: 'ad-collector.samsung.cloud', payload: 'Keystroke & Audio Fingerprint', status: 'TRANSMITTED', color: 'text-[#ef4444]' },
+                        { id: 2, time: '12:04:12', device: 'Cloud Doorbell', dest: 's3-video-bucket.aws.com', payload: 'Unencrypted 1080p Stream', status: 'TRANSMITTED', color: 'text-[#ef4444]' },
+                        { id: 3, time: '12:04:14', device: 'Smart Vacuum
