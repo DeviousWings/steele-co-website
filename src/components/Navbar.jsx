@@ -1,4 +1,4 @@
-import { Server, Shield, BookOpen } from 'lucide-react'
+import { Server, Shield, BookOpen, Terminal } from 'lucide-react'
 
 const NAV_ITEMS = [
   { id: 'home', label: 'Home // Positioning', mobileLabel: 'Home' },
@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { id: 'roi', label: 'Cloud Bleed Calculator', mobileLabel: 'Cloud ROI' },
 ]
 
-export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDraft, onOpenContract }) {
+export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDraft, onOpenContract, onOpenDevLog }) {
   return (
     <>
       {/* Status ticker */}
@@ -24,6 +24,11 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
           <span className="text-cyan">ENCRYPTED LOCAL CONTAINMENT</span>
         </div>
         <div className="flex items-center gap-4 font-semibold">
+          <button onClick={onOpenDevLog} className="text-cyan hover:underline flex items-center gap-1 transition-colors">
+            <Terminal className="w-3.5 h-3.5" />
+            <span>LIVE DEV LOG</span>
+          </button>
+          <span className="text-hairline">|</span>
           <button onClick={onOpenDraft} className="text-gold hover:underline flex items-center gap-1">
             <BookOpen className="w-3.5 h-3.5" />
             <span>SDI ACT MASTER DRAFT: JULY 2026 ↗</span>
@@ -65,17 +70,28 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
           ))}
         </div>
 
-        <button
-          onClick={onOpenQuote}
-          className="bg-cyan hover:bg-cyan/80 text-obsidian font-bold px-4 py-2.5 rounded text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(0,229,255,0.25)] flex items-center gap-2"
-        >
-          <Shield className="w-4 h-4" />
-          <span>Secure Space</span>
-        </button>
+        <div className="flex items-center gap-2">
+          {/* Live Dev Log Button */}
+          <button
+            onClick={onOpenDevLog}
+            className="hidden sm:flex border border-cyan/40 text-cyan hover:bg-cyan/10 font-mono px-3 py-2.5 rounded text-xs uppercase tracking-wider transition-all items-center gap-2"
+          >
+            <Terminal className="w-3.5 h-3.5" />
+            <span>Dev Log</span>
+          </button>
+
+          <button
+            onClick={onOpenQuote}
+            className="bg-cyan hover:bg-cyan/80 text-obsidian font-bold px-4 py-2.5 rounded text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(0,229,255,0.25)] flex items-center gap-2"
+          >
+            <Shield className="w-4 h-4" />
+            <span>Secure Space</span>
+          </button>
+        </div>
       </nav>
 
       {/* Mobile tabs */}
-      <div className="no-print md:hidden bg-panel border-b border-hairline p-2 flex overflow-x-auto gap-2 text-xs">
+      <div className="no-print md:hidden bg-panel border-b border-hairline p-2 flex overflow-x-auto gap-2 text-xs items-center">
         {NAV_ITEMS.map((tab) => (
           <button
             key={tab.id}
@@ -87,6 +103,13 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
             {tab.mobileLabel}
           </button>
         ))}
+        <button
+          onClick={onOpenDevLog}
+          className="px-3 py-1.5 rounded whitespace-nowrap text-[11px] bg-surface text-cyan border border-cyan/30 font-bold flex items-center gap-1"
+        >
+          <Terminal className="w-3 h-3" />
+          Dev Log
+        </button>
       </div>
     </>
   )
