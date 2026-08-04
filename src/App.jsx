@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import  ManageCareAndFAQ './components/ManagedCareAndFAQ'
 import QuoteModal from './components/QuoteModal'
 import ContractModal from './components/ContractModal'
 import MasterDraftModal from './components/MasterDraftModal'
@@ -42,6 +43,8 @@ export default function App() {
         {activeTab === 'about' && <About />}
       </main>
 
+      <ManagedCareAndFAQ onRequestQuote={() => setQuotesOpen(true)} />
+      
       <Footer onOpenDraft={() => setDraftOpen(true)} />
 
       {/* Slide-Over README / Dev Log Drawer */}
@@ -56,6 +59,7 @@ export default function App() {
       {quoteOpen && <QuoteModal onClose={() => setQuoteOpen(false)} />}
       {contractOpen && <ContractModal onClose={() => setContractOpen(false)} />}
       {pdfNoticeOpen && <PdfNoticeModal onClose={() => setPdfNoticeOpen(false)} />}
+      
     </div>
   )
 }
