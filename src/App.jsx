@@ -10,7 +10,7 @@ import SovereignTiers from './pages/SovereignTiers'
 import SdiActVault from './pages/SdiActVault'
 import TechExpose from './pages/TechExpose'
 import CloudRoi from './pages/CloudRoi'
-import BuildLogDrawer from './BuildLogDrawer';
+import BuildLogDrawer from './components/BuildLogDrawer' // Adjusted path to components/
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home')
@@ -21,26 +21,30 @@ export default function App() {
   const [isDevLogOpen, setIsDevLogOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-obsidian text-slate-200">
+    <div className="min-h-screen bg-obsidian text-slate-200 flex flex-col">
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         onOpenQuote={() => setQuoteOpen(true)}
         onOpenDraft={() => setDraftOpen(true)}
         onOpenContract={() => setContractOpen(true)}
+        onOpenDevLog={() => setIsDevLogOpen(true)} // <-- Added missing handler
       />
 
-      {activeTab === 'home' && <Home setActiveTab={setActiveTab} />}
-      {activeTab === 'tiers' && <SovereignTiers onRequestQuote={() => setQuoteOpen(true)} />}
-      {activeTab === 'sdi-act' && <SdiActVault onOpenDraft={() => setDraftOpen(true)} />}
-      {activeTab === 'expose' && <TechExpose />}
-      {activeTab === 'roi' && <CloudRoi setActiveTab={setActiveTab} />}
+      <main className="flex-1">
+        {activeTab === 'home' && <Home setActiveTab={setActiveTab} />}
+        {activeTab === 'tiers' && <SovereignTiers onRequestQuote={() => setQuoteOpen(true)} />}
+        {activeTab === 'sdi-act' && <SdiActVault onOpenDraft={() => setDraftOpen(true)} />}
+        {activeTab === 'expose' && <TechExpose />}
+        {activeTab === 'roi' && <CloudRoi setActiveTab={setActiveTab} />}
+      </main>
 
       <Footer onOpenDraft={() => setDraftOpen(true)} />
+
       {/* Slide-Over README / Dev Log Drawer */}
       <BuildLogDrawer
         isOpen={isDevLogOpen}
-        onClose={() => setIsDevLogOpen(false)} 
+        onClose={() => setIsDevLogOpen(false)}
       />
 
       {draftOpen && (
