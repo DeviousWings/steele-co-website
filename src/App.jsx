@@ -10,6 +10,7 @@ import SovereignTiers from './pages/SovereignTiers'
 import SdiActVault from './pages/SdiActVault'
 import TechExpose from './pages/TechExpose'
 import CloudRoi from './pages/CloudRoi'
+import BuildLogDrawer from './BuildLogDrawer';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home')
@@ -17,6 +18,7 @@ export default function App() {
   const [contractOpen, setContractOpen] = useState(false)
   const [draftOpen, setDraftOpen] = useState(false)
   const [pdfNoticeOpen, setPdfNoticeOpen] = useState(false)
+  const [isDevLogOpen, setIsDevLogOpen] = useState(false)
 
   return (
     <div className="min-h-screen bg-obsidian text-slate-200">
