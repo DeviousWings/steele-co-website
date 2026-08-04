@@ -12,6 +12,7 @@ export default function Footer({ onOpenDraft }) {
         </div>
         <div className="flex justify-between items-center text-[10px]">
           <div>© 2026 STEELE CO. All Rights Reserved.</div>
+        </div>
           <button onClick={onOpenDraft} className="text-gold hover:underline">
             View Full SDI Act Master Text (July 2026 Edition)
           </button>
