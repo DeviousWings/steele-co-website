@@ -3,7 +3,6 @@ import { useState } from 'react'
 // Layout & Section Components
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import ManagedCareAndFAQ from './components/ManagedCareAndFAQ'
 import BuildLogDrawer from './components/BuildLogDrawer'
 
 // Modals
@@ -19,6 +18,7 @@ import SdiActVault from './pages/SdiActVault'
 import TechExpose from './pages/TechExpose'
 import CloudRoi from './pages/CloudRoi'
 import About from './pages/About'
+import Faq from './pages/Faq'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home')
@@ -51,13 +51,14 @@ export default function App() {
         {activeTab === 'expose' && <TechExpose />}
         {activeTab === 'roi' && <CloudRoi setActiveTab={setActiveTab} />}
         {activeTab === 'about' && <About />}
+        {activeTab === 'faq' && <Faq />}
       </main>
 
-      {/* Managed Care & FAQ Section (Sits right above the footer) */}
-      <ManagedCareAndFAQ onRequestQuote={() => setQuoteOpen(true)} />
-
       {/* Footer */}
-      <Footer onOpenDraft={() => setDraftOpen(true)} />
+      <Footer 
+        onOpenDraft={() => setDraftOpen(true)} 
+        setActiveTab={setActiveTab} 
+      />
 
       {/* Dev Log / Roadmap Slide-Over Drawer */}
       <BuildLogDrawer
