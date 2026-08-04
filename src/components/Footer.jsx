@@ -1,10 +1,12 @@
 import React from 'react'
-import { Server, BookOpen, ShieldCheck } from 'lucide-react'
+import { Server, BookOpen } from 'lucide-react'
 
 export default function Footer({ onOpenDraft, setActiveTab }) {
   const handleNav = (tabId) => {
-    setActiveTab(tabId)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    if (setActiveTab) {
+      setActiveTab(tabId)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   }
 
   return (
@@ -50,15 +52,6 @@ export default function Footer({ onOpenDraft, setActiveTab }) {
                   // FAQ & Security
                 </button>
               </li>
-              <li>
-                <button 
-                  type="button"
-                  onClick={() => handleNav('roi')}
-                  className="hover:text-cyan transition-colors text-left cursor-pointer"
-                >
-                  // Cloud Bleed Calculator
-                </button>
-              </li>
             </ul>
           </div>
 
@@ -76,15 +69,6 @@ export default function Footer({ onOpenDraft, setActiveTab }) {
                 >
                   <BookOpen className="w-3 h-3" />
                   <span>SDI Act Master Draft ↗</span>
-                </button>
-              </li>
-              <li>
-                <button 
-                  type="button"
-                  onClick={() => handleNav('about')}
-                  className="hover:text-cyan transition-colors text-left cursor-pointer"
-                >
-                  // Origin & Mission
                 </button>
               </li>
             </ul>
@@ -122,7 +106,7 @@ export default function Footer({ onOpenDraft, setActiveTab }) {
               onClick={() => handleNav('tiers')}
               className="hover:text-slate-200 transition-colors cursor-pointer"
             >
-              Managed Care Tiers
+              Zero-Trust Care
             </button>
           </div>
         </div>
