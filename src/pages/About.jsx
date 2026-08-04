@@ -21,7 +21,7 @@ export default function About() {
           <span className="text-cyan">Digital sovereignty</span> is the mission.
         </h1>
         <p className="text-base text-muted max-w-3xl leading-relaxed">
-          Inspired by the practical, no-BS ethos of pioneers like Louis Rossmann and the Right to Repair movement, Steele Co. wasn't built in a corporate boardroom—it was built out of necessity, frustration with cloud tethers, and a fundamental belief in physical ownership.
+          Inspired by the practical, no-BS ethos of pioneers like <a href="https://rossmanngroup.com/louis-rossmann">Louis Rossmann</a> and the <a href="https://consumerrights.wiki/w/Main_Page">Right to Repair</a> movement, Steele Co. wasn't built in a corporate boardroom—it was built out of necessity, frustration with cloud tethers, and a fundamental belief in physical ownership.
         </p>
       </div>
 
