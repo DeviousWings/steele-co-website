@@ -6,7 +6,10 @@ const NAV_ITEMS = [
   { id: 'sdi-act', label: 'The SDI Act Vault', mobileLabel: 'SDI Act Vault' },
   { id: 'expose', label: 'Tech Exposé & Inspector', mobileLabel: 'Exposé & Packets' },
   { id: 'roi', label: 'Cloud Bleed Calculator', mobileLabel: 'Cloud ROI' },
+  { id: 'vision', label: 'Future Vision', mobileLabel: 'Vision' },
+  { id: 'about', label: 'About Me', mobileLabel: 'About' },
 ]
+
 
 export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDraft, onOpenContract, onOpenDevLog }) {
   return (
