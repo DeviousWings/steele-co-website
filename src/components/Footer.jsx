@@ -8,7 +8,7 @@ export default function Footer({ onOpenDraft }) {
           very little free time, and every hour saved wrestling with React code at 2 AM is an extra hour I
           get to spend playing with my kids and hanging out with my family. Hardware is my trade—AI was
           just my shortcut home for dinner!
-        </br> Website status: Work in progress, August 4, 2026.
+        <br> Website status: Work in progress, August 4, 2026.
         </div>
         <div className="flex justify-between items-center text-[10px]">
           <div>© 2026 STEELE CO. All Rights Reserved.</div>
