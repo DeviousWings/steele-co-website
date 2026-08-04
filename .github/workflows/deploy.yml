@@ -43,7 +43,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v5
       - name: Setup Node.js environment
-        uses: actions/setup-node@v24.19
+        uses: actions/setup-node@v4
         with:
           # Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.
           node-version: 24
