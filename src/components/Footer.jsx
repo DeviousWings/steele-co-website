@@ -1,5 +1,4 @@
 import React from 'react'
-import { Server, BookOpen } from 'lucide-react'
 
 export default function Footer({ onOpenDraft, setActiveTab }) {
   const handleNav = (tabId) => {
@@ -10,108 +9,57 @@ export default function Footer({ onOpenDraft, setActiveTab }) {
   }
 
   return (
-    <footer className="bg-obsidian border-t border-hairline pt-12 pb-8 px-4 lg:px-8 text-slate-400 text-xs no-print">
-      <div className="max-w-6xl mx-auto space-y-10">
+    <footer className="no-print border-t border-hairline bg-obsidian py-12 mt-20 text-xs text-muted">
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 space-y-4">
         
-        {/* Top Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-hairline">
-          
-          {/* Brand & Mission Statement */}
-          <div className="space-y-3 md:col-span-1">
-            <div className="font-bold text-white tracking-wider flex items-center gap-2 font-mono text-sm">
-              <Server className="w-4 h-4 text-cyan" />
-              <span>STEELE CO.</span>
-              <span className="text-cyan text-[10px] px-1.5 py-0.5 border border-cyan/30 rounded bg-cyan/10">HARDWARE</span>
-            </div>
-            <p className="text-[11px] text-muted leading-relaxed">
-              Quiet, enterprise-grade on-premise hardware built for digital sovereignty. Zero third-party trackers. 100% physical ownership.
-            </p>
-          </div>
-
-          {/* Quick Nav / Infrastructure */}
-          <div className="space-y-2">
-            <div className="font-mono text-xs font-bold text-white uppercase tracking-wider mb-3">
-              Infrastructure
-            </div>
-            <ul className="space-y-2 font-mono text-[11px]">
-              <li>
-                <button 
-                  type="button"
-                  onClick={() => handleNav('tiers')}
-                  className="hover:text-cyan transition-colors text-left cursor-pointer"
-                >
-                  // Deployment Tiers & Care
-                </button>
-              </li>
-              <li>
-                <button 
-                  type="button"
-                  onClick={() => handleNav('faq')}
-                  className="hover:text-cyan transition-colors text-left cursor-pointer"
-                >
-                  // FAQ & Security
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Public Advocacy Links */}
-          <div className="space-y-2">
-            <div className="font-mono text-xs font-bold text-white uppercase tracking-wider mb-3">
-              Public Advocacy
-            </div>
-            <ul className="space-y-2 font-mono text-[11px]">
-              <li>
-                <button 
-                  type="button"
-                  onClick={onOpenDraft}
-                  className="text-gold hover:underline flex items-center gap-1 text-left cursor-pointer"
-                >
-                  <BookOpen className="w-3 h-3" />
-                  <span>SDI Act Master Draft ↗</span>
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* System Status Banner */}
-          <div className="space-y-2 bg-panel border border-hairline p-3 rounded h-fit">
-            <div className="flex items-center gap-1.5 text-emerald font-mono text-[11px] font-bold">
-              <span className="w-2 h-2 rounded-full bg-emerald animate-pulse" />
-              <span>ON-PREM SOVEREIGN</span>
-            </div>
-            <p className="text-[10px] text-muted">
-              Encrypted local containment enabled. No external analytics scripts loaded.
-            </p>
-          </div>
-
+        {/* Your Radical Transparency Note */}
+        <div className="p-4 bg-surface border border-hairline rounded-lg leading-relaxed">
+          <span className="text-cyan font-bold">🤖 Radical Transparency Note:</span> This site was built
+          using a mix of AI assistance and my expert web dev skills. Look, I'm just a guy on a budget with
+          very little free time, and every hour saved wrestling with React code at 2 AM is an extra hour I
+          get to spend playing with my kids and hanging out with my family. Hardware is my trade—AI was
+          just my shortcut home for dinner!
+          <br/> 
+          <span className="text-slate-400 font-mono text-[11px]">
+            Website status: Work in progress, August 4, 2026.
+          </span>
         </div>
+        
+        {/* Navigation & Action Links */}
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
+          
+          <button onClick={onOpenDraft} className="text-gold hover:underline font-mono text-xs">
+            View Full SDI Act Master Text (July 2026 Edition) ↗
+          </button>
 
-        {/* Bottom Bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] font-mono text-muted">
-          <div>
-            © {new Date().getFullYear()} Steele Co. Hardware. All rights reserved.
-          </div>
-          <div className="flex items-center gap-4">
+          {/* Quick Tab Switches */}
+          <div className="flex items-center gap-4 font-mono text-[11px]">
             <button 
               type="button"
-              onClick={() => handleNav('faq')}
-              className="hover:text-slate-200 transition-colors cursor-pointer"
+              onClick={() => handleNav('tiers')}
+              className="hover:text-cyan transition-colors"
             >
-              FAQ & Security
+              // Managed Care Tiers
             </button>
             <span>•</span>
             <button 
               type="button"
-              onClick={() => handleNav('tiers')}
-              className="hover:text-slate-200 transition-colors cursor-pointer"
+              onClick={() => handleNav('faq')}
+              className="hover:text-cyan transition-colors"
             >
-              Zero-Trust Care
+              // FAQ & Security
             </button>
           </div>
+
+        </div>
+
+        {/* Copyright Bar */}
+        <div className="flex justify-between items-center text-[10px] font-mono border-t border-hairline/50 pt-3">
+          <div>© 2026 STEELE CO. All Rights Reserved.</div>
+          <div>Sovereign Infrastructure & Managed Care</div>
         </div>
 
       </div>
     </footer>
-  )
+  );
 }
