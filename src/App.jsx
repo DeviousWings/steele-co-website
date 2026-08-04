@@ -10,7 +10,7 @@ import SovereignTiers from './pages/SovereignTiers'
 import SdiActVault from './pages/SdiActVault'
 import TechExpose from './pages/TechExpose'
 import CloudRoi from './pages/CloudRoi'
-import BuildLogDrawer from './components/BuildLogDrawer' // Adjusted path to components/
+import MissionRoadmapDrawer from './components/MissionRoadmapDrawer' // Adjusted path to components/
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home')
@@ -42,7 +42,7 @@ export default function App() {
       <Footer onOpenDraft={() => setDraftOpen(true)} />
 
       {/* Slide-Over README / Dev Log Drawer */}
-      <BuildLogDrawer
+      <MissionRoadmapDrawer
         isOpen={isDevLogOpen}
         onClose={() => setIsDevLogOpen(false)}
       />
