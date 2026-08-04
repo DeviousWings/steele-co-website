@@ -1,21 +1,29 @@
 import { useState } from 'react'
+
+// Layout & Section Components
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import  ManageCareAndFAQ from './components/ManagedCareAndFAQ'
+import ManagedCareAndFAQ from './components/ManagedCareAndFAQ'
+import BuildLogDrawer from './components/BuildLogDrawer'
+
+// Modals
 import QuoteModal from './components/QuoteModal'
 import ContractModal from './components/ContractModal'
 import MasterDraftModal from './components/MasterDraftModal'
 import PdfNoticeModal from './components/PdfNoticeModal'
+
+// Pages
 import Home from './pages/Home'
 import SovereignTiers from './pages/SovereignTiers'
 import SdiActVault from './pages/SdiActVault'
 import TechExpose from './pages/TechExpose'
 import CloudRoi from './pages/CloudRoi'
-import MissionRoadmapDrawer from './components/MissionRoadmapDrawer'
 import About from './pages/About'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home')
+  
+  // Modal & Drawer State
   const [quoteOpen, setQuoteOpen] = useState(false)
   const [contractOpen, setContractOpen] = useState(false)
   const [draftOpen, setDraftOpen] = useState(false)
@@ -23,17 +31,19 @@ export default function App() {
   const [isDevLogOpen, setIsDevLogOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-obsidian text-slate-200 flex flex-col">
+    <div className="min-h-screen bg-obsidian text-slate-200 flex flex-col font-sans">
+      
+      {/* Top Navigation */}
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         onOpenQuote={() => setQuoteOpen(true)}
         onOpenDraft={() => setDraftOpen(true)}
         onOpenContract={() => setContractOpen(true)}
-        onOpenDevLog={() => setIsDevLogOpen(true)} 
-        
+        onOpenDevLog={() => setIsDevLogOpen(true)}
       />
 
+      {/* Main Page Views */}
       <main className="flex-1">
         {activeTab === 'home' && <Home setActiveTab={setActiveTab} />}
         {activeTab === 'tiers' && <SovereignTiers onRequestQuote={() => setQuoteOpen(true)} />}
@@ -43,23 +53,29 @@ export default function App() {
         {activeTab === 'about' && <About />}
       </main>
 
-      <ManagedCareAndFAQ onRequestQuote={() => setQuotesOpen(true)} />
-      
+      {/* Managed Care & FAQ Section (Sits right above the footer) */}
+      <ManagedCareAndFAQ onRequestQuote={() => setQuoteOpen(true)} />
+
+      {/* Footer */}
       <Footer onOpenDraft={() => setDraftOpen(true)} />
 
-      {/* Slide-Over README / Dev Log Drawer */}
-      <MissionRoadmapDrawer
+      {/* Dev Log / Roadmap Slide-Over Drawer */}
+      <BuildLogDrawer
         isOpen={isDevLogOpen}
         onClose={() => setIsDevLogOpen(false)}
       />
 
+      {/* Modals */}
       {draftOpen && (
-        <MasterDraftModal onClose={() => setDraftOpen(false)} onPrintClick={() => setPdfNoticeOpen(true)} />
+        <MasterDraftModal 
+          onClose={() => setDraftOpen(false)} 
+          onPrintClick={() => setPdfNoticeOpen(true)} 
+        />
       )}
       {quoteOpen && <QuoteModal onClose={() => setQuoteOpen(false)} />}
       {contractOpen && <ContractModal onClose={() => setContractOpen(false)} />}
       {pdfNoticeOpen && <PdfNoticeModal onClose={() => setPdfNoticeOpen(false)} />}
-      
+
     </div>
   )
 }
