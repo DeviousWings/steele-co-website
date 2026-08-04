@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Send, SlidersHorizontal, ShieldCheck, Wrench } from 'lucide-react'
-import { TIERS, UPGRADES, STORAGE_OPTIONS } from '../data/tiersData.js'
+import { TIERS, UPGRADES, STORAGE_OPTIONS } from '../data/tiersData'
 
 const MAINTENANCE_OPTIONS = [
   { id: 'none', label: 'Self-Managed (No Plan)', monthly: 0, desc: 'Full root access. You handle OS updates & backups.' },
@@ -32,23 +32,8 @@ export default function SovereignTiers({ onRequestQuote }) {
   const selectedPlan = MAINTENANCE_OPTIONS.find((m) => m.id === build.maintenancePlan)
   const tierName = TIERS.find((t) => t.id === build.tier)?.name
 
-  const handleBookingRequest = () => {
-    if (onRequestQuote) {
-      onRequestQuote({
-        tier: tierName,
-        totalPrice: price,
-        storage: build.storageCapacity,
-        maintenance: selectedPlan?.label,
-        monthlyMaintenance: selectedPlan?.monthly,
-        upgrades: UPGRADES.filter((u) => build[u.key]).map((u) => u.title),
-      })
-    }
-  }
-
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 lg:py-12 space-y-12">
-      
-      {/* Header */}
       <div className="border-b border-hairline pb-6 space-y-2">
         <div className="text-xs text-cyan font-bold uppercase tracking-widest">// INFRASTRUCTURE CATALOG</div>
         <h1 className="text-3xl font-black uppercase text-white">Sovereign Deployment Tiers & Hardware BOM</h1>
@@ -59,10 +44,8 @@ export default function SovereignTiers({ onRequestQuote }) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        
         {/* Left Column: Interactive BOM Configurator */}
         <div className="lg:col-span-7 bg-surface border border-hairline rounded-xl p-6 space-y-6">
-          
           <div className="flex items-center justify-between border-b border-hairline pb-4">
             <div className="flex items-center gap-2 text-sm font-bold uppercase text-white">
               <SlidersHorizontal className="w-4 h-4 text-cyan" />
@@ -78,7 +61,6 @@ export default function SovereignTiers({ onRequestQuote }) {
               {TIERS.map((t) => (
                 <button
                   key={t.id}
-                  type="button"
                   onClick={() => setBuild((prev) => ({ ...prev, tier: t.id }))}
                   className={`p-3 rounded text-left border transition-all text-xs cursor-pointer ${
                     build.tier === t.id
@@ -127,7 +109,6 @@ export default function SovereignTiers({ onRequestQuote }) {
               {STORAGE_OPTIONS.map((s) => (
                 <button
                   key={s.size}
-                  type="button"
                   onClick={() => setBuild((prev) => ({ ...prev, storageCapacity: s.size }))}
                   className={`p-2 rounded text-center border transition-all cursor-pointer ${
                     build.storageCapacity === s.size
@@ -142,7 +123,7 @@ export default function SovereignTiers({ onRequestQuote }) {
             </div>
           </div>
 
-          {/* Step 4: Maintenance Plan Sub-Tiers */}
+          {/* Step 4: Added Maintenance Sub-Tiers */}
           <div className="space-y-3 border-t border-hairline pt-4">
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold text-muted uppercase flex items-center gap-1.5">
@@ -156,7 +137,6 @@ export default function SovereignTiers({ onRequestQuote }) {
               {MAINTENANCE_OPTIONS.map((plan) => (
                 <button
                   key={plan.id}
-                  type="button"
                   onClick={() => setBuild((prev) => ({ ...prev, maintenancePlan: plan.id }))}
                   className={`p-3 rounded text-left border transition-all text-xs cursor-pointer flex flex-col justify-between ${
                     build.maintenancePlan === plan.id
@@ -178,6 +158,67 @@ export default function SovereignTiers({ onRequestQuote }) {
 
         </div>
 
-        {/* Right Column: Live Summary & Price Output */}
+        {/* Right Column: Live Price & Summary Box */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="bg-panel border-2 border-cyan rounded-xl p-6 space-y-6 shadow-
+          <div className="bg-panel border-2 border-cyan rounded-xl p-6 space-y-6 shadow-[0_0_20px_rgba(0,229,255,0.1)]">
+            <div className="border-b border-hairline pb-4 flex justify-between items-center">
+              <div>
+                <div className="text-xs text-cyan font-bold uppercase">ESTIMATED TOTAL HARDWARE INVESTMENT</div>
+                <div className="text-3xl font-black text-white mt-1">${price.toLocaleString()}</div>
+                {selectedPlan && selectedPlan.monthly > 0 && (
+                  <div className="text-xs text-gold font-mono font-bold mt-1">
+                    + ${selectedPlan.monthly}/mo ({selectedPlan.label})
+                  </div>
+                )}
+              </div>
+              <span className="text-[10px] px-2 py-1 rounded bg-emerald/20 text-emerald border border-emerald/40 font-bold">
+                FIXED HARDWARE RATE
+              </span>
+            </div>
+
+            <div className="space-y-3 text-xs">
+              <div className="font-bold text-muted uppercase">Selected Configuration Breakdown:</div>
+              <div className="space-y-1.5 text-[11px] text-slate-200">
+                <div className="flex justify-between border-b border-hairline/60 pb-1">
+                  <span>Baseline Platform:</span>
+                  <span className="font-bold uppercase text-cyan">{tierName}</span>
+                </div>
+                <div className="flex justify-between border-b border-hairline/60 pb-1">
+                  <span>Storage Vault:</span>
+                  <span className="font-bold">{build.storageCapacity} Local ZFS Raid-Z2</span>
+                </div>
+                <div className="flex justify-between border-b border-hairline/60 pb-1">
+                  <span>Maintenance Service:</span>
+                  <span className="font-bold text-gold">
+                    {selectedPlan?.label} ({selectedPlan?.monthly === 0 ? '$0/mo' : `$${selectedPlan?.monthly}/mo`})
+                  </span>
+                </div>
+                {UPGRADES.filter((u) => build[u.key]).map((u) => (
+                  <div key={u.key} className="flex justify-between text-emerald">
+                    <span>• {u.title}</span>
+                    <span>+${u.price}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="p-3 bg-surface border border-hairline rounded flex items-start gap-2.5 text-[10px] text-muted">
+              <ShieldCheck className="w-4 h-4 text-emerald shrink-0 mt-0.5" />
+              <span>
+                <strong>Zero-Trust Guarantee:</strong> Managed Care only monitors read-only hardware thermals and disk S.M.A.R.T. logs. Remote updates require client-gated tunnel activation.
+              </span>
+            </div>
+
+            <button
+              onClick={onRequestQuote}
+              className="w-full py-3.5 bg-cyan hover:bg-cyan/80 text-obsidian font-black text-xs uppercase tracking-wider rounded transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)] flex justify-center items-center gap-2 cursor-pointer"
+            >
+              <Send className="w-4 h-4" />
+              <span>Request Installation Booking</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
