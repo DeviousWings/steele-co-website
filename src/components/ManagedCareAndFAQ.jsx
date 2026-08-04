@@ -32,7 +32,7 @@ export default function ManagedCareAndFAQ({ onRequestQuote }) {
   ]
 
   return (
-    <section className="bg-obsidian border-t border-hairline py-16 px-4 lg:px-8 text-slate-200">
+    <section id="managed-care-section" className="bg-obsidian border-t border-hairline py-16 px-4 lg:px-8 text-slate-200">
       <div className="max-w-6xl mx-auto space-y-20">
 
         {/* SECTION 1: MANAGED CARE SERVICES & PRICING */}
@@ -162,7 +162,7 @@ export default function ManagedCareAndFAQ({ onRequestQuote }) {
         </div>
 
         {/* SECTION 2: FREQUENTLY ASKED QUESTIONS (ACCORDION) */}
-        <div className="space-y-8 pt-10 border-t border-hairline">
+        <div id="faq-section" className="space-y-8 pt-10 border-t border-hairline">
           <div className="flex items-center gap-2 text-gold font-mono text-xs font-bold uppercase tracking-wider">
             <HelpCircle className="w-4 h-4" />
             <span>Frequently Asked Questions</span>
