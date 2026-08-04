@@ -40,7 +40,7 @@ export default function App() {
       {/* Slide-Over README / Dev Log Drawer */}
       <BuildLogDrawer
         isOpen={isDevLogOpen}
-        onClose={} => setIsDevLogOpen(false)} 
+        onClose={() => setIsDevLogOpen(false)} 
       />
 
       {draftOpen && (
