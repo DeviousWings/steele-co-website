@@ -1,6 +1,12 @@
 import { useMemo, useState } from 'react'
-import { Send, SlidersHorizontal } from 'lucide-react'
+import { Send, SlidersHorizontal, ShieldCheck, Wrench } from 'lucide-react'
 import { TIERS, UPGRADES, STORAGE_OPTIONS } from '../data/tiersData'
+
+const MAINTENANCE_OPTIONS = [
+  { id: 'none', label: 'Self-Managed (No Plan)', monthly: 0, desc: 'Full root access. You handle OS updates & backups.' },
+  { id: 'sentinel', label: 'Sentinel Care', monthly: 49, desc: '24/7 read-only thermals & client-gated patch tunnels.' },
+  { id: 'enterprise', label: 'Enterprise Care', monthly: 149, desc: 'Priority drive swap, cluster care & local AI tuning.' },
+]
 
 export default function SovereignTiers({ onRequestQuote }) {
   const [build, setBuild] = useState({
@@ -11,6 +17,7 @@ export default function SovereignTiers({ onRequestQuote }) {
     acousticPanels: true,
     tenGbSwitch: true,
     storageCapacity: '32TB',
+    maintenancePlan: 'sentinel', // Default to Sentinel Care
   })
 
   const toggle = (key) => setBuild((prev) => ({ ...prev, [key]: !prev[key] }))
@@ -22,6 +29,7 @@ export default function SovereignTiers({ onRequestQuote }) {
     return base + upgradeTotal + storageTotal
   }, [build])
 
+  const selectedPlan = MAINTENANCE_OPTIONS.find((m) => m.id === build.maintenancePlan)
   const tierName = TIERS.find((t) => t.id === build.tier)?.name
 
   return (
@@ -36,15 +44,17 @@ export default function SovereignTiers({ onRequestQuote }) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Left Column: Interactive BOM Configurator */}
         <div className="lg:col-span-7 bg-surface border border-hairline rounded-xl p-6 space-y-6">
           <div className="flex items-center justify-between border-b border-hairline pb-4">
-            <div className="flex items-center gap-2 text-sm font-bold uppercase">
+            <div className="flex items-center gap-2 text-sm font-bold uppercase text-white">
               <SlidersHorizontal className="w-4 h-4 text-cyan" />
               <span>Interactive Bill of Materials Configurator</span>
             </div>
             <span className="text-xs text-muted">Live Price Matrix</span>
           </div>
 
+          {/* Step 1: Baseline Chassis Platform */}
           <div className="space-y-2">
             <label className="text-xs font-bold text-muted uppercase">1. Select Baseline Chassis Platform</label>
             <div className="grid grid-cols-3 gap-3">
@@ -52,7 +62,7 @@ export default function SovereignTiers({ onRequestQuote }) {
                 <button
                   key={t.id}
                   onClick={() => setBuild((prev) => ({ ...prev, tier: t.id }))}
-                  className={`p-3 rounded text-left border transition-all text-xs ${
+                  className={`p-3 rounded text-left border transition-all text-xs cursor-pointer ${
                     build.tier === t.id
                       ? 'bg-panel border-cyan text-white shadow-[0_0_10px_rgba(0,229,255,0.15)]'
                       : 'bg-obsidian border-hairline text-muted hover:border-muted'
@@ -65,6 +75,7 @@ export default function SovereignTiers({ onRequestQuote }) {
             </div>
           </div>
 
+          {/* Step 2: Thermal, Power & Compute Upgrades */}
           <div className="space-y-3 border-t border-hairline pt-4">
             <label className="text-xs font-bold text-muted uppercase">2. Thermal, Power & Compute Upgrades</label>
             <div className="space-y-2">
@@ -91,6 +102,7 @@ export default function SovereignTiers({ onRequestQuote }) {
             </div>
           </div>
 
+          {/* Step 3: Local Encrypted Storage Capacity */}
           <div className="space-y-2 border-t border-hairline pt-4">
             <label className="text-xs font-bold text-muted uppercase">3. Local Encrypted Storage Capacity</label>
             <div className="grid grid-cols-4 gap-2 text-xs">
@@ -98,62 +110,11 @@ export default function SovereignTiers({ onRequestQuote }) {
                 <button
                   key={s.size}
                   onClick={() => setBuild((prev) => ({ ...prev, storageCapacity: s.size }))}
-                  className={`p-2 rounded text-center border transition-all ${
+                  className={`p-2 rounded text-center border transition-all cursor-pointer ${
                     build.storageCapacity === s.size
                       ? 'bg-cyan text-obsidian font-bold border-cyan'
                       : 'bg-obsidian border-hairline text-muted'
                   }`}
                 >
                   <div>{s.size}</div>
-                  <div className="text-[9px] mt-0.5">{s.label}</div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="lg:col-span-5 space-y-6">
-          <div className="bg-panel border-2 border-cyan rounded-xl p-6 space-y-6 shadow-[0_0_20px_rgba(0,229,255,0.1)]">
-            <div className="border-b border-hairline pb-4 flex justify-between items-center">
-              <div>
-                <div className="text-xs text-cyan font-bold uppercase">ESTIMATED TOTAL INVESTMENT</div>
-                <div className="text-3xl font-black text-white mt-1">${price.toLocaleString()}</div>
-              </div>
-              <span className="text-[10px] px-2 py-1 rounded bg-emerald/20 text-emerald border border-emerald/40 font-bold">
-                FIXED HARDWARE RATE
-              </span>
-            </div>
-
-            <div className="space-y-3 text-xs">
-              <div className="font-bold text-muted uppercase">Selected Configuration Breakdown:</div>
-              <div className="space-y-1.5 text-[11px] text-slate-200">
-                <div className="flex justify-between border-b border-hairline/60 pb-1">
-                  <span>Baseline Platform:</span>
-                  <span className="font-bold uppercase text-cyan">{tierName}</span>
-                </div>
-                <div className="flex justify-between border-b border-hairline/60 pb-1">
-                  <span>Storage Vault:</span>
-                  <span className="font-bold">{build.storageCapacity} Local ZFS Raid-Z2</span>
-                </div>
-                {UPGRADES.filter((u) => build[u.key]).map((u) => (
-                  <div key={u.key} className="flex justify-between text-emerald">
-                    <span>• {u.title}</span>
-                    <span>+${u.price}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <button
-              onClick={onRequestQuote}
-              className="w-full py-3.5 bg-cyan hover:bg-cyan/80 text-obsidian font-black text-xs uppercase tracking-wider rounded transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)] flex justify-center items-center gap-2"
-            >
-              <Send className="w-4 h-4" />
-              <span>Request Installation Booking</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+                  <div className="text-[9px] mt-0.
