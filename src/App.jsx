@@ -10,7 +10,8 @@ import SovereignTiers from './pages/SovereignTiers'
 import SdiActVault from './pages/SdiActVault'
 import TechExpose from './pages/TechExpose'
 import CloudRoi from './pages/CloudRoi'
-import MissionRoadmapDrawer from './components/MissionRoadmapDrawer' // Adjusted path to components/
+import MissionRoadmapDrawer from './components/MissionRoadmapDrawer'
+import About from './pages/About'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home')
@@ -28,7 +29,8 @@ export default function App() {
         onOpenQuote={() => setQuoteOpen(true)}
         onOpenDraft={() => setDraftOpen(true)}
         onOpenContract={() => setContractOpen(true)}
-        onOpenDevLog={() => setIsDevLogOpen(true)} // <-- Added missing handler
+        onOpenDevLog={() => setIsDevLogOpen(true)} 
+        
       />
 
       <main className="flex-1">
@@ -37,6 +39,7 @@ export default function App() {
         {activeTab === 'sdi-act' && <SdiActVault onOpenDraft={() => setDraftOpen(true)} />}
         {activeTab === 'expose' && <TechExpose />}
         {activeTab === 'roi' && <CloudRoi setActiveTab={setActiveTab} />}
+        {activeTab === 'about' && <About />}
       </main>
 
       <Footer onOpenDraft={() => setDraftOpen(true)} />
