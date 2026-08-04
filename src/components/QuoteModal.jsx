@@ -1,73 +1,52 @@
-import React, { useState } from 'react';
-import { X, Shield, Check } from 'lucide-react';
+import { Shield, X } from 'lucide-react'
 
-export default function QuoteModal({ isOpen, onClose }) {
-  const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', notes: '' });
-
-  if (!isOpen) return null;
-
+export default function QuoteModal({ onClose }) {
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      onClose();
-    }, 2000);
-  };
+    e.preventDefault()
+    alert('Deployment request submitted successfully! A technician will send your published BOM directly.')
+    onClose()
+  }
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#0a0a0c]/90 backdrop-blur-md flex justify-center items-center p-4">
-      <div className="bg-[#121216] border border-[#00e5ff] rounded-xl max-w-md w-full p-6 space-y-4 relative">
-        <button onClick={onClose} className="absolute top-4 right-4 text-[#94a3b8] hover:text-white">
-          <X className="w-5 h-5" />
-        </button>
-
-        <div className="border-b border-[#262630] pb-2">
-          <span className="text-sm font-bold text-white uppercase flex items-center gap-2">
-            <Shield className="w-4 h-4 text-[#00e5ff]" />
-            <span>Hardware Deployment Intake</span>
-          </span>
+    <div className="fixed inset-0 z-50 bg-obsidian/80 backdrop-blur-sm flex justify-center items-center p-4">
+      <div className="bg-surface border border-cyan rounded-xl max-w-md w-full p-6 space-y-6 shadow-[0_0_30px_rgba(0,229,255,0.2)]">
+        <div className="flex justify-between items-center border-b border-hairline pb-3">
+          <div className="font-bold text-sm uppercase flex items-center gap-2">
+            <Shield className="w-4 h-4 text-cyan" />
+            <span>Secure Space // Deployment Intake</span>
+          </div>
+          <button onClick={onClose} className="text-muted hover:text-white">
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
-        {submitted ? (
-          <div className="py-8 text-center space-y-2">
-            <Check className="w-8 h-8 text-[#10b981] mx-auto" />
-            <div className="text-sm font-bold text-white uppercase">Intake Request Received</div>
-            <p className="text-xs text-[#94a3b8]">Our physical deployment team will contact you directly.</p>
+        <p className="text-xs text-muted">
+          Zero high-pressure sales calls. Submit your installation parameters to receive a published
+          hardware bill of materials.
+        </p>
+
+        <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+          <div>
+            <label className="text-[10px] font-bold text-muted uppercase">Contact Name / Business Title</label>
+            <input required type="text" placeholder="John Doe" className="w-full mt-1 p-2 bg-obsidian border border-hairline rounded text-white focus:border-cyan outline-none" />
           </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-3 text-xs">
-            <p className="text-[#94a3b8]">Submit your parameter requirements to receive a published hardware bill of materials.</p>
-            <input
-              type="text"
-              required
-              placeholder="Contact Name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full p-2 bg-[#0a0a0c] border border-[#262630] text-white rounded outline-none focus:border-[#00e5ff]"
-            />
-            <input
-              type="email"
-              required
-              placeholder="Email Address"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full p-2 bg-[#0a0a0c] border border-[#262630] text-white rounded outline-none focus:border-[#00e5ff]"
-            />
-            <textarea
-              placeholder="System Requirements or Property Notes"
-              rows="3"
-              value={formData.notes}
-              onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-              className="w-full p-2 bg-[#0a0a0c] border border-[#262630] text-white rounded outline-none focus:border-[#00e5ff]"
-            ></textarea>
-            <button type="submit" className="w-full py-2.5 bg-[#00e5ff] text-[#0a0a0c] font-bold text-xs uppercase rounded hover:bg-[#00b8cc] transition-all">
-              Submit Deployment Request
-            </button>
-          </form>
-        )}
+          <div>
+            <label className="text-[10px] font-bold text-muted uppercase">Email Address (Secure Intake)</label>
+            <input required type="email" placeholder="john@domain.com" className="w-full mt-1 p-2 bg-obsidian border border-hairline rounded text-white focus:border-cyan outline-none" />
+          </div>
+          <div>
+            <label className="text-[10px] font-bold text-muted uppercase">Deployment Target Environment</label>
+            <select className="w-full mt-1 p-2 bg-obsidian border border-hairline rounded text-white focus:border-cyan outline-none">
+              <option>Tier 1: Sovereign Desk Node ($2,450)</option>
+              <option>Tier 2: Enterprise SOHO Vault ($7,800)</option>
+              <option>Tier 3: Omniscient Home Core ($18,500)</option>
+            </select>
+          </div>
+          <button type="submit" className="w-full py-3 bg-cyan text-obsidian font-black uppercase text-xs rounded hover:bg-cyan/80 transition-all">
+            Submit Direct Intake Request
+          </button>
+        </form>
       </div>
     </div>
-  );
+  )
 }
