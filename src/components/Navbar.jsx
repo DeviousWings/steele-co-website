@@ -24,13 +24,6 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
           <span className="text-cyan">ENCRYPTED LOCAL CONTAINMENT</span>
         </div>
         <div className="flex items-center gap-4 font-semibold">
-          <button
-            onClick={onClose}
-            className="border border-hairline hover:border-cyan text-xs text-muted hover:text-cyan px-4 py-1.5 rounded transition-colors"
-          >
-            Close Dev Log
-          </button>
-
           <button onClick={onOpenDraft} className="text-gold hover:underline flex items-center gap-1">
             <BookOpen className="w-3.5 h-3.5" />
             <span>SDI ACT MASTER DRAFT: JULY 2026 ↗</span>
@@ -95,15 +88,6 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
           </button>
         ))}
       </div>
-      
     </>
   )
 }
-
-          <button
-            onClick={onClose}
-            className="border border-hairline hover:border-cyan text-xs text-muted hover:text-cyan px-4 py-1.5 rounded transition-colors"
-          >
-            Close Dev Log
-          </button>
-
