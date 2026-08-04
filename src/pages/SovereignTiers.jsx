@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Send, SlidersHorizontal, ShieldCheck, Wrench } from 'lucide-react'
-import { TIERS, UPGRADES, STORAGE_OPTIONS } from '../data/tiersData'
+import { TIERS, UPGRADES, STORAGE_OPTIONS } from '../data/tiersData.js'
 
 const MAINTENANCE_OPTIONS = [
   { id: 'none', label: 'Self-Managed (No Plan)', monthly: 0, desc: 'Full root access. You handle OS updates & backups.' },
