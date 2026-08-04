@@ -32,8 +32,23 @@ export default function SovereignTiers({ onRequestQuote }) {
   const selectedPlan = MAINTENANCE_OPTIONS.find((m) => m.id === build.maintenancePlan)
   const tierName = TIERS.find((t) => t.id === build.tier)?.name
 
+  const handleBookingRequest = () => {
+    if (onRequestQuote) {
+      onRequestQuote({
+        tier: tierName,
+        totalPrice: price,
+        storage: build.storageCapacity,
+        maintenance: selectedPlan?.label,
+        monthlyMaintenance: selectedPlan?.monthly,
+        upgrades: UPGRADES.filter((u) => build[u.key]).map((u) => u.title),
+      })
+    }
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 lg:py-12 space-y-12">
+      
+      {/* Header */}
       <div className="border-b border-hairline pb-6 space-y-2">
         <div className="text-xs text-cyan font-bold uppercase tracking-widest">// INFRASTRUCTURE CATALOG</div>
         <h1 className="text-3xl font-black uppercase text-white">Sovereign Deployment Tiers & Hardware BOM</h1>
@@ -44,8 +59,10 @@ export default function SovereignTiers({ onRequestQuote }) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
         {/* Left Column: Interactive BOM Configurator */}
         <div className="lg:col-span-7 bg-surface border border-hairline rounded-xl p-6 space-y-6">
+          
           <div className="flex items-center justify-between border-b border-hairline pb-4">
             <div className="flex items-center gap-2 text-sm font-bold uppercase text-white">
               <SlidersHorizontal className="w-4 h-4 text-cyan" />
@@ -61,6 +78,7 @@ export default function SovereignTiers({ onRequestQuote }) {
               {TIERS.map((t) => (
                 <button
                   key={t.id}
+                  type="button"
                   onClick={() => setBuild((prev) => ({ ...prev, tier: t.id }))}
                   className={`p-3 rounded text-left border transition-all text-xs cursor-pointer ${
                     build.tier === t.id
@@ -109,6 +127,7 @@ export default function SovereignTiers({ onRequestQuote }) {
               {STORAGE_OPTIONS.map((s) => (
                 <button
                   key={s.size}
+                  type="button"
                   onClick={() => setBuild((prev) => ({ ...prev, storageCapacity: s.size }))}
                   className={`p-2 rounded text-center border transition-all cursor-pointer ${
                     build.storageCapacity === s.size
@@ -117,4 +136,48 @@ export default function SovereignTiers({ onRequestQuote }) {
                   }`}
                 >
                   <div>{s.size}</div>
-                  <div className="text-[9px] mt-0.
+                  <div className="text-[9px] mt-0.5">{s.label}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Step 4: Maintenance Plan Sub-Tiers */}
+          <div className="space-y-3 border-t border-hairline pt-4">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-muted uppercase flex items-center gap-1.5">
+                <Wrench className="w-3.5 h-3.5 text-cyan" />
+                <span>4. Optional Zero-Trust Maintenance Plan</span>
+              </label>
+              <span className="text-[10px] text-cyan font-mono font-bold uppercase">// Pipe vs. Payload Protected</span>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              {MAINTENANCE_OPTIONS.map((plan) => (
+                <button
+                  key={plan.id}
+                  type="button"
+                  onClick={() => setBuild((prev) => ({ ...prev, maintenancePlan: plan.id }))}
+                  className={`p-3 rounded text-left border transition-all text-xs cursor-pointer flex flex-col justify-between ${
+                    build.maintenancePlan === plan.id
+                      ? 'bg-panel border-cyan text-white shadow-[0_0_10px_rgba(0,229,255,0.15)]'
+                      : 'bg-obsidian border-hairline text-muted hover:border-muted'
+                  }`}
+                >
+                  <div>
+                    <div className="font-bold flex justify-between items-center">
+                      <span>{plan.label}</span>
+                      <span className="text-cyan text-[10px] font-mono">${plan.monthly}/mo</span>
+                    </div>
+                    <div className="text-[10px] text-muted mt-1 leading-normal">{plan.desc}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+        </div>
+
+        {/* Right Column: Live Summary & Price Output */}
+        <div className="lg:col-span-5 space-y-6">
+          <div className="bg-panel border-2 border-cyan rounded-xl p-6 space-y-6 shadow-
