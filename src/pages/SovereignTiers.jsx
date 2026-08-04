@@ -1,159 +1,178 @@
-import { useMemo, useState } from 'react'
-import { Send, SlidersHorizontal } from 'lucide-react'
-import { TIERS, UPGRADES, STORAGE_OPTIONS } from '../data/tiersData'
+import React from 'react'
+import { Server, Cpu, HardDrive, ShieldCheck, Wrench, Check, Terminal, Zap } from 'lucide-react'
 
 export default function SovereignTiers({ onRequestQuote }) {
-  const [build, setBuild] = useState({
-    tier: 'tier2',
-    upsUpgrade: true,
-    dualGpu: true,
-    liquidCooling: true,
-    acousticPanels: true,
-    tenGbSwitch: true,
-    storageCapacity: '32TB',
-  })
-
-  const toggle = (key) => setBuild((prev) => ({ ...prev, [key]: !prev[key] }))
-
-  const price = useMemo(() => {
-    const base = TIERS.find((t) => t.id === build.tier)?.base ?? 0
-    const upgradeTotal = UPGRADES.reduce((sum, u) => (build[u.key] ? sum + u.price : sum), 0)
-    const storageTotal = STORAGE_OPTIONS.find((s) => s.size === build.storageCapacity)?.price ?? 0
-    return base + upgradeTotal + storageTotal
-  }, [build])
-
-  const tierName = TIERS.find((t) => t.id === build.tier)?.name
-
   return (
-    <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 lg:py-12 space-y-12">
-      <div className="border-b border-hairline pb-6 space-y-2">
-        <div className="text-xs text-cyan font-bold uppercase tracking-widest">// INFRASTRUCTURE CATALOG</div>
-        <h1 className="text-3xl font-black uppercase text-white">Sovereign Deployment Tiers & Hardware BOM</h1>
-        <p className="text-xs text-muted max-w-3xl">
-          Transparent fixed-rate pricing. Every package includes custom length cable trimming, thermal
-          testing, acoustic dampening, and full root hardware access.
+    <div className="max-w-6xl mx-auto px-4 lg:px-8 py-12 space-y-16 text-slate-200">
+      
+      {/* Page Header */}
+      <div className="space-y-4 border-b border-hairline pb-8">
+        <div className="flex items-center gap-2 text-cyan font-mono text-xs uppercase tracking-wider">
+          <Server className="w-4 h-4" />
+          <span>On-Premise Infrastructure // Bill of Materials</span>
+        </div>
+        <h1 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">
+          Sovereign Deployment Tiers
+        </h1>
+        <p className="text-sm text-muted max-w-2xl leading-relaxed">
+          Fixed-cost physical hardware deployments engineered for quiet operation, local AI execution, and 100% data containment. Zero cloud tethers, zero SaaS lock-in.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-7 bg-surface border border-hairline rounded-xl p-6 space-y-6">
-          <div className="flex items-center justify-between border-b border-hairline pb-4">
-            <div className="flex items-center gap-2 text-sm font-bold uppercase">
-              <SlidersHorizontal className="w-4 h-4 text-cyan" />
-              <span>Interactive Bill of Materials Configurator</span>
-            </div>
-            <span className="text-xs text-muted">Live Price Matrix</span>
-          </div>
+      {/* Hardware Tiers Section */}
+      <div className="space-y-8">
+        <h2 className="text-xl font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
+          <Cpu className="w-5 h-5 text-cyan" />
+          <span>1. Hardware Build Tiers</span>
+        </h2>
 
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-muted uppercase">1. Select Baseline Chassis Platform</label>
-            <div className="grid grid-cols-3 gap-3">
-              {TIERS.map((t) => (
-                <button
-                  key={t.id}
-                  onClick={() => setBuild((prev) => ({ ...prev, tier: t.id }))}
-                  className={`p-3 rounded text-left border transition-all text-xs ${
-                    build.tier === t.id
-                      ? 'bg-panel border-cyan text-white shadow-[0_0_10px_rgba(0,229,255,0.15)]'
-                      : 'bg-obsidian border-hairline text-muted hover:border-muted'
-                  }`}
-                >
-                  <div className="font-bold">{t.label}</div>
-                  <div className="text-[10px] text-cyan mt-1">Base: ${t.base.toLocaleString()}</div>
-                </button>
-              ))}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          {/* Tier 1: Desk Node */}
+          <div className="bg-panel border border-hairline p-6 rounded flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="text-xs font-mono text-cyan uppercase">Tier 01 // Compact</div>
+              <h3 className="text-lg font-bold text-white">Sovereign Desk Node</h3>
+              <p className="text-xs text-muted leading-relaxed">
+                A silent, low-power desktop server ideal for home offices, personal file vaults, and local LLM inference (Llama 3 8B, Mistral).
+              </p>
+              <ul className="space-y-2 pt-4 border-t border-hairline text-xs font-sans text-slate-300">
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-cyan shrink-0" /> 24GB VRAM Unified Memory</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-cyan shrink-0" /> 2TB NVMe Storage Pool (Mirrored)</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-cyan shrink-0" /> Silent Liquid Cooling (&lt;25dB)</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-cyan shrink-0" /> Pre-loaded Proxmox & Ollama</li>
+              </ul>
             </div>
-          </div>
-
-          <div className="space-y-3 border-t border-hairline pt-4">
-            <label className="text-xs font-bold text-muted uppercase">2. Thermal, Power & Compute Upgrades</label>
-            <div className="space-y-2">
-              {UPGRADES.map((item) => (
-                <div
-                  key={item.key}
-                  onClick={() => toggle(item.key)}
-                  className={`p-3 rounded border cursor-pointer flex justify-between items-center transition-all ${
-                    build[item.key] ? 'bg-panel border-cyan/60 text-white' : 'bg-obsidian border-hairline text-muted'
-                  }`}
-                >
-                  <div className="space-y-0.5">
-                    <div className="text-xs font-bold flex items-center gap-2">
-                      <span className={build[item.key] ? 'text-cyan' : 'text-muted'}>
-                        {build[item.key] ? '[✓]' : '[ ]'}
-                      </span>
-                      <span>{item.title}</span>
-                    </div>
-                    <div className="text-[10px] text-muted">{item.desc}</div>
-                  </div>
-                  <span className="text-xs font-bold text-cyan whitespace-nowrap ml-2">+${item.price}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-2 border-t border-hairline pt-4">
-            <label className="text-xs font-bold text-muted uppercase">3. Local Encrypted Storage Capacity</label>
-            <div className="grid grid-cols-4 gap-2 text-xs">
-              {STORAGE_OPTIONS.map((s) => (
-                <button
-                  key={s.size}
-                  onClick={() => setBuild((prev) => ({ ...prev, storageCapacity: s.size }))}
-                  className={`p-2 rounded text-center border transition-all ${
-                    build.storageCapacity === s.size
-                      ? 'bg-cyan text-obsidian font-bold border-cyan'
-                      : 'bg-obsidian border-hairline text-muted'
-                  }`}
-                >
-                  <div>{s.size}</div>
-                  <div className="text-[9px] mt-0.5">{s.label}</div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="lg:col-span-5 space-y-6">
-          <div className="bg-panel border-2 border-cyan rounded-xl p-6 space-y-6 shadow-[0_0_20px_rgba(0,229,255,0.1)]">
-            <div className="border-b border-hairline pb-4 flex justify-between items-center">
-              <div>
-                <div className="text-xs text-cyan font-bold uppercase">ESTIMATED TOTAL INVESTMENT</div>
-                <div className="text-3xl font-black text-white mt-1">${price.toLocaleString()}</div>
-              </div>
-              <span className="text-[10px] px-2 py-1 rounded bg-emerald/20 text-emerald border border-emerald/40 font-bold">
-                FIXED HARDWARE RATE
-              </span>
-            </div>
-
-            <div className="space-y-3 text-xs">
-              <div className="font-bold text-muted uppercase">Selected Configuration Breakdown:</div>
-              <div className="space-y-1.5 text-[11px] text-slate-200">
-                <div className="flex justify-between border-b border-hairline/60 pb-1">
-                  <span>Baseline Platform:</span>
-                  <span className="font-bold uppercase text-cyan">{tierName}</span>
-                </div>
-                <div className="flex justify-between border-b border-hairline/60 pb-1">
-                  <span>Storage Vault:</span>
-                  <span className="font-bold">{build.storageCapacity} Local ZFS Raid-Z2</span>
-                </div>
-                {UPGRADES.filter((u) => build[u.key]).map((u) => (
-                  <div key={u.key} className="flex justify-between text-emerald">
-                    <span>• {u.title}</span>
-                    <span>+${u.price}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             <button
               onClick={onRequestQuote}
-              className="w-full py-3.5 bg-cyan hover:bg-cyan/80 text-obsidian font-black text-xs uppercase tracking-wider rounded transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)] flex justify-center items-center gap-2"
+              className="w-full border border-hairline hover:border-cyan text-cyan font-bold py-2 rounded text-xs font-mono uppercase tracking-wider transition-all"
             >
-              <Send className="w-4 h-4" />
-              <span>Request Installation Booking</span>
+              Request Spec Manifest
             </button>
           </div>
+
+          {/* Tier 2: Workgroup Rack */}
+          <div className="bg-panel border-2 border-cyan/50 p-6 rounded flex flex-col justify-between space-y-6 relative shadow-[0_0_20px_rgba(0,229,255,0.08)]">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-cyan text-obsidian text-[10px] font-mono font-bold uppercase px-3 py-0.5 rounded-full">
+              Recommended
+            </div>
+            <div className="space-y-4">
+              <div className="text-xs font-mono text-cyan uppercase">Tier 02 // Business</div>
+              <h3 className="text-lg font-bold text-white">SOHO AI & Storage Rack</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Dedicated 2U/4U chassis designed for small businesses needing high-concurrency local AI, automated document indexing, and ZFS data backup.
+              </p>
+              <ul className="space-y-2 pt-4 border-t border-hairline text-xs font-sans text-slate-200">
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-cyan shrink-0" /> 48GB - 96GB GPU VRAM</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-cyan shrink-0" /> 16TB ZFS RAID Storage Pool</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-cyan shrink-0" /> 10GbE Local Networking</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-cyan shrink-0" /> Local Vector Database Runtime</li>
+              </ul>
+            </div>
+            <button
+              onClick={onRequestQuote}
+              className="w-full bg-cyan hover:bg-cyan/80 text-obsidian font-bold py-2 rounded text-xs font-mono uppercase tracking-wider transition-all"
+            >
+              Configure Deployment
+            </button>
+          </div>
+
+          {/* Tier 3: Enterprise Fortress */}
+          <div className="bg-panel border border-hairline p-6 rounded flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="text-xs font-mono text-gold uppercase">Tier 03 // Cluster</div>
+              <h3 className="text-lg font-bold text-white">Enterprise Sovereign Vault</h3>
+              <p className="text-xs text-muted leading-relaxed">
+                Multi-node rack assembly for private model fine-tuning, heavy database workloads, and redundant air-gapped backups.
+              </p>
+              <ul className="space-y-2 pt-4 border-t border-hairline text-xs font-sans text-slate-300">
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-gold shrink-0" /> Dual-Node High Availability Cluster</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-gold shrink-0" /> 128GB+ VRAM Array</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-gold shrink-0" /> Hot-Swappable ZFS Array</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-gold shrink-0" /> Hardware IPMI Management</li>
+              </ul>
+            </div>
+            <button
+              onClick={onRequestQuote}
+              className="w-full border border-hairline hover:border-gold text-slate-300 hover:text-gold font-bold py-2 rounded text-xs font-mono uppercase tracking-wider transition-all"
+            >
+              Inquire Custom BOM
+            </button>
+          </div>
+
         </div>
       </div>
+
+      {/* Embedded Zero-Trust Managed Care Section */}
+      <div className="pt-12 border-t border-hairline space-y-8">
+        
+        <div className="space-y-3">
+          <div className="inline-flex items-center gap-2 text-cyan font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 rounded bg-cyan/10 border border-cyan/30">
+            <Wrench className="w-3.5 h-3.5" />
+            <span>Optional Service Add-On</span>
+          </div>
+          <h2 className="text-2xl font-bold text-white tracking-tight">
+            2. Zero-Trust Managed Maintenance
+          </h2>
+          <p className="text-xs lg:text-sm text-muted leading-relaxed max-w-3xl">
+            You own the hardware outright. If you want us to handle system security updates, drive health monitoring, and RAID maintenance like a trusted lawn care crew, add an optional maintenance plan.
+          </p>
+        </div>
+
+        {/* Managed Care Pricing Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          {/* Care Option 1 */}
+          <div className="bg-surface border border-hairline p-6 rounded space-y-4">
+            <div className="text-xs font-mono text-muted uppercase">Plan A</div>
+            <h3 className="text-base font-bold text-white">Sovereign Self-Care</h3>
+            <div className="text-2xl font-bold text-white font-mono">$0 <span className="text-xs font-normal text-muted">/ mo</span></div>
+            <p className="text-xs text-muted leading-relaxed">
+              Full root access handed to you. You handle OS security updates, drive swaps, and backups.
+            </p>
+            <div className="pt-3 border-t border-hairline text-xs font-mono text-cyan">
+              ✓ Included with all builds
+            </div>
+          </div>
+
+          {/* Care Option 2 */}
+          <div className="bg-surface border border-cyan/40 p-6 rounded space-y-4 relative">
+            <div className="text-xs font-mono text-cyan uppercase">Plan B // Managed</div>
+            <h3 className="text-base font-bold text-white">Sentinel Managed Care</h3>
+            <div className="text-2xl font-bold text-cyan font-mono">$49 <span className="text-xs font-normal text-muted">/ mo</span></div>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              24/7 outbound thermal and disk telemetry. Client-gated remote maintenance sessions for OS and container patches.
+            </p>
+            <div className="pt-3 border-t border-hairline text-xs font-mono text-cyan">
+              ✓ Ideal for Desk Nodes & Single Servers
+            </div>
+          </div>
+
+          {/* Care Option 3 */}
+          <div className="bg-surface border border-hairline p-6 rounded space-y-4">
+            <div className="text-xs font-mono text-gold uppercase">Plan C // Enterprise</div>
+            <h3 className="text-base font-bold text-white">Enterprise Sovereign Care</h3>
+            <div className="text-2xl font-bold text-white font-mono">$149 <span className="text-xs font-normal text-muted">/ mo</span></div>
+            <p className="text-xs text-muted leading-relaxed">
+              Multi-node cluster management, priority drive dispatch, quarterly thermal maintenance, and local AI pipeline tuning.
+            </p>
+            <div className="pt-3 border-t border-hairline text-xs font-mono text-gold">
+              ✓ For Rack Deployments & Clusters
+            </div>
+          </div>
+
+        </div>
+
+        {/* Security Guarantee Note */}
+        <div className="p-4 bg-panel border border-hairline rounded flex items-start gap-3">
+          <ShieldCheck className="w-5 h-5 text-emerald shrink-0 mt-0.5" />
+          <div className="text-xs text-slate-300 leading-relaxed font-sans">
+            <strong className="text-white font-mono uppercase">The Pipe vs. Payload Guarantee:</strong> All maintenance tiers operate on read-only hardware health metrics (thermals, fan speeds, drive S.M.A.R.T. logs). Your file storage pools, databases, and AI prompt histories remain encrypted under keys held exclusively by you.
+          </div>
+        </div>
+
+      </div>
+
     </div>
   )
 }
