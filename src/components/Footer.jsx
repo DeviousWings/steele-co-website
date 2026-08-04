@@ -1,12 +1,10 @@
 import React from 'react'
-import { Server, Shield, Terminal, BookOpen } from 'lucide-react'
+import { Server, BookOpen, ShieldCheck } from 'lucide-react'
 
-export default function Footer({ onOpenDraft }) {
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
+export default function Footer({ onOpenDraft, setActiveTab }) {
+  const handleNav = (tabId) => {
+    setActiveTab(tabId)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   return (
@@ -28,7 +26,7 @@ export default function Footer({ onOpenDraft }) {
             </p>
           </div>
 
-          {/* Quick Nav / Sections */}
+          {/* Quick Nav / Infrastructure */}
           <div className="space-y-2">
             <div className="font-mono text-xs font-bold text-white uppercase tracking-wider mb-3">
               Infrastructure
@@ -36,18 +34,29 @@ export default function Footer({ onOpenDraft }) {
             <ul className="space-y-2 font-mono text-[11px]">
               <li>
                 <button 
-                  onClick={() => scrollToSection('managed-care-section')}
-                  className="hover:text-cyan transition-colors text-left"
+                  type="button"
+                  onClick={() => handleNav('tiers')}
+                  className="hover:text-cyan transition-colors text-left cursor-pointer"
                 >
-                  // Managed Care Tiers
+                  // Deployment Tiers & Care
                 </button>
               </li>
               <li>
                 <button 
-                  onClick={() => scrollToSection('faq-section')}
-                  className="hover:text-cyan transition-colors text-left"
+                  type="button"
+                  onClick={() => handleNav('faq')}
+                  className="hover:text-cyan transition-colors text-left cursor-pointer"
                 >
                   // FAQ & Security
+                </button>
+              </li>
+              <li>
+                <button 
+                  type="button"
+                  onClick={() => handleNav('roi')}
+                  className="hover:text-cyan transition-colors text-left cursor-pointer"
+                >
+                  // Cloud Bleed Calculator
                 </button>
               </li>
             </ul>
@@ -61,15 +70,22 @@ export default function Footer({ onOpenDraft }) {
             <ul className="space-y-2 font-mono text-[11px]">
               <li>
                 <button 
+                  type="button"
                   onClick={onOpenDraft}
-                  className="text-gold hover:underline flex items-center gap-1 text-left"
+                  className="text-gold hover:underline flex items-center gap-1 text-left cursor-pointer"
                 >
                   <BookOpen className="w-3 h-3" />
                   <span>SDI Act Master Draft ↗</span>
                 </button>
               </li>
-              <li className="text-muted">
-                // "No Data, No Fee" Code
+              <li>
+                <button 
+                  type="button"
+                  onClick={() => handleNav('about')}
+                  className="hover:text-cyan transition-colors text-left cursor-pointer"
+                >
+                  // Origin & Mission
+                </button>
               </li>
             </ul>
           </div>
@@ -94,17 +110,19 @@ export default function Footer({ onOpenDraft }) {
           </div>
           <div className="flex items-center gap-4">
             <button 
-              onClick={() => scrollToSection('faq-section')}
-              className="hover:text-slate-200 transition-colors"
+              type="button"
+              onClick={() => handleNav('faq')}
+              className="hover:text-slate-200 transition-colors cursor-pointer"
             >
-              Zero-Trust Care
+              FAQ & Security
             </button>
             <span>•</span>
             <button 
-              onClick={() => scrollToSection('faq-section')}
-              className="hover:text-slate-200 transition-colors"
+              type="button"
+              onClick={() => handleNav('tiers')}
+              className="hover:text-slate-200 transition-colors cursor-pointer"
             >
-              Privacy & Telemetry FAQ
+              Managed Care Tiers
             </button>
           </div>
         </div>
