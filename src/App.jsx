@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import  ManageCareAndFAQ './components/ManagedCareAndFAQ'
+import  ManageCareAndFAQ from './components/ManagedCareAndFAQ'
 import QuoteModal from './components/QuoteModal'
 import ContractModal from './components/ContractModal'
 import MasterDraftModal from './components/MasterDraftModal'
