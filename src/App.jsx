@@ -37,6 +37,11 @@ export default function App() {
       {activeTab === 'roi' && <CloudRoi setActiveTab={setActiveTab} />}
 
       <Footer onOpenDraft={() => setDraftOpen(true)} />
+      {/* Slide-Over README / Dev Log Drawer */}
+      <BuildLogDrawer
+        isOpen={isDevLogOpen}
+        onClose={} => setIsDevLogOpen(false)} 
+      />
 
       {draftOpen && (
         <MasterDraftModal onClose={() => setDraftOpen(false)} onPrintClick={() => setPdfNoticeOpen(true)} />
