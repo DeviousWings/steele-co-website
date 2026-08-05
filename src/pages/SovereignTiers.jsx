@@ -61,6 +61,7 @@ export default function SovereignTiers({ onRequestQuote }) {
               {TIERS.map((t) => (
                 <button
                   key={t.id}
+                  type="button"
                   onClick={() => setBuild((prev) => ({ ...prev, tier: t.id }))}
                   className={`p-3 rounded text-left border transition-all text-xs cursor-pointer ${
                     build.tier === t.id
@@ -109,6 +110,7 @@ export default function SovereignTiers({ onRequestQuote }) {
               {STORAGE_OPTIONS.map((s) => (
                 <button
                   key={s.size}
+                  type="button"
                   onClick={() => setBuild((prev) => ({ ...prev, storageCapacity: s.size }))}
                   className={`p-2 rounded text-center border transition-all cursor-pointer ${
                     build.storageCapacity === s.size
@@ -123,20 +125,23 @@ export default function SovereignTiers({ onRequestQuote }) {
             </div>
           </div>
 
-          {/* Step 4: Added Maintenance Sub-Tiers */}
+          {/* Step 4: Maintenance Plan Sub-Tiers */}
           <div className="space-y-3 border-t border-hairline pt-4">
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold text-muted uppercase flex items-center gap-1.5">
                 <Wrench className="w-3.5 h-3.5 text-cyan" />
                 <span>4. Optional Zero-Trust Maintenance Plan</span>
               </label>
-              <span className="text-[10px] text-cyan font-mono font-bold uppercase">// Pipe vs. Payload Protected</span>
+              <span className="text-[10px] text-cyan font-mono font-bold uppercase">
+                // Pipe vs. Payload Protected
+              </span>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
               {MAINTENANCE_OPTIONS.map((plan) => (
                 <button
                   key={plan.id}
+                  type="button"
                   onClick={() => setBuild((prev) => ({ ...prev, maintenancePlan: plan.id }))}
                   className={`p-3 rounded text-left border transition-all text-xs cursor-pointer flex flex-col justify-between ${
                     build.maintenancePlan === plan.id
@@ -147,9 +152,13 @@ export default function SovereignTiers({ onRequestQuote }) {
                   <div>
                     <div className="font-bold flex justify-between items-center">
                       <span>{plan.label}</span>
-                      <span className="text-cyan text-[10px] font-mono">${plan.monthly}/mo</span>
+                      <span className="text-cyan text-[10px] font-mono">
+                        {plan.monthly === 0 ? '$0/mo' : `$${plan.monthly}/mo`}
+                      </span>
                     </div>
-                    <div className="text-[10px] text-muted mt-1 leading-normal">{plan.desc}</div>
+                    <div className="text-[10px] text-muted mt-1 leading-normal">
+                      {plan.desc}
+                    </div>
                   </div>
                 </button>
               ))}
