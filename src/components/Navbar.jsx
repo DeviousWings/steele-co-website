@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Server, Shield, BookOpen, Terminal, ChevronDown, ChevronUp } from 'lucide-react'
+import { Server, Shield, BookOpen, Terminal, ChevronDown, ChevronUp, Coffee } from 'lucide-react'
 
 const NAV_STRUCTURE = [
   { id: 'home', type: 'link', label: 'Home // Positioning', mobileLabel: 'Home' },
@@ -28,7 +28,6 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
   const [openDropdown, setOpenDropdown] = useState(null)
   const navRef = useRef(null)
 
-  // Close dropdown if user clicks outside the navbar
   useEffect(() => {
     function handleClickOutside(event) {
       if (navRef.current && !navRef.current.contains(event.target)) {
@@ -48,7 +47,6 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
     setOpenDropdown(null)
   }
 
-  // Helper to check if any child item inside a dropdown is active
   const isDropdownActive = (items) => {
     return items.some((item) => item.id === activeTab)
   }
@@ -68,6 +66,16 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
           <span className="text-cyan font-bold">ENCRYPTED LOCAL CONTAINMENT</span>
         </div>
         <div className="flex items-center gap-4 font-semibold">
+          <a 
+            href="https://buymeacoffee.com/deviouswings" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-gold hover:underline flex items-center gap-1 transition-colors"
+          >
+            <Coffee className="w-3.5 h-3.5" />
+            <span>SUPPORT RESEARCH ↗</span>
+          </a>
+          <span className="text-hairline">|</span>
           <button onClick={onOpenDevLog} className="text-cyan hover:underline flex items-center gap-1 transition-colors">
             <Terminal className="w-3.5 h-3.5" />
             <span>LIVE DEV LOG</span>
@@ -76,9 +84,6 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
           <button onClick={onOpenDraft} className="text-gold hover:underline flex items-center gap-1">
             <BookOpen className="w-3.5 h-3.5" />
             <span>SDI ACT MASTER DRAFT: JULY 2026 ↗</span>
-          </button>
-          <button onClick={onOpenContract} className="hover:text-cyan underline transition-colors">
-            "NO DATA, NO FEE" CODE
           </button>
         </div>
       </div>
@@ -139,7 +144,6 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
                   )}
                 </button>
 
-                {/* Dropdown Menu */}
                 {isOpen && (
                   <div className="absolute left-0 mt-2 w-72 bg-panel border border-hairline rounded shadow-2xl py-2 z-50 animate-in fade-in duration-150">
                     {group.items.map((item) => (
@@ -164,6 +168,16 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
 
         {/* Right Action Buttons */}
         <div className="flex items-center gap-2">
+          <a
+            href="https://buymeacoffee.com/deviouswings"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden lg:flex border border-gold/40 text-gold hover:bg-gold/10 font-mono px-3 py-2.5 rounded text-xs uppercase tracking-wider transition-all items-center gap-2"
+          >
+            <Coffee className="w-3.5 h-3.5" />
+            <span>Support</span>
+          </a>
+
           <button
             onClick={onOpenDevLog}
             className="hidden sm:flex border border-cyan/40 text-cyan hover:bg-cyan/10 font-mono px-3 py-2.5 rounded text-xs uppercase tracking-wider transition-all items-center gap-2"
@@ -182,7 +196,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
         </div>
       </nav>
 
-      {/* Mobile Bar - Flattened items for easy mobile tap navigation */}
+      {/* Mobile Bar */}
       <div className="no-print md:hidden bg-panel border-b border-hairline p-2 flex overflow-x-auto gap-2 text-xs items-center">
         {NAV_STRUCTURE.flatMap((group) => (group.items ? group.items : [group])).map((tab) => (
           <button
@@ -195,6 +209,15 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
             {tab.mobileLabel || tab.label}
           </button>
         ))}
+        <a
+          href="https://buymeacoffee.com/deviouswings"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-3 py-1.5 rounded whitespace-nowrap text-[11px] bg-surface text-gold border border-gold/30 font-bold flex items-center gap-1"
+        >
+          <Coffee className="w-3 h-3" />
+          Support
+        </a>
         <button
           onClick={onOpenDevLog}
           className="px-3 py-1.5 rounded whitespace-nowrap text-[11px] bg-surface text-cyan border border-cyan/30 font-bold flex items-center gap-1"
