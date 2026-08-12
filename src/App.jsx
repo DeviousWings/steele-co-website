@@ -35,17 +35,18 @@ export default function App() {
   // Configuration state passed from SovereignTiers
   const [currentConfig, setCurrentConfig] = useState(null)
 
-  const handleOpenQuoteWithConfig = (buildData, calculatedPrice) => {
+const handleOpenQuoteWithConfig = (buildData, calculatedPrice) => {
     setCurrentConfig({
       tier: buildData.tier,
       storage: buildData.storageCapacity,
       maintenance: buildData.maintenancePlan,
       estimatedPrice: calculatedPrice,
-      upsUpgrade: buildData.upsUpgrade ? 'Included' : 'None',
-      dualGpu: buildData.dualGpu ? 'Included' : 'None',
-      liquidCooling: buildData.liquidCooling ? 'Included' : 'None',
-      acousticPanels: buildData.acousticPanels ? 'Included' : 'None',
-      tenGbSwitch: buildData.tenGbSwitch ? 'Included' : 'None',
+      // Pass all step 2 toggle upgrades explicitly
+      upsUpgrade: buildData.upsUpgrade ? 'Yes' : 'No',
+      dualGpu: buildData.dualGpu ? 'Yes' : 'No',
+      liquidCooling: buildData.liquidCooling ? 'Yes' : 'No',
+      acousticPanels: buildData.acousticPanels ? 'Yes' : 'No',
+      tenGbSwitch: buildData.tenGbSwitch ? 'Yes' : 'No',
     })
     setQuoteOpen(true)
   }
