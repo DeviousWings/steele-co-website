@@ -9,10 +9,11 @@ export default function Home({ setActiveTab }) {
         <div className="lg:col-span-7 space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold">
             <AlertTriangle className="w-3.5 h-3.5" />
-            <span>ANTI-CLOUD // PHYSICAL PROPERTY ADVOCACY // TEST SITE</span>
+            <span>ANTI-CLOUD // PHYSICAL PROPERTY ADVOCACY</span>
           </div>
 
           <h1 className="text-3xl lg:text-5xl font-black tracking-tight leading-tight uppercase text-white">
+            // TEST SITE //
             If your data lives on their cloud, <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan via-white to-cyan">
               you don't really own your life.
