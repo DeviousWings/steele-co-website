@@ -1,6 +1,6 @@
 # steele-co-website
 
-Live Site: <a href="https://your-preview-link.vercel.app" target="_blank" rel="noopener noreferrer">[Open Preview Site](https://deviouswings.github.io/steele-co-website/)</a> 
+Live Site: <a href="https://your-preview-link.vercel.app" target="_blank" rel="noopener noreferrer">[Steele Co. // Tech](https://steele-co-website.vercel.app/)</a> 
 
 # 🛡️ STEELE CO. // Sovereign Hardware Engine
 
