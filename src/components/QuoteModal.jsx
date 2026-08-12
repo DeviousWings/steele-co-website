@@ -1,8 +1,40 @@
+import React, { useState } from 'react'
 import { Shield, X, CheckCircle, AlertCircle } from 'lucide-react'
-import { useForm, ValidationError } from '@formspree/react'
 
 export default function QuoteModal({ onClose }) {
-  const [state, handleSubmit] = useForm('xgawyenw')
+  const [submitting, setSubmitting] = useState(false)
+  const [succeeded, setSucceeded] = useState(false)
+  const [error, setError] = useState(null)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setSubmitting(true)
+    setError(null)
+
+    const form = e.target
+    const data = new FormData(form)
+
+    try {
+      const response = await fetch('https://formspree.io/f/xgawyenw', {
+        method: 'POST',
+        body: data,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+
+      if (response.ok) {
+        setSucceeded(true)
+      } else {
+        const dataJson = await response.json()
+        setError(dataJson.error || 'Submission failed. Please try again.')
+      }
+    } catch (err) {
+      setError('Network connection error. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   return (
     <div className="fixed inset-0 z-50 bg-obsidian/80 backdrop-blur-sm flex justify-center items-center p-4">
@@ -20,7 +52,7 @@ export default function QuoteModal({ onClose }) {
         </div>
 
         {/* Success State */}
-        {state.succeeded ? (
+        {succeeded ? (
           <div className="py-8 text-center space-y-3">
             <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto" />
             <h3 className="text-sm font-bold uppercase tracking-wider text-white">Request Transmitted Successfully!</h3>
@@ -68,7 +100,6 @@ export default function QuoteModal({ onClose }) {
                   placeholder="john@domain.com" 
                   className="w-full mt-1 p-2.5 bg-obsidian border border-hairline rounded text-white focus:border-cyan outline-none" 
                 />
-                <ValidationError prefix="Email" field="email" errors={state.errors} className="text-rose-400 text-[10px] mt-1" />
               </div>
 
               {/* Deployment Tier Selection */}
@@ -85,7 +116,7 @@ export default function QuoteModal({ onClose }) {
                 </select>
               </div>
 
-              {/* NEW: Use Case & Data Storage Description */}
+              {/* Use Case & Data Storage Description */}
               <div>
                 <label htmlFor="message" className="text-[10px] font-bold text-muted uppercase">
                   Use Case & Data Storage Requirements
@@ -98,24 +129,23 @@ export default function QuoteModal({ onClose }) {
                   placeholder="Briefly describe what you plan to store (e.g., family media vault, legal documents, local AI/Ollama models) and any specific network constraints..." 
                   className="w-full mt-1 p-2.5 bg-obsidian border border-hairline rounded text-white focus:border-cyan outline-none resize-none" 
                 />
-                <ValidationError prefix="Message" field="message" errors={state.errors} className="text-rose-400 text-[10px] mt-1" />
               </div>
 
-              {/* General Submission Error Notification */}
-              {state.errors && state.errors.length > 0 && (
+              {/* Error Message Notification */}
+              {error && (
                 <div className="flex items-center gap-2 text-rose-400 bg-rose-950/30 border border-rose-900/50 p-2.5 rounded">
                   <AlertCircle className="w-4 h-4 shrink-0" />
-                  <span>Please check required fields before submitting.</span>
+                  <span>{error}</span>
                 </div>
               )}
 
               {/* Submit Button */}
               <button 
                 type="submit" 
-                disabled={state.submitting}
+                disabled={submitting}
                 className="w-full py-3 bg-cyan text-obsidian font-black uppercase text-xs rounded hover:bg-cyan/80 transition-all shadow-[0_0_15px_rgba(0,229,255,0.2)] disabled:opacity-50"
               >
-                {state.submitting ? 'Transmitting Secure Request...' : 'Submit Direct Intake Request'}
+                {submitting ? 'Transmitting Secure Request...' : 'Submit Direct Intake Request'}
               </button>
             </form>
           </>
