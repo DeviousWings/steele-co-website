@@ -16,6 +16,7 @@ const NAV_STRUCTURE = [
     id: 'movement',
     label: 'Learn // Movement',
     items: [
+      { id: 'consumer-rights', label: 'Consumer Rights (Ownership & Enjoyment)', mobileLabel: 'Consumer Rights' },
       { id: 'sdi-act', label: 'The SDI Vault & Act (2026)', mobileLabel: 'SDI Vault' },
       { id: 'vision', label: 'Future Vision', mobileLabel: 'Vision' },
       { id: 'about', label: 'About Steele Co.', mobileLabel: 'About' },
@@ -54,47 +55,33 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
 
   return (
     <>
-      {/* Status ticker with vibrant color accents */}
-<div className="top-banner bg-panel border-b border-hairline text-xs py-2 px-4 flex justify-between items-center text-muted overflow-x-auto whitespace-nowrap">
-  <div className="flex items-center gap-3 font-mono font-medium">
-    {/* 1. Emerald Status */}
-    <span className="flex items-center gap-1.5 text-emerald font-bold">
-      <span className="w-2 h-2 rounded-full bg-emerald animate-pulse" />
-      SYSTEM STATUS: ON-PREM SOVEREIGN
-    </span>
-    
-    <span className="text-hairline">|</span>
-    
-    {/* 2. Gold Tracker Accent */}
-    <span className="text-gold font-bold flex items-center gap-1">
-      <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-      ZERO THIRD-PARTY TRACKERS
-    </span>
-    
-    <span className="text-hairline">|</span>
-    
-    {/* 3. Cyan Encryption Accent */}
-    <span className="text-cyan font-bold flex items-center gap-1">
-      <span className="w-1.5 h-1.5 rounded-full bg-cyan" />
-      ENCRYPTED LOCAL CONTAINMENT
-    </span>
-  </div>
-
-  <div className="flex items-center gap-4 font-semibold">
-    <button onClick={onOpenDevLog} className="text-cyan hover:underline flex items-center gap-1 transition-colors">
-      <Terminal className="w-3.5 h-3.5" />
-      <span>LIVE DEV LOG</span>
-    </button>
-    <span className="text-hairline">|</span>
-    <button onClick={onOpenDraft} className="text-gold hover:underline flex items-center gap-1">
-      <BookOpen className="w-3.5 h-3.5" />
-      <span>SDI ACT MASTER DRAFT: JULY 2026 ↗</span>
-    </button>
-    <button onClick={onOpenContract} className="hover:text-cyan underline transition-colors">
-      "NO DATA, NO FEE" CODE
-    </button>
-  </div>
-</div>
+      {/* Status ticker */}
+      <div className="top-banner bg-panel border-b border-hairline text-xs py-2 px-4 flex justify-between items-center text-muted overflow-x-auto whitespace-nowrap">
+        <div className="flex items-center gap-3">
+          <span className="flex items-center gap-1.5 text-emerald font-bold">
+            <span className="w-2 h-2 rounded-full bg-emerald animate-pulse" />
+            SYSTEM STATUS: ON-PREM SOVEREIGN
+          </span>
+          <span className="text-hairline">|</span>
+          <span className="text-gold font-bold">ZERO THIRD-PARTY TRACKERS</span>
+          <span className="text-hairline">|</span>
+          <span className="text-cyan font-bold">ENCRYPTED LOCAL CONTAINMENT</span>
+        </div>
+        <div className="flex items-center gap-4 font-semibold">
+          <button onClick={onOpenDevLog} className="text-cyan hover:underline flex items-center gap-1 transition-colors">
+            <Terminal className="w-3.5 h-3.5" />
+            <span>LIVE DEV LOG</span>
+          </button>
+          <span className="text-hairline">|</span>
+          <button onClick={onOpenDraft} className="text-gold hover:underline flex items-center gap-1">
+            <BookOpen className="w-3.5 h-3.5" />
+            <span>SDI ACT MASTER DRAFT: JULY 2026 ↗</span>
+          </button>
+          <button onClick={onOpenContract} className="hover:text-cyan underline transition-colors">
+            "NO DATA, NO FEE" CODE
+          </button>
+        </div>
+      </div>
 
       {/* Main nav */}
       <nav ref={navRef} className="no-print sticky top-0 z-40 bg-obsidian/90 backdrop-blur-md border-b border-hairline px-4 lg:px-8 py-3.5 flex justify-between items-center">
@@ -104,7 +91,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
             <Server className="w-5 h-5 text-cyan" />
           </div>
           <div>
-            <div className="font-bold text-base tracking-wider flex items-center gap-2">
+            <div className="font-bold text-base tracking-wider flex items-center gap-2 text-slate-100">
               STEELE CO.
               <span className="text-cyan text-xs px-1.5 py-0.5 border border-cyan/30 rounded bg-cyan/10">HARDWARE</span>
             </div>
@@ -154,7 +141,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
 
                 {/* Dropdown Menu */}
                 {isOpen && (
-                  <div className="absolute left-0 mt-2 w-64 bg-panel border border-hairline rounded shadow-2xl py-2 z-50 animate-in fade-in duration-150">
+                  <div className="absolute left-0 mt-2 w-72 bg-panel border border-hairline rounded shadow-2xl py-2 z-50 animate-in fade-in duration-150">
                     {group.items.map((item) => (
                       <button
                         key={item.id}
