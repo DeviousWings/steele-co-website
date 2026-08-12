@@ -1,87 +1,98 @@
-import React, { useState } from 'react';
-import { Activity, Shield, AlertTriangle } from 'lucide-react';
-import { packetLogs } from '../data/packetLogs';
+import { useState } from 'react'
+import { Activity } from 'lucide-react'
+import { PACKET_LOGS } from '../data/packetLogs'
 
 export default function PacketInspector() {
-  const [selectedPacket, setSelectedPacket] = useState(packetLogs[0]);
-  const [containmentMode, setContainmentMode] = useState('steele');
+  const [packetMode, setPacketMode] = useState('steele')
+  const [inspectedPacket, setInspectedPacket] = useState(null)
+
+  const rows = PACKET_LOGS[packetMode]
 
   return (
-    <div className="bg-[#121216] border border-[#262630] rounded-xl p-6 space-y-6">
-      <div className="flex justify-between items-center border-b border-[#262630] pb-4">
-        <div className="flex items-center gap-2 text-sm font-bold text-white uppercase">
-          <Activity className="w-4 h-4 text-[#00e5ff]" />
-          <span>Real-Time Network Telemetry Inspector</span>
+    <div className="bg-surface border border-hairline rounded-xl p-6 space-y-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-hairline pb-4">
+        <div>
+          <div className="flex items-center gap-2 text-sm font-bold uppercase">
+            <Activity className="w-4 h-4 text-cyan" />
+            <span>Real-Time Network Packet Capture Simulator</span>
+          </div>
+          <div className="text-xs text-muted mt-0.5">Toggle network boundary to inspect raw packet telemetry</div>
         </div>
-        <div className="flex items-center gap-2 text-xs">
+
+        <div className="flex items-center gap-2 bg-obsidian p-1 rounded border border-hairline text-xs">
           <button
-            onClick={() => setContainmentMode('commercial')}
-            className={`px-2.5 py-1 rounded text-[10px] font-bold uppercase ${
-              containmentMode === 'commercial' ? 'bg-[#ef4444] text-white' : 'bg-[#181820] text-[#94a3b8]'
+            onClick={() => setPacketMode('cloud')}
+            className={`px-3 py-1.5 rounded font-bold transition-all ${
+              packetMode === 'cloud' ? 'bg-alert text-white' : 'text-muted hover:text-white'
             }`}
           >
-            Unsecured Router
+            Unsecure Cloud Appliance
           </button>
           <button
-            onClick={() => setContainmentMode('steele')}
-            className={`px-2.5 py-1 rounded text-[10px] font-bold uppercase ${
-              containmentMode === 'steele' ? 'bg-[#10b981] text-black' : 'bg-[#181820] text-[#94a3b8]'
+            onClick={() => setPacketMode('steele')}
+            className={`px-3 py-1.5 rounded font-bold transition-all ${
+              packetMode === 'steele' ? 'bg-emerald text-obsidian' : 'text-muted hover:text-white'
             }`}
           >
-            Steele Armored
+            Steele Co. Armored Firewall
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Packet List */}
-        <div className="space-y-2">
-          <div className="text-[10px] font-bold text-[#94a3b8] uppercase">Captured Inbound/Outbound Packets</div>
-          {packetLogs.map((packet) => (
-            <button
-              key={packet.id}
-              onClick={() => setSelectedPacket(packet)}
-              className={`w-full p-2.5 rounded border text-left text-xs font-mono transition-all ${
-                selectedPacket.id === packet.id
-                  ? 'bg-[#181820] border-[#00e5ff] text-white'
-                  : 'bg-[#0a0a0c] border-[#262630] text-[#94a3b8]'
-              }`}
-            >
-              <div className="flex justify-between items-center">
-                <span className="font-bold">{packet.device}</span>
-                <span className="text-[10px] text-[#00e5ff]">{packet.protocol}</span>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-7 bg-obsidian border border-hairline rounded overflow-hidden">
+          <div className="bg-panel px-3 py-2 text-[10px] text-muted border-b border-hairline grid grid-cols-12 font-bold">
+            <span className="col-span-2">TIME</span>
+            <span className="col-span-3">DEVICE</span>
+            <span className="col-span-4">DESTINATION</span>
+            <span className="col-span-3">ACTION</span>
+          </div>
+          <div className="divide-y divide-panel text-[11px] font-mono h-64 overflow-y-auto">
+            {rows.map((p) => (
+              <div
+                key={p.id}
+                onClick={() => setInspectedPacket(p)}
+                className="px-3 py-2 grid grid-cols-12 hover:bg-surface cursor-pointer items-center transition-colors"
+              >
+                <span className="col-span-2 text-muted">{p.time}</span>
+                <span className="col-span-3 text-white font-bold">{p.device}</span>
+                <span className="col-span-4 text-muted truncate">{p.dest}</span>
+                <span className={`col-span-3 font-bold ${p.color}`}>{p.status}</span>
               </div>
-              <div className="text-[10px] text-[#94a3b8] truncate mt-1">{packet.destination}</div>
-            </button>
-          ))}
+            ))}
+          </div>
         </div>
 
-        {/* Selected Packet Detail */}
-        <div className="bg-[#0a0a0c] border border-[#262630] rounded p-4 space-y-3 font-mono text-xs">
-          <div className="text-[10px] text-[#94a3b8] uppercase border-b border-[#262630] pb-2">
-            Payload Inspection: {selectedPacket.device}
-          </div>
-          <div className="space-y-1">
-            <div><span className="text-[#94a3b8]">Target:</span> <span className="text-white">{selectedPacket.destination}</span></div>
-            <div><span className="text-[#94a3b8]">Payload Data:</span> <span className="text-[#f59e0b]">{selectedPacket.payload}</span></div>
+        <div className="lg:col-span-5 bg-panel border border-hairline rounded p-4 space-y-3">
+          <div className="text-xs font-bold uppercase border-b border-hairline pb-2 flex justify-between">
+            <span>Packet Payload Inspection</span>
+            <span className="text-[10px] text-cyan">RAW HEX / JSON</span>
           </div>
 
-          <div className="pt-2 border-t border-[#262630]">
-            <span className="text-[10px] text-[#94a3b8] block mb-1">CONTAINMENT STATUS:</span>
-            {containmentMode === 'steele' ? (
-              <div className="p-2 bg-[#10b981]/10 border border-[#10b981]/30 rounded text-[#10b981] font-bold text-[11px] flex items-center gap-2">
-                <Shield className="w-3.5 h-3.5" />
-                <span>INTERCEPTED & CONTAINERIZED ON-PREM</span>
+          {inspectedPacket ? (
+            <div className="space-y-2 text-xs font-mono">
+              <div>
+                <span className="text-muted">Target Device:</span>{' '}
+                <span className="text-white font-bold">{inspectedPacket.device}</span>
               </div>
-            ) : (
-              <div className="p-2 bg-[#ef4444]/10 border border-[#ef4444]/30 rounded text-[#ef4444] font-bold text-[11px] flex items-center gap-2">
-                <AlertTriangle className="w-3.5 h-3.5" />
-                <span>EGRESS GRANTED → VENDOR CLOUD SERVER</span>
+              <div>
+                <span className="text-muted">Payload Description:</span>
+                <div className="p-2 bg-obsidian border border-hairline rounded text-cyan text-[10px] mt-1">
+                  {inspectedPacket.payload}
+                </div>
               </div>
-            )}
-          </div>
+              <div>
+                <span className="text-muted">Boundary Result:</span>
+                <div className={`font-bold mt-0.5 ${inspectedPacket.color}`}>{inspectedPacket.status}</div>
+              </div>
+            </div>
+          ) : (
+            <div className="text-xs text-muted py-8 text-center">
+              Click any packet on the left table to inspect the decrypted telemetry payload.
+            </div>
+          )}
         </div>
       </div>
     </div>
-  );
+  )
 }

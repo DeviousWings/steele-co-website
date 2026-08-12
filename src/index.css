@@ -1,6 +1,17 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* @tailwind base; */
+/* @tailwind components; */
+/* @tailwind utilities; */
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian: #0a0a0c;
+  --color-surface: #121216;
+  --color-panel: #1a1a22;
+  --color-hairline: #262630;
+  --color-cyan: #00e5ff;
+  --color-gold: #ffd700;
+  --color-muted: #8a8a9e;
+}
 
 ::-webkit-scrollbar {
   width: 6px;
@@ -18,7 +29,20 @@
 }
 
 @media print {
-  body { background-color: #ffffff !important; color: #000000 !important; font-family: Arial, sans-serif !important; }
-  nav, footer, .no-print, .top-banner { display: none !important; }
-  .print-box { border: 1px solid #000 !important; background: #f8f9fa !important; color: #000 !important; }
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-family: Arial, sans-serif !important;
+  }
+  nav,
+  footer,
+  .no-print,
+  .top-banner {
+    display: none !important;
+  }
+  .print-box {
+    border: 1px solid #000 !important;
+    background: #f8f9fa !important;
+    color: #000 !important;
+  }
 }

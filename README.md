@@ -1,8 +1,20 @@
 # steele-co-website
 
-# 🛡️ STEELE CO. // Sovereign Hardware Engine
+# 🛡️ Steele Co. // Sovereign Data Infrastructure Engine
 
-> **"If your data lives on their cloud, you don't really own your life."**
+> *"If your data lives on their cloud, you don't really own your life."*
+
+---
+
+### 🌐 Live Production & Preview
+
+<a href="https://steele-co-website.vercel.app" target="_blank" rel="noopener noreferrer">
+  <img src="https://img.shields.io/badge/Vercel-Live_Preview-00e5ff?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Preview" />
+</a>
+
+Click the link below to view the active deployment in a new tab:
+* <a href="https://steele-co-website.vercel.app" target="_blank" rel="noopener noreferrer">https://steele-co-website.vercel.app ↗</a>
+
 
 **Steele Co.** is an advocacy-driven physical trade enterprise specializing in on-premise secure infrastructure, liquid-cooled SOHO server cabinets, whisper-quiet residential racks, and local network defense.
 
@@ -95,44 +107,3 @@ steele-co-website/
 
 Distributed under the **Open Sovereign Infrastructure License**. See `LICENSE` for details.
 .
-
-steele-co-website/ </br>
-├── public/</br>
-│   ├── favicon.ico</br>
-│   └── robots.txt</br>
-├── src/</br>
-│   ├── assets/                    # Images, hardware diagrams, branding graphics</br>
-│   │   └── server-rack-matrix.svg</br>
-│   │</br>
-│   ├── components/                # Reusable UI components & modals</br>
-│   │   ├── Navbar.jsx             # Top bar, navigation tabs, mobile menu</br>
-│   │   ├── Footer.jsx             # Footer with the uplifting AI disclaimer</br>
-│   │   ├── TerminalMonitor.jsx    # Simulated "STEELE_DEFENSE_MONITOR" widget</br>
-│   │   ├── PacketInspector.jsx    # Interactive packet auditor simulator</br>
-│   │   ├── QuoteModal.jsx         # "Secure Space" deployment intake modal</br>
-│   │   └── ContractModal.jsx      # "No Data, No Fee" trade code modal</br>
-│   │</br>
-│   ├── pages/                     # Main view pages</br>
-│   │   ├── Home.jsx               # Anti-cloud hero, manifesto & Rossmann code</br>
-│   │   ├── SovereignTiers.jsx     # Interactive Configurator, BOM & Tiers</br>
-│   │   ├── SdiActVault.jsx        # Bill reading room & Constituent letter builder</br>
-│   │   ├── TechExpose.jsx         # Teardowns & Packet audit articles</br>
-│   │   └── CloudRoi.jsx           # Financial cloud bleed calculator</br>
-│   │</br>
-│   ├── data/                      # Hardcoded text, bill statutes & price lists</br>
-│   │   ├── tiersData.js           # Baseline hardware BOMs and upgrade pricing</br>
-│   │   ├── sdiActText.js          # Full statutory text for Titles I, II, & III</br>
-│   │   └── packetLogs.js          # Simulated packet payloads for auditor</br>
-│   │</br>
-│   ├── styles/                    # Stylesheets and custom CSS variables</br>
-│   │   ├── globals.css            # Tailwind directives, color tokens, scrollbars</br>
-│   │   └── terminal.css           # Custom terminal glow & matrix effects</br>
-│   │</br>
-│   ├── App.jsx                    # Root app component (handles active state/tabs)</br>
-│   └── main.jsx                   # React entry point</br>
-│</br>
-├── index.html                     # HTML shell</br>
-├── tailwind.config.js             # Tailwind CSS configuration (custom colors)</br>
-├── package.json                   # Dependencies (lucide-react, react, etc.)</br>
-└── README.md</br>
-</br>

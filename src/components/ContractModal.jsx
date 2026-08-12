@@ -1,36 +1,40 @@
-import React from 'react';
-import { X, Shield } from 'lucide-react';
+import { FileText, X } from 'lucide-react'
 
-export default function ContractModal({ isOpen, onClose }) {
-  if (!isOpen) return null;
-
+export default function ContractModal({ onClose }) {
   return (
-    <div className="fixed inset-0 z-50 bg-[#0a0a0c]/90 backdrop-blur-md flex justify-center items-center p-4">
-      <div className="bg-[#121216] border border-[#10b981] rounded-xl max-w-md w-full p-6 space-y-4 relative">
-        <button onClick={onClose} className="absolute top-4 right-4 text-[#94a3b8] hover:text-white">
-          <X className="w-5 h-5" />
-        </button>
-
-        <div className="border-b border-[#262630] pb-2">
-          <span className="text-sm font-bold text-[#10b981] uppercase flex items-center gap-2">
-            <Shield className="w-4 h-4 text-[#10b981]" />
-            <span>"No Data, No Fee" Guarantee</span>
-          </span>
+    <div className="fixed inset-0 z-50 bg-obsidian/80 backdrop-blur-sm flex justify-center items-center p-4">
+      <div className="bg-surface border border-hairline rounded-xl max-w-lg w-full p-6 space-y-6 shadow-2xl">
+        <div className="flex justify-between items-center border-b border-hairline pb-3">
+          <div className="font-bold text-sm uppercase flex items-center gap-2">
+            <FileText className="w-4 h-4 text-emerald" />
+            <span>Steele Co. Trade Code & "No Data, No Fee" Policy</span>
+          </div>
+          <button onClick={onClose} className="text-muted hover:text-white">
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
-        <div className="text-xs text-[#94a3b8] space-y-3 leading-relaxed">
+        <div className="text-xs text-muted space-y-3 font-mono leading-relaxed">
+          <p className="text-white font-bold">UNYIELDING SERVICE CONTRACT GUARANTEE:</p>
           <p>
-            If Steele Co. deploys a localized backup remediation vault or failover array on your property, and your system fails to perform a complete simulated recovery test during final commissioning, total labor costs are <strong className="text-white">$0</strong>.
+            1. <strong className="text-slate-200">NO HIDDEN RETAINERS:</strong> Every diagnostic check, cable
+            routing, and server build is executed under a published flat-rate matrix.
           </p>
-          <p className="text-[11px] border-t border-[#262630] pt-2 text-[#e2e8f0]">
-            We hold ourselves physically accountable to standard enterprise IT recovery standards.
+          <p>
+            2. <strong className="text-slate-200">NO DATA, NO FEE GUARANTEE:</strong> If Steele Co. deploys a
+            localized backup remediation vault or failover array, and your system fails to restore during
+            final verification testing, labor costs are $0.
+          </p>
+          <p>
+            3. <strong className="text-slate-200">ROOT HARDWARE ACCESS:</strong> Clients receive complete
+            administrative root credentials for all firewalls, NAS vaults, and AI containers.
           </p>
         </div>
 
-        <button onClick={onClose} className="w-full py-2 bg-[#181820] text-[#10b981] border border-[#10b981]/40 font-bold text-xs uppercase rounded hover:bg-[#22222e] transition-all">
+        <button onClick={onClose} className="w-full py-2.5 bg-panel hover:bg-panel/70 text-cyan border border-cyan/40 font-bold text-xs uppercase rounded transition-all">
           Acknowledge Trade Code
         </button>
       </div>
     </div>
-  );
+  )
 }
