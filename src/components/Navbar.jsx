@@ -16,6 +16,7 @@ const NAV_STRUCTURE = [
     id: 'movement',
     label: 'Learn // Movement',
     items: [
+      { id: 'consumer-rights', label: 'Consumer Rights (Ownership & Enjoyment)', mobileLabel: 'Consumer Rights' },
       { id: 'sdi-act', label: 'The SDI Vault & Act (2026)', mobileLabel: 'SDI Vault' },
       { id: 'vision', label: 'Future Vision', mobileLabel: 'Vision' },
       { id: 'about', label: 'About Steele Co.', mobileLabel: 'About' },
@@ -57,14 +58,14 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
       {/* Status ticker */}
       <div className="top-banner bg-panel border-b border-hairline text-xs py-2 px-4 flex justify-between items-center text-muted overflow-x-auto whitespace-nowrap">
         <div className="flex items-center gap-3">
-          <span className="flex items-center gap-1.5 text-emerald">
+          <span className="flex items-center gap-1.5 text-emerald font-bold">
             <span className="w-2 h-2 rounded-full bg-emerald animate-pulse" />
             SYSTEM STATUS: ON-PREM SOVEREIGN
           </span>
           <span className="text-hairline">|</span>
-          <span>ZERO THIRD-PARTY TRACKERS</span>
+          <span className="text-gold font-bold">ZERO THIRD-PARTY TRACKERS</span>
           <span className="text-hairline">|</span>
-          <span className="text-cyan">ENCRYPTED LOCAL CONTAINMENT</span>
+          <span className="text-cyan font-bold">ENCRYPTED LOCAL CONTAINMENT</span>
         </div>
         <div className="flex items-center gap-4 font-semibold">
           <button onClick={onOpenDevLog} className="text-cyan hover:underline flex items-center gap-1 transition-colors">
@@ -90,7 +91,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
             <Server className="w-5 h-5 text-cyan" />
           </div>
           <div>
-            <div className="font-bold text-base tracking-wider flex items-center gap-2">
+            <div className="font-bold text-base tracking-wider flex items-center gap-2 text-slate-100">
               STEELE CO.
               <span className="text-cyan text-xs px-1.5 py-0.5 border border-cyan/30 rounded bg-cyan/10">HARDWARE</span>
             </div>
@@ -140,7 +141,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
 
                 {/* Dropdown Menu */}
                 {isOpen && (
-                  <div className="absolute left-0 mt-2 w-64 bg-panel border border-hairline rounded shadow-2xl py-2 z-50 animate-in fade-in duration-150">
+                  <div className="absolute left-0 mt-2 w-72 bg-panel border border-hairline rounded shadow-2xl py-2 z-50 animate-in fade-in duration-150">
                     {group.items.map((item) => (
                       <button
                         key={item.id}
