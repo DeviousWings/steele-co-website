@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
-import { Shield, X, CheckCircle, AlertCircle, Cpu, Zap, Wind } from 'lucide-react'
+import { Shield, X, CheckCircle, AlertCircle, Cpu } from 'lucide-react'
 
-export default function QuoteModal({ isOpen, onClose, selectedConfig }) {
+export default function QuoteModal({ onClose, selectedConfig }) {
   const [submitting, setSubmitting] = useState(false)
   const [succeeded, setSucceeded] = useState(false)
   const [error, setError] = useState(null)
-
-  if (!isOpen) return null
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -16,12 +14,15 @@ export default function QuoteModal({ isOpen, onClose, selectedConfig }) {
     const form = e.target
     const data = new FormData(form)
 
-    // Append custom BOM configuration data if passed from the configurator
+    // Attach custom BOM configuration details if coming from the Configurator
     if (selectedConfig) {
-      data.append('configured_tier', selectedConfig.tier || 'Custom Build')
-      data.append('configured_compute', selectedConfig.compute || 'Standard')
-      data.append('configured_power', selectedConfig.power || 'Standard UPS')
-      data.append('configured_thermal', selectedConfig.thermal || 'Standard Air')
+      data.append('configured_tier', selectedConfig.tier || 'Custom')
+      data.append('storage_capacity', selectedConfig.storage || 'N/A')
+      data.append('maintenance_plan', selectedConfig.maintenance || 'None')
+      data.append('estimated_investment_usd', `$${selectedConfig.estimatedPrice?.toLocaleString()}` || 'N/A')
+      data.append('ups_upgrade', selectedConfig.upsUpgrade)
+      data.append('dual_gpu', selectedConfig.dualGpu)
+      data.append('liquid_cooling', selectedConfig.liquidCooling)
     }
 
     try {
@@ -47,17 +48,17 @@ export default function QuoteModal({ isOpen, onClose, selectedConfig }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-obsidian/85 backdrop-blur-md flex justify-center items-center p-4 overflow-y-auto">
-      <div className="bg-surface border border-cyan rounded-xl max-w-lg w-full p-6 space-y-6 shadow-[0_0_35px_rgba(0,229,255,0.25)] text-slate-200 my-8">
+    <div className="fixed inset-0 z-50 bg-obsidian/80 backdrop-blur-sm flex justify-center items-center p-4 overflow-y-auto">
+      <div className="bg-surface border border-cyan rounded-xl max-w-lg w-full p-6 space-y-6 shadow-[0_0_30px_rgba(0,229,255,0.2)] text-slate-200 my-8">
         
         {/* Modal Header */}
         <div className="flex justify-between items-center border-b border-hairline pb-3">
           <div className="font-bold text-sm uppercase flex items-center gap-2 text-white">
             <Shield className="w-4 h-4 text-cyan" />
-            <span>Secure Space // Custom BOM Booking Intake</span>
+            <span>Secure Space // Custom Deployment Booking</span>
           </div>
-          <button onClick={onClose} className="text-muted hover:text-white transition-colors font-mono text-xs">
-            [ESC]
+          <button onClick={onClose} className="text-muted hover:text-white transition-colors">
+            <X className="w-5 h-5" />
           </button>
         </div>
 
@@ -65,9 +66,9 @@ export default function QuoteModal({ isOpen, onClose, selectedConfig }) {
         {succeeded ? (
           <div className="py-8 text-center space-y-3">
             <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto" />
-            <h3 className="text-sm font-bold uppercase tracking-wider text-white">Custom Specification Transmitted!</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-white">Request Transmitted Successfully!</h3>
             <p className="text-xs text-muted max-w-xs mx-auto leading-relaxed">
-              Your selected BOM configuration and use-case requirements have been securely received. A technician will reach out directly.
+              Your custom build specification and contact details have been received. A technician will send your published BOM directly.
             </p>
             <button
               onClick={onClose}
@@ -80,24 +81,23 @@ export default function QuoteModal({ isOpen, onClose, selectedConfig }) {
           /* Form State */
           <div className="space-y-4">
             
-            {/* Summary Box: Displays what the user selected in the BOM Configurator */}
+            {/* Attached Build Summary Box */}
             {selectedConfig && (
-              <div className="p-3 bg-obsidian border border-cyan/40 rounded-lg space-y-2 text-xs font-mono">
-                <div className="text-[10px] text-cyan font-bold uppercase tracking-wider flex items-center gap-1">
+              <div className="p-3 bg-obsidian border border-cyan/40 rounded-lg space-y-1.5 font-mono text-[11px]">
+                <div className="text-cyan font-bold uppercase flex items-center gap-1.5">
                   <Cpu className="w-3.5 h-3.5" />
-                  <span>Attached Configuration Summary</span>
+                  <span>Attached Config: ${selectedConfig.estimatedPrice?.toLocaleString()}</span>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-muted text-[11px]">
-                  <div><strong className="text-slate-200">Tier:</strong> {selectedConfig.tier || 'Standard'}</div>
-                  <div><strong className="text-slate-200">Compute:</strong> {selectedConfig.compute || 'Standard'}</div>
-                  <div><strong className="text-slate-200">Power:</strong> {selectedConfig.power || 'Standard'}</div>
-                  <div><strong className="text-slate-200">Thermal:</strong> {selectedConfig.thermal || 'Standard'}</div>
+                <div className="text-muted grid grid-cols-2 gap-1">
+                  <div>Platform: <span className="text-slate-200 uppercase">{selectedConfig.tier}</span></div>
+                  <div>Storage: <span className="text-slate-200">{selectedConfig.storage}</span></div>
+                  <div>Plan: <span className="text-gold capitalize">{selectedConfig.maintenance}</span></div>
                 </div>
               </div>
             )}
 
             <p className="text-xs text-muted leading-relaxed">
-              Zero high-pressure sales calls. Complete your contact details and use-case specifications below to route this custom build request.
+              Zero high-pressure sales calls. Submit your installation parameters and use-case requirements to lock in your hardware build configuration.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4 text-xs">
@@ -143,7 +143,7 @@ export default function QuoteModal({ isOpen, onClose, selectedConfig }) {
                 />
               </div>
 
-              {/* Error Message Notification */}
+              {/* Error Notification */}
               {error && (
                 <div className="flex items-center gap-2 text-rose-400 bg-rose-950/30 border border-rose-900/50 p-2.5 rounded">
                   <AlertCircle className="w-4 h-4 shrink-0" />
@@ -155,7 +155,7 @@ export default function QuoteModal({ isOpen, onClose, selectedConfig }) {
               <button 
                 type="submit" 
                 disabled={submitting}
-                className="w-full py-3 bg-cyan text-obsidian font-black uppercase text-xs rounded hover:bg-cyan/80 transition-all shadow-[0_0_15px_rgba(0,229,255,0.2)] disabled:opacity-50"
+                className="w-full py-3 bg-cyan text-obsidian font-black uppercase text-xs rounded hover:bg-cyan/80 transition-all shadow-[0_0_15px_rgba(0,229,255,0.2)] disabled:opacity-50 cursor-pointer"
               >
                 {submitting ? 'Transmitting Secure Request...' : 'Submit Installation Booking Request'}
               </button>
