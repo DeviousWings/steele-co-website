@@ -217,11 +217,9 @@ export default function SovereignTiers({ onRequestQuote }) {
                 <strong>Zero-Trust Guarantee:</strong> Managed Care only monitors read-only hardware thermals and disk S.M.A.R.T. logs. Remote updates require client-gated tunnel activation.
               </span>
             </div>
-
             <button
-              onClick={onRequestQuote}
-              className="w-full py-3.5 bg-cyan hover:bg-cyan/80 text-obsidian font-black text-xs uppercase tracking-wider rounded transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)] flex justify-center items-center gap-2 cursor-pointer"
-            >
+              onClick={() => onRequestQuote(build, price)}
+              className="w-full py-3.5 bg-cyan hover:bg-cyan/80 text-obsidian font-black text-xs uppercase tracking-wider rounded transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)] flex justify-center items-center gap-2 cursor-pointer">
               <Send className="w-4 h-4" />
               <span>Request Installation Booking</span>
             </button>
