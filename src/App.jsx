@@ -20,6 +20,7 @@ import CloudRoi from './pages/CloudRoi'
 import About from './pages/About'
 import Faq from './pages/Faq'
 import FutureVision from './pages/FutureVision'
+import ConsumerRights from './pages/ConsumerRights'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home')
@@ -54,6 +55,11 @@ export default function App() {
         {activeTab === 'about' && <About />}
         {activeTab === 'faq' && <Faq />}
         {activeTab === 'vision' && <FutureVision onOpenQuote={() => setQuoteOpen(true)} />}
+        {activeTab === 'consumer-rights' && (<ConsumerRights 
+    onOpenDraft={() => setDraftOpen(true)} 
+    onOpenQuote={() => setQuoteOpen(true)} 
+  />
+)}
       </main>
 
       {/* Footer */}
