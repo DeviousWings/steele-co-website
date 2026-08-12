@@ -1,115 +1,102 @@
-import React from 'react'
-import { Shield, X, Cpu } from 'lucide-react'
+I have created a Formspree form with the endpoint:
+https://formspree.io/f/xgawyenw
 
-export default function QuoteModal({ onClose, selectedConfig }) {
+What follows are a set of integration guides for different environments: Basic HTML, Vanilla JS (Ajax), and React. Please pick the guide that best matches my website and hosting environment. The guides include simple examples for how to integrate with Formspree but you should use form code tailored to my needs.
+
+---
+
+# Basic HTML
+
+Point your form's `action` attribute at the Formspree endpoint and set the method to `POST`:
+
+```html
+<form action="https://formspree.io/f/xgawyenw" method="POST">
+  <input type="email" name="email" required />
+  <textarea name="message" required></textarea>
+  <button type="submit">Send</button>
+</form>
+```
+
+For more information on special fields and configuration options, see https://help.formspree.io/hc/en-us/articles/360013470814-Submit-forms-with-JavaScript-AJAX
+
+---
+
+# Vanilla JS (Ajax)
+
+This is a guide for connecting a Vanilla JS form to Formspree using AJAX. For convenience, use the `@formspree/ajax` JavaScript library which provides a concise, declarative SDK for managing form state, responding to Formspree errors and manipulating the DOM.
+
+## CDN (no bundler needed)
+
+```html
+<div data-fs-success></div>
+<div data-fs-error></div>
+
+<form id="my-form">
+  <label for="email">Email</label>
+  <input type="email" id="email" name="email" data-fs-field />
+  <span data-fs-error="email"></span>
+
+  <label for="message">Message</label>
+  <textarea id="message" name="message" data-fs-field></textarea>
+  <span data-fs-error="message"></span>
+
+  <button type="submit" data-fs-submit-btn>Send</button>
+</form>
+
+<script>
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+  formspree('initForm', { formElement: '#my-form', formId: 'xgawyenw' });
+</script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+```
+
+## With a bundler (ESM)
+
+```bash
+npm install @formspree/ajax
+```
+
+```js
+import { initForm } from '@formspree/ajax';
+initForm({ formElement: '#my-form', formId: 'xgawyenw' });
+```
+
+Data attributes:
+- `data-fs-field` — input to receive aria-invalid on error
+- `data-fs-error` — displays field-level or form-level error messages
+- `data-fs-success` — displays success message after submission
+- `data-fs-submit-btn` — disabled during submission, re-enabled on completion
+
+For more information, consult the README at https://github.com/formspree/formspree-js/tree/master/packages/formspree-ajax and the AJAX guide at https://help.formspree.io/hc/en-us/articles/360013470814-Submit-forms-with-JavaScript-AJAX
+
+---
+
+# React
+
+```bash
+npm install @formspree/react
+```
+
+```jsx
+import { useForm, ValidationError } from '@formspree/react';
+
+function ContactForm() {
+  const [state, handleSubmit] = useForm('xgawyenw');
+  if (state.succeeded) return <p>Thanks!</p>;
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex justify-center items-center p-4 overflow-y-auto">
-      <div className="bg-slate-900 border border-cyan-400 rounded-xl max-w-lg w-full p-6 space-y-6 shadow-[0_0_35px_rgba(0,229,255,0.25)] text-slate-200 my-8 relative">
-        
-        {/* Modal Header */}
-        <div className="flex justify-between items-center border-b border-slate-800 pb-3">
-          <div className="font-bold text-sm uppercase flex items-center gap-2 text-white">
-            <Shield className="w-4 h-4 text-cyan-400" />
-            <span>Secure Space // Custom Deployment Booking</span>
-          </div>
-          <button 
-            type="button"
-            onClick={onClose} 
-            className="text-slate-400 hover:text-white transition-colors cursor-pointer p-1"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* Formspree Native Action Endpoint */}
-        <form action="https://formspree.io/f/xgawyenw" method="POST" className="space-y-4 text-xs">
-          
-          {/* Visual Summary Box of All Config Choices */}
-          {selectedConfig && (
-            <div className="p-3 bg-slate-950 border border-cyan-500/40 rounded-lg space-y-2 font-mono text-[11px]">
-              <div className="text-cyan-400 font-bold uppercase flex items-center gap-1.5">
-                <Cpu className="w-3.5 h-3.5" />
-                <span>Configured BOM Total: ${selectedConfig.estimatedPrice?.toLocaleString()}</span>
-              </div>
-              <div className="text-slate-400 grid grid-cols-2 gap-1 text-[10px]">
-                <div>Platform: <span className="text-slate-200 uppercase">{selectedConfig.tier}</span></div>
-                <div>Storage: <span className="text-slate-200">{selectedConfig.storage}</span></div>
-                <div>Plan: <span className="text-amber-400 capitalize">{selectedConfig.maintenance}</span></div>
-                <div>UPS Backup: <span className="text-slate-200">{selectedConfig.upsUpgrade}</span></div>
-                <div>Dual GPU: <span className="text-slate-200">{selectedConfig.dualGpu}</span></div>
-                <div>Liquid Cool: <span className="text-slate-200">{selectedConfig.liquidCooling}</span></div>
-                <div>Acoustic Panel: <span className="text-slate-200">{selectedConfig.acousticPanels}</span></div>
-                <div>10Gb Switch: <span className="text-slate-200">{selectedConfig.tenGbSwitch}</span></div>
-              </div>
-
-              {/* Hidden Inputs to Pass Every Single Config Choice to Formspree */}
-              <input type="hidden" name="Selected_Tier" value={selectedConfig.tier || 'N/A'} />
-              <input type="hidden" name="Storage_Capacity" value={selectedConfig.storage || 'N/A'} />
-              <input type="hidden" name="Maintenance_Plan" value={selectedConfig.maintenance || 'N/A'} />
-              <input type="hidden" name="Estimated_Price" value={`$${selectedConfig.estimatedPrice?.toLocaleString()}` || 'N/A'} />
-              <input type="hidden" name="Upgrade_UPS" value={selectedConfig.upsUpgrade || 'No'} />
-              <input type="hidden" name="Upgrade_Dual_GPU" value={selectedConfig.dualGpu || 'No'} />
-              <input type="hidden" name="Upgrade_Liquid_Cooling" value={selectedConfig.liquidCooling || 'No'} />
-              <input type="hidden" name="Upgrade_Acoustic_Panels" value={selectedConfig.acousticPanels || 'No'} />
-              <input type="hidden" name="Upgrade_10Gb_Switch" value={selectedConfig.tenGbSwitch || 'No'} />
-            </div>
-          )}
-
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Zero high-pressure sales calls. Fill out your details below to submit your custom build and installation booking request.
-          </p>
-
-          {/* Name Field */}
-          <div>
-            <label htmlFor="name" className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Contact Name / Business Title</label>
-            <input 
-              id="name"
-              required 
-              type="text" 
-              name="name"
-              placeholder="John Doe" 
-              className="w-full p-2.5 bg-slate-950 border border-slate-800 rounded text-white focus:border-cyan-400 outline-none" 
-            />
-          </div>
-
-          {/* Email Field */}
-          <div>
-            <label htmlFor="email" className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Email Address (Secure Intake)</label>
-            <input 
-              id="email"
-              required 
-              type="email" 
-              name="email"
-              placeholder="john@domain.com" 
-              className="w-full p-2.5 bg-slate-950 border border-slate-800 rounded text-white focus:border-cyan-400 outline-none" 
-            />
-          </div>
-
-          {/* Use Case & Data Storage Description */}
-          <div>
-            <label htmlFor="message" className="block text-[10px] font-bold text-slate-400 uppercase mb-1">
-              Use Case & Data Storage Requirements
-            </label>
-            <textarea 
-              id="message"
-              name="message"
-              rows="3"
-              required
-              placeholder="Briefly describe what you plan to store (e.g., family media vault, legal documents, local AI/Ollama models) and any specific network constraints..." 
-              className="w-full p-2.5 bg-slate-950 border border-slate-800 rounded text-white focus:border-cyan-400 outline-none resize-none" 
-            />
-          </div>
-
-          {/* Native HTML Submit Button */}
-          <button 
-            type="submit"
-            className="w-full py-3 bg-cyan-400 hover:bg-cyan-500 text-slate-950 font-black uppercase text-xs rounded transition-all shadow-[0_0_15px_rgba(0,229,255,0.2)] cursor-pointer"
-          >
-            Submit Installation Booking Request
-          </button>
-        </form>
-
-      </div>
-    </div>
-  )
+    <form onSubmit={handleSubmit}>
+      <input type="email" name="email" required />
+      <ValidationError field="email" errors={state.errors} />
+      <textarea name="message" required />
+      <ValidationError field="message" errors={state.errors} />
+      <button type="submit" disabled={state.submitting}>Send</button>
+    </form>
+  );
 }
+```
+
+For more information, see the @formspree/react documentation at https://github.com/formspree/formspree-js/tree/master/packages/formspree-react and the Formspree React guide at https://help.formspree.io/hc/en-us/articles/360055613373-Formspree-React
+
+---
+
+Based on the tech stack, apply the matching guide above and suggest any needed code changes.
