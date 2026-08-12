@@ -203,7 +203,7 @@ export default function Footer({ onOpenDraft, setActiveTab, onOpenDevLog }) {
             <div className="flex items-center gap-2">
               {/* Glowing Status LED Light */}
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald opacity-75"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald opacity-25"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
               </span>
               <span className="text-emerald font-bold tracking-wider">ON-PREM CONTAINMENT ACTIVE</span>
