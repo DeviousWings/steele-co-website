@@ -1,6 +1,6 @@
 # steele-co-website
 
-# Steele Co. - Sovereign Data Infrastructure Engine
+# 🛡️ Steele Co. // Sovereign Data Infrastructure Engine
 
 > *"If your data lives on their cloud, you don't really own your life."*
 
@@ -15,10 +15,6 @@
 Click the link below to view the active deployment in a new tab:
 * <a href="https://steele-co-website.vercel.app" target="_blank" rel="noopener noreferrer">https://steele-co-website.vercel.app ↗</a>
 
-
-# 🛡️ STEELE CO. // Sovereign Hardware Engine
-
-> **"If your data lives on their cloud, you don't really own your life."**
 
 **Steele Co.** is an advocacy-driven physical trade enterprise specializing in on-premise secure infrastructure, liquid-cooled SOHO server cabinets, whisper-quiet residential racks, and local network defense.
 
