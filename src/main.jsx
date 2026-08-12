@@ -9,5 +9,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
     {/* Vercel Analytics Tracker for React SPA */}
     <Analytics />
+    <SpeedInsights />
   </React.StrictMode>,
 )
