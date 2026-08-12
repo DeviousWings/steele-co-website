@@ -109,9 +109,9 @@ export default function Footer({ onOpenDraft, setActiveTab }) {
             </div>
             <ul className="space-y-2.5">
               <li>
-                <button onClick={() => handleNav('about')} className="hover:text-slate-100 transition-colors text-left">
-                  Consumer Rights <span className="text-[10px] text-muted font-mono">(Ownership & Enjoyment)</span>
-                </button>
+              <button onClick={() => handleNav('consumer-rights')} className="hover:text-slate-100 transition-colors text-left">
+  Consumer Rights <span className="text-[10px] text-muted font-mono">(Ownership & Enjoyment)</span>
+</button>
               </li>
               <li>
                 <button onClick={() => handleNav('sdi-act')} className="hover:text-slate-100 transition-colors text-left">
