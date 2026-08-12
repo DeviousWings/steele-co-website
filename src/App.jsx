@@ -32,6 +32,24 @@ export default function App() {
   const [pdfNoticeOpen, setPdfNoticeOpen] = useState(false)
   const [isDevLogOpen, setIsDevLogOpen] = useState(false)
 
+  // Configuration state passed from SovereignTiers
+  const [currentConfig, setCurrentConfig] = useState(null)
+
+  const handleOpenQuoteWithConfig = (buildData, calculatedPrice) => {
+    setCurrentConfig({
+      tier: buildData.tier,
+      storage: buildData.storageCapacity,
+      maintenance: buildData.maintenancePlan,
+      estimatedPrice: calculatedPrice,
+      upsUpgrade: buildData.upsUpgrade ? 'Included' : 'None',
+      dualGpu: buildData.dualGpu ? 'Included' : 'None',
+      liquidCooling: buildData.liquidCooling ? 'Included' : 'None',
+      acousticPanels: buildData.acousticPanels ? 'Included' : 'None',
+      tenGbSwitch: buildData.tenGbSwitch ? 'Included' : 'None',
+    })
+    setQuoteOpen(true)
+  }
+
   return (
     <div className="min-h-screen bg-obsidian text-slate-200 flex flex-col font-sans">
       
@@ -39,7 +57,7 @@ export default function App() {
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        onOpenQuote={() => setQuoteOpen(true)}
+        onOpenQuote={() => { setCurrentConfig(null); setQuoteOpen(true); }}
         onOpenDraft={() => setDraftOpen(true)}
         onOpenContract={() => setContractOpen(true)}
         onOpenDevLog={() => setIsDevLogOpen(true)}
@@ -48,18 +66,19 @@ export default function App() {
       {/* Main Page Views */}
       <main className="flex-1">
         {activeTab === 'home' && <Home setActiveTab={setActiveTab} />}
-        {activeTab === 'tiers' && <SovereignTiers onRequestQuote={() => setQuoteOpen(true)} />}
+        {activeTab === 'tiers' && <SovereignTiers onRequestQuote={handleOpenQuoteWithConfig} />}
         {activeTab === 'sdi-act' && <SdiActVault onOpenDraft={() => setDraftOpen(true)} />}
         {activeTab === 'expose' && <TechExpose />}
         {activeTab === 'roi' && <CloudRoi setActiveTab={setActiveTab} />}
         {activeTab === 'about' && <About />}
         {activeTab === 'faq' && <Faq />}
-        {activeTab === 'vision' && <FutureVision onOpenQuote={() => setQuoteOpen(true)} />}
-        {activeTab === 'consumer-rights' && (<ConsumerRights 
-    onOpenDraft={() => setDraftOpen(true)} 
-    onOpenQuote={() => setQuoteOpen(true)} 
-  />
-)}
+        {activeTab === 'vision' && <FutureVision onOpenQuote={() => { setCurrentConfig(null); setQuoteOpen(true); }} />}
+        {activeTab === 'consumer-rights' && (
+          <ConsumerRights 
+            onOpenDraft={() => setDraftOpen(true)} 
+            onOpenQuote={() => { setCurrentConfig(null); setQuoteOpen(true); }} 
+          />
+        )}
       </main>
 
       {/* Footer */}
@@ -81,7 +100,7 @@ export default function App() {
           onPrintClick={() => setPdfNoticeOpen(true)} 
         />
       )}
-      {quoteOpen && <QuoteModal onClose={() => setQuoteOpen(false)} />}
+      {quoteOpen && <QuoteModal onClose={() => setQuoteOpen(false)} selectedConfig={currentConfig} />}
       {contractOpen && <ContractModal onClose={() => setContractOpen(false)} />}
       {pdfNoticeOpen && <PdfNoticeModal onClose={() => setPdfNoticeOpen(false)} />}
 
