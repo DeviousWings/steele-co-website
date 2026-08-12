@@ -19,6 +19,7 @@ import TechExpose from './pages/TechExpose'
 import CloudRoi from './pages/CloudRoi'
 import About from './pages/About'
 import Faq from './pages/Faq'
+import FutureVision from './pages/FutureVision'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home')
@@ -52,6 +53,7 @@ export default function App() {
         {activeTab === 'roi' && <CloudRoi setActiveTab={setActiveTab} />}
         {activeTab === 'about' && <About />}
         {activeTab === 'faq' && <Faq />}
+        {activeTab === 'vision' && <FutureVision onOpenQuote={() => setQuoteOpen(true)} />}
       </main>
 
       {/* Footer */}
