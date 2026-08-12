@@ -131,13 +131,35 @@ export default function Footer({ onOpenDraft, setActiveTab, onOpenDevLog }) {
             </ul>
           </div>
 
-          {/* Column 3: Brand, Comms & Advocacy */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-100 mb-3">
-              Advocacy & Field Comms
-            </h4>
-            <ul className="space-y-2 text-xs text-muted">
+          {/* Column 3: Brand, Directives & Field Comms */}
+          <div className="space-y-4">
+            <div className="font-mono text-[11px] text-slate-100 font-bold tracking-widest uppercase flex items-center gap-1.5">
+              <span>Brand & Directives</span>
+            </div>
+            <ul className="space-y-2.5">
               <li>
+                <button onClick={() => handleNav('about')} className="hover:text-slate-100 transition-colors text-left">
+                  About Steele Co. & Ethics
+                </button>
+              </li>
+              <li>
+                <button onClick={onOpenDraft} className="hover:text-slate-100 transition-colors text-left">
+                  Substack Field Notes ↗
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNav('home')} className="hover:text-slate-100 transition-colors text-left">
+                  PGP & Secure Comms Directory
+                </button>
+              </li>
+            </ul>
+
+            {/* External Links Section with Top Hairline Border */}
+            <div className="pt-4 border-t border-hairline space-y-2 text-xs">
+              <div className="font-mono text-[10px] text-cyan uppercase tracking-widest mb-1">
+                Field Media & Support
+              </div>
+              <div>
                 <a 
                   href="https://youtube.com/@yourchannel" 
                   target="_blank" 
@@ -146,18 +168,8 @@ export default function Footer({ onOpenDraft, setActiveTab, onOpenDevLog }) {
                 >
                   <span>Watch: On-Prem Builds & Teardowns ↗</span>
                 </a>
-              </li>
-              <li>
-                <a 
-                  href="https://substack.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="hover:text-cyan transition-colors flex items-center gap-1"
-                >
-                  <span>Substack Field Notes ↗</span>
-                </a>
-              </li>
-              <li>
+              </div>
+              <div>
                 <a 
                   href="https://buymeacoffee.com/yourhandle" 
                   target="_blank" 
@@ -166,8 +178,8 @@ export default function Footer({ onOpenDraft, setActiveTab, onOpenDevLog }) {
                 >
                   <span>☕ Support Independent Hardware Research</span>
                 </a>
-              </li>
-              <li className="pt-2 border-t border-hairline/50">
+              </div>
+              <div className="pt-1">
                 <button 
                   onClick={onOpenDevLog} 
                   className="text-cyan hover:underline transition-colors flex items-center gap-1"
@@ -175,8 +187,8 @@ export default function Footer({ onOpenDraft, setActiveTab, onOpenDevLog }) {
                   <Terminal className="w-3.5 h-3.5" />
                   <span>System Dev Log</span>
                 </button>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
 
         </div>
