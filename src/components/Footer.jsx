@@ -144,6 +144,7 @@ export default function Footer({ onOpenDraft, setActiveTab, onOpenDevLog }) {
               </li>
               <li>
                 <button onClick={onOpenDraft} className="hover:text-slate-100 transition-colors text-left">
+                  {/* https://substack.com/@natdeviouswings */}
                   Substack Field Notes ↗
                 </button>
               </li>
@@ -171,7 +172,7 @@ export default function Footer({ onOpenDraft, setActiveTab, onOpenDevLog }) {
               </div>
               <div>
                 <a 
-                  href="https://buymeacoffee.com/yourhandle" 
+                  href="https://buymeacoffee.com/deviouswings" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-gold hover:underline transition-colors flex items-center gap-1 font-semibold"
