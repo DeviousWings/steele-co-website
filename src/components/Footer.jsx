@@ -1,7 +1,7 @@
 import React from 'react'
-import { Server, Shield, Terminal, Cpu } from 'lucide-react'
+import { Server, Shield, Terminal, Cpu, FileText } from 'lucide-react'
 
-export default function Footer({ onOpenDraft, setActiveTab, onOpenDevLog }) {
+export default function Footer({ onOpenDraft, onOpenContract, setActiveTab, onOpenDevLog }) {
   const handleNav = (tabId) => {
     if (setActiveTab) {
       setActiveTab(tabId)
@@ -126,6 +126,12 @@ export default function Footer({ onOpenDraft, setActiveTab, onOpenDevLog }) {
               <li>
                 <button onClick={() => handleNav('faq')} className="hover:text-white transition-colors text-left">
                   FAQ & Security Standalone Answers
+                </button>
+              </li>
+              <li>
+                <button onClick={onOpenContract} className="hover:text-white transition-colors text-left flex items-center gap-1.5">
+                  <FileText className="w-3 h-3 text-cyan-400" />
+                  <span>"No Data, No Fee" Code</span>
                 </button>
               </li>
             </ul>
