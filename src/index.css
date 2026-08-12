@@ -1,6 +1,17 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* @tailwind base; */
+/* @tailwind components; */
+/* @tailwind utilities; */
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian: #0a0a0c;
+  --color-surface: #121216;
+  --color-panel: #1a1a22;
+  --color-hairline: #262630;
+  --color-cyan: #00e5ff;
+  --color-gold: #ffd700;
+  --color-muted: #8a8a9e;
+}
 
 ::-webkit-scrollbar {
   width: 6px;

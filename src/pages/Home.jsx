@@ -13,7 +13,6 @@ export default function Home({ setActiveTab }) {
           </div>
 
           <h1 className="text-3xl lg:text-5xl font-black tracking-tight leading-tight uppercase text-white">
-            // TEST SITE //
             If your data lives on their cloud, <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan via-white to-cyan">
               you don't really own your life.

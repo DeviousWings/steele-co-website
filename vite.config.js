@@ -5,5 +5,7 @@ import react from '@vitejs/plugin-react'
 // https://github.com/DeviousWings/steele-co-website -> '/steele-co-website/'
 export default defineConfig({
   plugins: [react()],
+  // base: '/steele-co-website/',
   base: '/',
+  
 })
