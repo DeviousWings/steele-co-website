@@ -14,15 +14,17 @@ export default function QuoteModal({ onClose, selectedConfig }) {
     const form = e.target
     const data = new FormData(form)
 
-    // Attach custom BOM configuration details if coming from the Configurator
+    // Dynamically inject all custom BOM configuration choices into the Formspree payload
     if (selectedConfig) {
-      data.append('configured_tier', selectedConfig.tier || 'Custom')
-      data.append('storage_capacity', selectedConfig.storage || 'N/A')
-      data.append('maintenance_plan', selectedConfig.maintenance || 'None')
-      data.append('estimated_investment_usd', `$${selectedConfig.estimatedPrice?.toLocaleString()}` || 'N/A')
-      data.append('ups_upgrade', selectedConfig.upsUpgrade)
-      data.append('dual_gpu', selectedConfig.dualGpu)
-      data.append('liquid_cooling', selectedConfig.liquidCooling)
+      data.append('Selected_Tier', selectedConfig.tier || 'N/A')
+      data.append('Storage_Capacity', selectedConfig.storage || 'N/A')
+      data.append('Maintenance_Plan', selectedConfig.maintenance || 'N/A')
+      data.append('Estimated_Price_USD', `$${selectedConfig.estimatedPrice?.toLocaleString()}` || 'N/A')
+      data.append('Upgrade_UPS', selectedConfig.upsUpgrade)
+      data.append('Upgrade_Dual_GPU', selectedConfig.dualGpu)
+      data.append('Upgrade_Liquid_Cooling', selectedConfig.liquidCooling)
+      data.append('Upgrade_Acoustic_Panels', selectedConfig.acousticPanels)
+      data.append('Upgrade_10Gb_Switch', selectedConfig.tenGbSwitch)
     }
 
     try {
@@ -48,8 +50,8 @@ export default function QuoteModal({ onClose, selectedConfig }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-obsidian/80 backdrop-blur-sm flex justify-center items-center p-4 overflow-y-auto">
-      <div className="bg-surface border border-cyan rounded-xl max-w-lg w-full p-6 space-y-6 shadow-[0_0_30px_rgba(0,229,255,0.2)] text-slate-200 my-8">
+    <div className="fixed inset-0 z-50 bg-obsidian/85 backdrop-blur-md flex justify-center items-center p-4 overflow-y-auto">
+      <div className="bg-surface border border-cyan rounded-xl max-w-lg w-full p-6 space-y-6 shadow-[0_0_35px_rgba(0,229,255,0.25)] text-slate-200 my-8">
         
         {/* Modal Header */}
         <div className="flex justify-between items-center border-b border-hairline pb-3">
@@ -57,7 +59,7 @@ export default function QuoteModal({ onClose, selectedConfig }) {
             <Shield className="w-4 h-4 text-cyan" />
             <span>Secure Space // Custom Deployment Booking</span>
           </div>
-          <button onClick={onClose} className="text-muted hover:text-white transition-colors">
+          <button onClick={onClose} className="text-muted hover:text-white transition-colors cursor-pointer">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -68,11 +70,11 @@ export default function QuoteModal({ onClose, selectedConfig }) {
             <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto" />
             <h3 className="text-sm font-bold uppercase tracking-wider text-white">Request Transmitted Successfully!</h3>
             <p className="text-xs text-muted max-w-xs mx-auto leading-relaxed">
-              Your custom build specification and contact details have been received. A technician will send your published BOM directly.
+              Your complete hardware build configuration and requirements have been received. A technician will review and reach out directly.
             </p>
             <button
               onClick={onClose}
-              className="mt-4 py-2.5 px-6 bg-cyan text-obsidian font-black uppercase text-xs rounded hover:bg-cyan/80 transition-all"
+              className="mt-4 py-2.5 px-6 bg-cyan text-obsidian font-black uppercase text-xs rounded hover:bg-cyan/80 transition-all cursor-pointer"
             >
               Close Window
             </button>
@@ -81,23 +83,26 @@ export default function QuoteModal({ onClose, selectedConfig }) {
           /* Form State */
           <div className="space-y-4">
             
-            {/* Attached Build Summary Box */}
+            {/* Visual Summary Box of All Config Choices */}
             {selectedConfig && (
-              <div className="p-3 bg-obsidian border border-cyan/40 rounded-lg space-y-1.5 font-mono text-[11px]">
+              <div className="p-3 bg-obsidian border border-cyan/40 rounded-lg space-y-2 font-mono text-[11px]">
                 <div className="text-cyan font-bold uppercase flex items-center gap-1.5">
                   <Cpu className="w-3.5 h-3.5" />
-                  <span>Attached Config: ${selectedConfig.estimatedPrice?.toLocaleString()}</span>
+                  <span>Configured BOM Total: ${selectedConfig.estimatedPrice?.toLocaleString()}</span>
                 </div>
-                <div className="text-muted grid grid-cols-2 gap-1">
+                <div className="text-muted grid grid-cols-2 gap-1 text-[10px]">
                   <div>Platform: <span className="text-slate-200 uppercase">{selectedConfig.tier}</span></div>
                   <div>Storage: <span className="text-slate-200">{selectedConfig.storage}</span></div>
                   <div>Plan: <span className="text-gold capitalize">{selectedConfig.maintenance}</span></div>
+                  <div>UPS Backup: <span className="text-slate-200">{selectedConfig.upsUpgrade}</span></div>
+                  <div>Dual GPU: <span className="text-slate-200">{selectedConfig.dualGpu}</span></div>
+                  <div>Liquid Cool: <span className="text-slate-200">{selectedConfig.liquidCooling}</span></div>
                 </div>
               </div>
             )}
 
             <p className="text-xs text-muted leading-relaxed">
-              Zero high-pressure sales calls. Submit your installation parameters and use-case requirements to lock in your hardware build configuration.
+              Zero high-pressure sales calls. Fill out your details below to submit your custom build and installation booking request.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4 text-xs">
