@@ -131,26 +131,26 @@ export default function Footer({ onOpenDraft, setActiveTab, onOpenDevLog }) {
             </ul>
           </div>
 
-          {/* Column 3: Brand, Directives & Field Comms */}
+            {/* Column 3: Brand & Directives */}
           <div className="space-y-4">
             <div className="font-mono text-[11px] text-slate-100 font-bold tracking-widest uppercase flex items-center gap-1.5">
+              <Terminal className="w-3.5 h-3.5 text-cyan" />
               <span>Brand & Directives</span>
             </div>
             <ul className="space-y-2.5">
               <li>
                 <button onClick={() => handleNav('about')} className="hover:text-slate-100 transition-colors text-left">
-                  About Steele Co. & Ethics
-                </button>
-              </li>
-              <li>
-                <button onClick={onOpenDraft} className="hover:text-slate-100 transition-colors text-left">
-                  {/* https://substack.com/@natdeviouswings */}
-                  Substack Field Notes ↗
+                  About Steele Co. <span className="text-[10px] text-muted font-mono">(Trade Skills & Family)</span>
                 </button>
               </li>
               <li>
                 <button onClick={() => handleNav('home')} className="hover:text-slate-100 transition-colors text-left">
-                  PGP & Secure Comms Directory
+                  Substack Field Notes & Articles <span className="text-[10px] text-muted font-mono">(Guides)</span>
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNav('about')} className="hover:text-slate-100 transition-colors text-left">
+                  Contact & Secure Comms <span className="text-[10px] text-cyan font-mono">(PGP & Inquiries)</span>
                 </button>
               </li>
             </ul>
