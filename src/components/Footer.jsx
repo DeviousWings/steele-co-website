@@ -131,7 +131,7 @@ export default function Footer({ onOpenDraft, setActiveTab, onOpenDevLog }) {
             </ul>
           </div>
 
-            {/* Column 3: Brand & Directives */}
+         {/* Column 3: Brand & Directives */}
           <div className="space-y-4">
             <div className="font-mono text-[11px] text-slate-100 font-bold tracking-widest uppercase flex items-center gap-1.5">
               <Terminal className="w-3.5 h-3.5 text-cyan" />
