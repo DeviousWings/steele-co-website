@@ -131,25 +131,26 @@ export default function Footer({ onOpenDraft, setActiveTab, onOpenDevLog }) {
             </ul>
           </div>
 
-          {/* Column 3: Brand, Directives & Field Comms */}
+          {/* Column 3: Brand & Directives */}
           <div className="space-y-4">
             <div className="font-mono text-[11px] text-slate-100 font-bold tracking-widest uppercase flex items-center gap-1.5">
+              <Terminal className="w-3.5 h-3.5 text-cyan-400" />
               <span>Brand & Directives</span>
             </div>
             <ul className="space-y-2.5">
               <li>
                 <button onClick={() => handleNav('about')} className="hover:text-white transition-colors text-left">
-                  About Steele Co. & Ethics
-                </button>
-              </li>
-              <li>
-                <button onClick={onOpenDraft} className="hover:text-white transition-colors text-left">
-                  Substack Field Notes ↗
+                  About Steele Co. <span className="text-[10px] text-slate-400 font-mono">(Trade Skills & Family)</span>
                 </button>
               </li>
               <li>
                 <button onClick={() => handleNav('home')} className="hover:text-white transition-colors text-left">
-                  PGP & Secure Comms Directory
+                  Substack Field Notes & Articles <span className="text-[10px] text-slate-400 font-mono">(Guides)</span>
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNav('about')} className="hover:text-white transition-colors text-left">
+                  Contact & Secure Comms <span className="text-[10px] text-cyan-400 font-mono">(PGP & Inquiries)</span>
                 </button>
               </li>
             </ul>
@@ -193,16 +194,17 @@ export default function Footer({ onOpenDraft, setActiveTab, onOpenDevLog }) {
 
         </div>
 
-        {/* Bottom Copyright Bar with Glowing LED */}
+        {/* Bottom Copyright Bar with High-Visibility LED */}
         <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center text-slate-400 font-mono text-[10px] gap-4">
           <div>
             © {new Date().getFullYear()} STEELE CO. ALL RIGHTS RESERVED. ZERO THIRD-PARTY TRACKERS.
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+              {/* High-Visibility Glowing LED Status Light */}
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-90"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400 shadow-[0_0_10px_#34d399]"></span>
               </span>
               <span className="text-emerald-400 font-bold tracking-wider">ON-PREM CONTAINMENT ACTIVE</span>
             </div>
