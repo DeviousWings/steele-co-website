@@ -1,5 +1,7 @@
 # steele-co-website
-Live Site: https://deviouswings.github.io/steele-co-website/
+
+Live Site: <a href="https://your-preview-link.vercel.app" target="_blank" rel="noopener noreferrer">[Open Preview Site](https://deviouswings.github.io/steele-co-website/)</a> 
+
 # 🛡️ STEELE CO. // Sovereign Hardware Engine
 
 > **"If your data lives on their cloud, you don't really own your life."**
