@@ -1,7 +1,7 @@
 import React from 'react'
 import { Server, Shield, Terminal, Cpu } from 'lucide-react'
 
-export default function Footer({ onOpenDraft, setActiveTab }) {
+export default function Footer({ onOpenDraft, setActiveTab, onOpenDevLog }) {
   const handleNav = (tabId) => {
     if (setActiveTab) {
       setActiveTab(tabId)
@@ -10,7 +10,7 @@ export default function Footer({ onOpenDraft, setActiveTab }) {
   }
 
   return (
-    <footer className="no-print bg-obsidian border-t border-hairline pt-16 pb-12 px-4 lg:px-8 text-xs font-sans">
+    <footer className="no-print bg-obsidian border-t border-hairline pt-16 pb-12 px-4 lg:px-8 text-xs font-sans text-slate-200">
       <div className="max-w-7xl mx-auto space-y-12">
         
         {/* Top Section: Brand Thesis & Family/Trade Background */}
@@ -33,11 +33,11 @@ export default function Footer({ onOpenDraft, setActiveTab }) {
             {/* Radical Transparency & Family Focus Note */}
             <div className="p-4 bg-surface border border-hairline rounded-lg leading-relaxed text-muted">
               <span className="text-cyan font-bold">🤖 Radical Transparency Note:</span> This site was built
-              using a mix of AI assistance and my expert web dev skills. Look, I'm just a guy on a budget with
+              using a mix of AI assistance and my expert web dev skills. Look, I&apos;m just a guy on a budget with
               very little free time, and every hour saved wrestling with React code at 2 AM is an extra hour I
               get to spend playing with my kids and hanging out with my family. Hardware is my trade—AI was
               just my shortcut home for dinner!
-              <br/> 
+              <br/>
               <span className="text-slate-400 font-mono text-[11px]">
                 Website status: Work in progress, August 2026.
               </span>
@@ -109,9 +109,9 @@ export default function Footer({ onOpenDraft, setActiveTab }) {
             </div>
             <ul className="space-y-2.5">
               <li>
-              <button onClick={() => handleNav('consumer-rights')} className="hover:text-slate-100 transition-colors text-left">
-  Consumer Rights <span className="text-[10px] text-muted font-mono">(Ownership & Enjoyment)</span>
-</button>
+                <button onClick={() => handleNav('consumer-rights')} className="hover:text-slate-100 transition-colors text-left">
+                  Consumer Rights <span className="text-[10px] text-muted font-mono">(Ownership & Enjoyment)</span>
+                </button>
               </li>
               <li>
                 <button onClick={() => handleNav('sdi-act')} className="hover:text-slate-100 transition-colors text-left">
@@ -154,6 +154,42 @@ export default function Footer({ onOpenDraft, setActiveTab }) {
                 </button>
               </li>
             </ul>
+
+            {/* External Links Section with Top Hairline Border */}
+            <div className="pt-4 border-t border-hairline space-y-2 text-xs">
+              <div className="font-mono text-[10px] text-cyan uppercase tracking-widest mb-1">
+                Field Media & Support
+              </div>
+              <div>
+                <a 
+                  href="https://youtube.com/@yourchannel" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-cyan transition-colors flex items-center gap-1"
+                >
+                  <span>Watch: On-Prem Builds & Teardowns ↗</span>
+                </a>
+              </div>
+              <div>
+                <a 
+                  href="https://buymeacoffee.com/deviouswings" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-gold hover:underline transition-colors flex items-center gap-1 font-semibold"
+                >
+                  <span>☕ Support Independent Hardware Research</span>
+                </a>
+              </div>
+              <div className="pt-1">
+                <button 
+                  onClick={onOpenDevLog} 
+                  className="text-cyan hover:underline transition-colors flex items-center gap-1"
+                >
+                  <Terminal className="w-3.5 h-3.5" />
+                  <span>System Dev Log</span>
+                </button>
+              </div>
+            </div>
           </div>
 
         </div>

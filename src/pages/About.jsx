@@ -125,6 +125,35 @@ export default function About() {
           View Master Draft ↗
         </a>
       </div>
+      {/* Contextual Support & Community Panel */}
+<div className="mt-12 p-6 bg-panel border border-hairline rounded-lg shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+  <div>
+    <div className="text-sm font-bold text-slate-100 uppercase tracking-wider mb-1">
+      Independent Infrastructure Advocacy
+    </div>
+    <p className="text-xs text-muted max-w-xl">
+      Steele Co. operates entirely free of cloud vendor lock-in, tracking cookies, and corporate backing. Every video build log, hardware teardown, and open-source protocol draft is funded independently.
+    </p>
+  </div>
+  <div className="flex items-center gap-3 whitespace-nowrap">
+    <a
+      href="https://buymeacoffee.com/deviouswings"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-gold hover:bg-gold/80 text-obsidian font-bold px-4 py-2.5 rounded text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(255,215,0,0.2)]"
+    >
+      ☕ Support the Mission
+    </a>
+    <a
+      href="https://youtube.com/@yourchannel"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="border border-cyan/40 text-cyan hover:bg-cyan/10 font-bold px-4 py-2.5 rounded text-xs uppercase tracking-wider transition-all"
+    >
+      YouTube Demos ↗
+    </a>
+  </div>
+</div>
 
     </div>
   )
