@@ -1,5 +1,5 @@
 # steele-co-website
-
+Live Site: https://deviouswings.github.io/steele-co-website/
 # 🛡️ STEELE CO. // Sovereign Hardware Engine
 
 > **"If your data lives on their cloud, you don't really own your life."**
