@@ -131,30 +131,53 @@ export default function Footer({ onOpenDraft, setActiveTab }) {
             </ul>
           </div>
 
-          {/* Column 3: Brand & Directives */}
-          <div className="space-y-4">
-            <div className="font-mono text-[11px] text-slate-100 font-bold tracking-widest uppercase flex items-center gap-1.5">
-              <Terminal className="w-3.5 h-3.5 text-cyan" />
-              <span>Brand & Directives</span>
-            </div>
-            <ul className="space-y-2.5">
-              <li>
-                <button onClick={() => handleNav('about')} className="hover:text-slate-100 transition-colors text-left">
-                  About Steele Co. <span className="text-[10px] text-muted font-mono">(Trade Skills & Family)</span>
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('home')} className="hover:text-slate-100 transition-colors text-left">
-                  Substack Field Notes & Articles <span className="text-[10px] text-muted font-mono">(Guides)</span>
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('about')} className="hover:text-slate-100 transition-colors text-left">
-                  Contact & Secure Comms <span className="text-[10px] text-cyan font-mono">(PGP & Inquiries)</span>
-                </button>
-              </li>
-            </ul>
-          </div>
+          {/* Column 3: Brand, Comms & Advocacy */}
+<div>
+  <h4 className="text-xs font-bold uppercase tracking-widest text-slate-100 mb-3">
+    Advocacy & Field Comms
+  </h4>
+  <ul className="space-y-2 text-xs text-muted">
+    <li>
+      <a 
+        href="https://youtube.com/@yourchannel" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="hover:text-cyan transition-colors flex items-center gap-1"
+      >
+        <span>Watch: On-Prem Builds & Teardowns ↗</span>
+      </a>
+    </li>
+    <li>
+      <a 
+        href="https://substack.com" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="hover:text-cyan transition-colors flex items-center gap-1"
+      >
+        <span>Substack Field Notes ↗</span>
+      </a>
+    </li>
+    <li>
+      <a 
+        href="https://buymeacoffee.com/yourhandle" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="text-gold hover:underline transition-colors flex items-center gap-1 font-semibold"
+      >
+        <span>☕ Support Independent Hardware Research</span>
+      </a>
+    </li>
+    <li className="pt-2 border-t border-hairline/50">
+      <button 
+        onClick={onOpenDevLog} 
+        className="text-cyan hover:underline transition-colors flex items-center gap-1"
+      >
+        <Terminal className="w-3.5 h-3.5" />
+        <span>System Dev Log</span>
+      </button>
+    </li>
+  </ul>
+</div>
 
         </div>
 
