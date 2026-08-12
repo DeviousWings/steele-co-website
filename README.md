@@ -1,8 +1,19 @@
 # steele-co-website
 
+# Steele Co. - Sovereign Data Infrastructure Engine
+
+> *"If your data lives on their cloud, you don't really own your life."*
+
+---
+
+### 🌐 Live Production & Preview
+
 <a href="https://steele-co-website.vercel.app" target="_blank" rel="noopener noreferrer">
-  🚀 Open Live Preview Site (Steele Co. // Tech)
+  <img src="https://img.shields.io/badge/Vercel-Live_Preview-00e5ff?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Preview" />
 </a>
+
+Click the link below to view the active deployment in a new tab:
+* <a href="https://steele-co-website.vercel.app" target="_blank" rel="noopener noreferrer">https://steele-co-website.vercel.app ↗</a>
 
 
 # 🛡️ STEELE CO. // Sovereign Hardware Engine
