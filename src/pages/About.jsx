@@ -137,7 +137,7 @@ export default function About() {
   </div>
   <div className="flex items-center gap-3 whitespace-nowrap">
     <a
-      href="https://buymeacoffee.com/yourhandle"
+      href="https://buymeacoffee.com/deviouswings"
       target="_blank"
       rel="noopener noreferrer"
       className="bg-gold hover:bg-gold/80 text-obsidian font-bold px-4 py-2.5 rounded text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(255,215,0,0.2)]"
