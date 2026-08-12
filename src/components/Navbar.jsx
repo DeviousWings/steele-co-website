@@ -168,16 +168,6 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
 
         {/* Right Action Buttons */}
         <div className="flex items-center gap-2">
-          <a
-            href="https://buymeacoffee.com/deviouswings"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden lg:flex border border-gold/40 text-gold hover:bg-gold/10 font-mono px-3 py-2.5 rounded text-xs uppercase tracking-wider transition-all items-center gap-2"
-          >
-            <Coffee className="w-3.5 h-3.5" />
-            <span>Support</span>
-          </a>
-
           <button
             onClick={onOpenDevLog}
             className="hidden sm:flex border border-cyan/40 text-cyan hover:bg-cyan/10 font-mono px-3 py-2.5 rounded text-xs uppercase tracking-wider transition-all items-center gap-2"
