@@ -54,33 +54,47 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
 
   return (
     <>
-      {/* Status ticker */}
-      <div className="top-banner bg-panel border-b border-hairline text-xs py-2 px-4 flex justify-between items-center text-muted overflow-x-auto whitespace-nowrap">
-        <div className="flex items-center gap-3">
-          <span className="flex items-center gap-1.5 text-emerald">
-            <span className="w-2 h-2 rounded-full bg-emerald animate-pulse" />
-            SYSTEM STATUS: ON-PREM SOVEREIGN
-          </span>
-          <span className="text-hairline">|</span>
-          <span>ZERO THIRD-PARTY TRACKERS</span>
-          <span className="text-hairline">|</span>
-          <span className="text-cyan">ENCRYPTED LOCAL CONTAINMENT</span>
-        </div>
-        <div className="flex items-center gap-4 font-semibold">
-          <button onClick={onOpenDevLog} className="text-cyan hover:underline flex items-center gap-1 transition-colors">
-            <Terminal className="w-3.5 h-3.5" />
-            <span>LIVE DEV LOG</span>
-          </button>
-          <span className="text-hairline">|</span>
-          <button onClick={onOpenDraft} className="text-gold hover:underline flex items-center gap-1">
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>SDI ACT MASTER DRAFT: JULY 2026 ↗</span>
-          </button>
-          <button onClick={onOpenContract} className="hover:text-cyan underline transition-colors">
-            "NO DATA, NO FEE" CODE
-          </button>
-        </div>
-      </div>
+      {/* Status ticker with vibrant color accents */}
+<div className="top-banner bg-panel border-b border-hairline text-xs py-2 px-4 flex justify-between items-center text-muted overflow-x-auto whitespace-nowrap">
+  <div className="flex items-center gap-3 font-mono font-medium">
+    {/* 1. Emerald Status */}
+    <span className="flex items-center gap-1.5 text-emerald font-bold">
+      <span className="w-2 h-2 rounded-full bg-emerald animate-pulse" />
+      SYSTEM STATUS: ON-PREM SOVEREIGN
+    </span>
+    
+    <span className="text-hairline">|</span>
+    
+    {/* 2. Gold Tracker Accent */}
+    <span className="text-gold font-bold flex items-center gap-1">
+      <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+      ZERO THIRD-PARTY TRACKERS
+    </span>
+    
+    <span className="text-hairline">|</span>
+    
+    {/* 3. Cyan Encryption Accent */}
+    <span className="text-cyan font-bold flex items-center gap-1">
+      <span className="w-1.5 h-1.5 rounded-full bg-cyan" />
+      ENCRYPTED LOCAL CONTAINMENT
+    </span>
+  </div>
+
+  <div className="flex items-center gap-4 font-semibold">
+    <button onClick={onOpenDevLog} className="text-cyan hover:underline flex items-center gap-1 transition-colors">
+      <Terminal className="w-3.5 h-3.5" />
+      <span>LIVE DEV LOG</span>
+    </button>
+    <span className="text-hairline">|</span>
+    <button onClick={onOpenDraft} className="text-gold hover:underline flex items-center gap-1">
+      <BookOpen className="w-3.5 h-3.5" />
+      <span>SDI ACT MASTER DRAFT: JULY 2026 ↗</span>
+    </button>
+    <button onClick={onOpenContract} className="hover:text-cyan underline transition-colors">
+      "NO DATA, NO FEE" CODE
+    </button>
+  </div>
+</div>
 
       {/* Main nav */}
       <nav ref={navRef} className="no-print sticky top-0 z-40 bg-obsidian/90 backdrop-blur-md border-b border-hairline px-4 lg:px-8 py-3.5 flex justify-between items-center">
