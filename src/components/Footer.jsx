@@ -200,7 +200,14 @@ export default function Footer({ onOpenDraft, setActiveTab, onOpenDevLog }) {
             © {new Date().getFullYear()} STEELE CO. ALL RIGHTS RESERVED. ZERO THIRD-PARTY TRACKERS.
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-emerald">● ON-PREM CONTAINMENT ACTIVE</span>
+            <div className="flex items-center gap-2">
+              {/* Glowing Status LED Light */}
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+              </span>
+              <span className="text-emerald font-bold tracking-wider">ON-PREM CONTAINMENT ACTIVE</span>
+            </div>
             <span>|</span>
             <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-cyan transition-colors">
               BACK TO TOP ↑
