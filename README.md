@@ -1,6 +1,9 @@
 # steele-co-website
 
-Live Site: <a href="https://steele-co-website.vercel.app/" target="_blank" rel="noopener noreferrer">[Steele Co. // Tech]</a> 
+<a href="https://steele-co-website.vercel.app" target="_blank" rel="noopener noreferrer">
+  🚀 Open Live Preview Site (Steele Co. // Tech)
+</a>
+
 
 # 🛡️ STEELE CO. // Sovereign Hardware Engine
 
