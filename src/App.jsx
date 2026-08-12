@@ -53,7 +53,7 @@ export default function App() {
         {activeTab === 'roi' && <CloudRoi setActiveTab={setActiveTab} />}
         {activeTab === 'about' && <About />}
         {activeTab === 'faq' && <Faq />}
-        {activeTab === 'vision' && <FutureVision onOpenQuote={handleOpenQuote} />}
+        {activeTab === 'vision' && <FutureVision onOpenQuote={() => setQuoteOpen(true)} />}
       </main>
 
       {/* Footer */}
