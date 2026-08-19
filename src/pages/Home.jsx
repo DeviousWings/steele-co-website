@@ -1,5 +1,6 @@
 import { AlertTriangle, CheckCircle, ChevronRight, FileText, Shield } from 'lucide-react'
 import TerminalMonitor from '../components/TerminalMonitor'
+import CloudRoiCalculator from '../components/CloudRoiCalculator'
 
 export default function Home({ setActiveTab }) {
   return (
@@ -53,6 +54,20 @@ export default function Home({ setActiveTab }) {
           <TerminalMonitor />
         </div>
       </div>
+
+      {/* --- FINANCIAL IMPACT ANALYSIS: CLOUD BLEED VS. FIXED ON-PREM --- */}
+      <section className="bg-surface border border-cyan/30 rounded-xl p-6 lg:p-8 space-y-6 shadow-[0_0_30px_rgba(0,229,255,0.05)]">
+        <div className="border-b border-hairline pb-4 space-y-2">
+          <div className="text-xs text-cyan font-bold uppercase tracking-widest">// FINANCIAL TRANSITION MODEL</div>
+          <h2 className="text-2xl lg:text-3xl font-black uppercase text-white">Cloud Bleed vs. Fixed On-Prem ROI</h2>
+          <p className="text-xs text-muted max-w-3xl">
+            Calculate how much revenue leaks into monthly cloud subscriptions versus a one-time Steele Co. sovereign rack purchase.
+          </p>
+        </div>
+
+        {/* Embedded Calculator Component */}
+        <CloudRoiCalculator onBuildClick={() => setActiveTab('tiers')} />
+      </section>
 
       {/* Manifesto */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
