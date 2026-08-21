@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Send, SlidersHorizontal, ShieldCheck, Wrench } from 'lucide-react'
+import { Send, SlidersHorizontal, ShieldCheck, Wrench, ExternalLink } from 'lucide-react'
 import { TIERS, UPGRADES, STORAGE_OPTIONS } from '../data/tiersData'
 import homeServerImg from '../images/home_server.png'
 
@@ -18,7 +18,7 @@ export default function SovereignTiers({ onRequestQuote }) {
     acousticPanels: true,
     tenGbSwitch: true,
     storageCapacity: '32TB',
-    maintenancePlan: 'sentinel', // Default to Sentinel Care
+    maintenancePlan: 'sentinel',
   })
 
   const [isBlueprintOpen, setIsBlueprintOpen] = useState(false)
@@ -241,31 +241,44 @@ export default function SovereignTiers({ onRequestQuote }) {
         </div>
       </div>
 
-      {/* Blueprint Modal Overlay */}
+      {/* Blueprint Modal Overlay with Direct Open-in-New-Tab Link */}
       {isBlueprintOpen && (
-        <div className="fixed inset-0 z-50 bg-obsidian/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-obsidian/85 backdrop-blur-md flex items-center justify-center p-4">
           <div className="bg-surface border-2 border-cyan rounded-xl max-w-4xl w-full p-6 space-y-4 shadow-[0_0_30px_rgba(0,229,255,0.2)]">
             <div className="flex justify-between items-center border-b border-hairline pb-3">
-              <div className="text-xs font-bold text-cyan uppercase tracking-widest">
-                // SYSTEM BLUEPRINT & BOM VISUALIZATION
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-bold text-cyan uppercase tracking-widest">
+                  // SYSTEM BLUEPRINT & HARDWARE TOPOLOGY
+                </span>
+                <a
+                  href={homeServerImg}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 bg-obsidian border border-cyan/40 text-cyan rounded hover:bg-cyan hover:text-obsidian transition-all"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Open Full Image Tab</span>
+                </a>
               </div>
               <button
                 type="button"
                 onClick={() => setIsBlueprintOpen(false)}
-                className="text-muted hover:text-white text-xs font-bold px-2 py-1 border border-hairline rounded cursor-pointer"
+                className="text-muted hover:text-white text-xs font-bold px-2.5 py-1 border border-hairline rounded cursor-pointer"
               >
                 [ESC / CLOSE]
               </button>
             </div>
 
             <div className="space-y-3">
-              <img
-                src={homeServerImg}
-                alt="Sovereign Infrastructure Hardware Deployment Diagram"
-                className="w-full rounded border border-hairline object-cover max-h-[60vh]"
-              />
+              <div className="overflow-hidden rounded border border-hairline bg-obsidian flex justify-center items-center p-2">
+                <img
+                  src={homeServerImg}
+                  alt="Sovereign Infrastructure Hardware Deployment Diagram"
+                  className="w-full object-cover max-h-[60vh] rounded"
+                />
+              </div>
               <p className="text-[11px] text-muted text-center">
-                Visual mapping of the 24U silent enclosure, liquid cooling loop, ZFS RAID array, and AC Infinity climate control engine.
+                Visual representation of a complete sovereign hardware build configured for your space. Click the link above to view the full-size image in a separate tab.
               </p>
             </div>
           </div>
