@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Send, SlidersHorizontal, ShieldCheck, Wrench } from 'lucide-react'
 import { TIERS, UPGRADES, STORAGE_OPTIONS } from '../data/tiersData'
+import homeServerImg from '../images/home_server.png'
 
 const MAINTENANCE_OPTIONS = [
   { id: 'none', label: 'Self-Managed (No Plan)', monthly: 0, desc: 'Full root access. You handle OS updates & backups.' },
@@ -19,6 +20,8 @@ export default function SovereignTiers({ onRequestQuote }) {
     storageCapacity: '32TB',
     maintenancePlan: 'sentinel', // Default to Sentinel Care
   })
+
+  const [isBlueprintOpen, setIsBlueprintOpen] = useState(false)
 
   const toggle = (key) => setBuild((prev) => ({ ...prev, [key]: !prev[key] }))
 
@@ -217,6 +220,17 @@ export default function SovereignTiers({ onRequestQuote }) {
                 <strong>Zero-Trust Guarantee:</strong> Managed Care only monitors read-only hardware thermals and disk S.M.A.R.T. logs. Remote updates require client-gated tunnel activation.
               </span>
             </div>
+
+            {/* Blueprint Modal Trigger Button */}
+            <button
+              type="button"
+              onClick={() => setIsBlueprintOpen(true)}
+              className="w-full py-2.5 bg-obsidian hover:bg-panel text-cyan border border-cyan/40 hover:border-cyan font-bold text-xs uppercase tracking-wider rounded transition-all flex justify-center items-center gap-2 cursor-pointer"
+            >
+              <SlidersHorizontal className="w-4 h-4" />
+              <span>View Architecture Blueprint</span>
+            </button>
+
             <button
               onClick={() => onRequestQuote(build, price)}
               className="w-full py-3.5 bg-cyan hover:bg-cyan/80 text-obsidian font-black text-xs uppercase tracking-wider rounded transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)] flex justify-center items-center gap-2 cursor-pointer">
@@ -226,6 +240,37 @@ export default function SovereignTiers({ onRequestQuote }) {
           </div>
         </div>
       </div>
+
+      {/* Blueprint Modal Overlay */}
+      {isBlueprintOpen && (
+        <div className="fixed inset-0 z-50 bg-obsidian/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-surface border-2 border-cyan rounded-xl max-w-4xl w-full p-6 space-y-4 shadow-[0_0_30px_rgba(0,229,255,0.2)]">
+            <div className="flex justify-between items-center border-b border-hairline pb-3">
+              <div className="text-xs font-bold text-cyan uppercase tracking-widest">
+                // SYSTEM BLUEPRINT & BOM VISUALIZATION
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsBlueprintOpen(false)}
+                className="text-muted hover:text-white text-xs font-bold px-2 py-1 border border-hairline rounded cursor-pointer"
+              >
+                [ESC / CLOSE]
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              <img
+                src={homeServerImg}
+                alt="Sovereign Infrastructure Hardware Deployment Diagram"
+                className="w-full rounded border border-hairline object-cover max-h-[60vh]"
+              />
+              <p className="text-[11px] text-muted text-center">
+                Visual mapping of the 24U silent enclosure, liquid cooling loop, ZFS RAID array, and AC Infinity climate control engine.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
