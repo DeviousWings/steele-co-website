@@ -13,7 +13,7 @@
 </a>
 
 Click the link below to view the active deployment in a new tab:
-* <a href="https://steele-tech.vercel.app" target="_blank" rel="noopener noreferrer">https://steele-co-website.vercel.app ↗</a>
+* <a href="https://steele-tech.vercel.app" target="_blank" rel="noopener noreferrer">https://steele-tech.vercel.app ↗</a>
 
 
 **Steele Co.** is an advocacy-driven physical trade enterprise specializing in on-premise secure infrastructure, liquid-cooled SOHO server cabinets, whisper-quiet residential racks, and local network defense.
