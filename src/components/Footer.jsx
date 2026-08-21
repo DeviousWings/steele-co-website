@@ -38,6 +38,7 @@ export default function Footer({ onOpenDraft, onOpenContract, setActiveTab, onOp
               get to spend playing with my kids and hanging out with my family. Hardware is my trade—AI was
               just my shortcut home for dinner!
               <br/>
+              Steele Tech. is a division of Steele Co. Pioneering data sovereignty and secure infrastructure.
               <span className="text-slate-400 font-mono text-[11px] block mt-2">
                 Website status: Work in progress, August 2026.
               </span>
