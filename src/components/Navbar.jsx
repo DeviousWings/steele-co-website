@@ -19,7 +19,7 @@ const NAV_STRUCTURE = [
       { id: 'consumer-rights', label: 'Consumer Rights (Ownership & Enjoyment)', mobileLabel: 'Consumer Rights' },
       { id: 'sdi-act', label: 'The SDI Vault & Act (2026)', mobileLabel: 'SDI Vault' },
       { id: 'vision', label: 'Future Vision', mobileLabel: 'Vision' },
-      { id: 'about', label: 'About STEELE TECH..', mobileLabel: 'About' },
+      { id: 'about', label: 'About STEELE TECH.', mobileLabel: 'About' },
     ],
   },
 ]
@@ -97,7 +97,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
           </div>
           <div>
             <div className="font-bold text-base tracking-wider flex items-center gap-2 text-slate-100">
-              STEELE TECH..
+              STEELE TECH.
               <span className="text-cyan text-xs px-1.5 py-0.5 border border-cyan/30 rounded bg-cyan/10">HARDWARE</span>
             </div>
             <div className="text-[10px] text-muted tracking-widest uppercase">Sovereign Data Infrastructure</div>
