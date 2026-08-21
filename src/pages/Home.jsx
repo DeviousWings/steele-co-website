@@ -61,7 +61,7 @@ export default function Home({ setActiveTab }) {
           <div className="text-xs text-cyan font-bold uppercase tracking-widest">// FINANCIAL TRANSITION MODEL</div>
           <h2 className="text-2xl lg:text-3xl font-black uppercase text-white">Cloud Bleed vs. Fixed On-Prem ROI</h2>
           <p className="text-xs text-muted max-w-3xl">
-            Calculate how much revenue leaks into monthly cloud subscriptions versus a one-time Steele Co. sovereign rack purchase.
+            Calculate how much revenue leaks into monthly cloud subscriptions versus a one-time Steele TECH. sovereign rack purchase.
           </p>
         </div>
 
@@ -101,7 +101,7 @@ export default function Home({ setActiveTab }) {
           <div className="p-5 bg-panel border border-hairline rounded-lg space-y-3">
             <h4 className="text-sm font-bold text-gold uppercase flex items-center gap-2">
               <Shield className="w-4 h-4" />
-              <span>The Steele Co. Physical Boundary Principle</span>
+              <span>The Steele TECH. Physical Boundary Principle</span>
             </h4>
             <p className="text-xs text-muted leading-relaxed">
               We apply strict constitutional property rights to the digital self. Your smart home commands,
