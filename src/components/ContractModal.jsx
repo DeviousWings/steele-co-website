@@ -21,7 +21,7 @@ export default function ContractModal({ onClose }) {
             routing, and server build is executed under a published flat-rate matrix.
           </p>
           <p>
-            2. <strong className="text-slate-200">NO DATA, NO FEE GUARANTEE:</strong> If Steele Co. deploys a
+            2. <strong className="text-slate-200">NO DATA, NO FEE GUARANTEE:</strong> If STEELE TECH. deploys a
             localized backup remediation vault or failover array, and your system fails to restore during
             final verification testing, labor costs are $0.
           </p>
