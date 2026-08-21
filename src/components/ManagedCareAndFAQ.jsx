@@ -27,7 +27,7 @@ export default function ManagedCareAndFAQ({ onRequestQuote }) {
     },
     {
       q: "Why pay for maintenance if I'm trying to avoid monthly subscriptions?",
-      a: "Cloud SaaS subscriptions charge you rent forever just to access software and harvest your data. Steele Co. Managed Care is optional human labor—like hiring a lawn care company or mechanic. You own the asset outright; you're simply paying for expert hands to keep the hardware running smoothly."
+      a: "Cloud SaaS subscriptions charge you rent forever just to access software and harvest your data. Steele TECH. Managed Care is optional human labor—like hiring a lawn care company or mechanic. You own the asset outright; you're simply paying for expert hands to keep the hardware running smoothly."
     }
   ]
 
