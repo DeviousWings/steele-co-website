@@ -7,7 +7,7 @@ export default function ContractModal({ onClose }) {
         <div className="flex justify-between items-center border-b border-hairline pb-3">
           <div className="font-bold text-sm uppercase flex items-center gap-2">
             <FileText className="w-4 h-4 text-emerald" />
-            <span>Steele Co. Trade Code & "No Data, No Fee" Policy</span>
+            <span>STEELE TECH. Trade Code & "No Data, No Fee" Policy</span>
           </div>
           <button onClick={onClose} className="text-muted hover:text-white">
             <X className="w-5 h-5" />
