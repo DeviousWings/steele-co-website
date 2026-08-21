@@ -8,7 +8,7 @@
 
 ### 🌐 Live Production & Preview
 
-<a href="https://steele-co-website.vercel.app" target="_blank" rel="noopener noreferrer">
+<a href="https://steele-tech.vercel.app" target="_blank" rel="noopener noreferrer">
   <img src="https://img.shields.io/badge/Vercel-Live_Preview-00e5ff?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Preview" />
 </a>
 
