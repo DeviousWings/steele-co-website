@@ -79,7 +79,7 @@ export default function TerminalMonitor() {
   return (
     <div className="bg-surface border border-hairline rounded-lg overflow-hidden shadow-2xl">
       {/* Titlebar */}
-      <div className="bg-panel px-4 py-3 border-b border-hairline flex justify-between items-center">
+      <div className="bg-panel px-4 py-3 border-b border-hairline flex flex-wrap justify-between items-center gap-2">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-rose-500/80" />
           <div className="w-3 h-3 rounded-full bg-gold/80" />
@@ -87,12 +87,12 @@ export default function TerminalMonitor() {
           <span className="text-xs font-bold text-slate-200 ml-2 tracking-wide font-mono flex items-center gap-2">
             <span className="text-cyan">STEELE_DEFENSE_MONITOR</span>
             <span className="text-hairline">//</span>
-            <span className="text-muted">TERMINAL</span>
+            <span className="text-muted hidden sm:inline">TERMINAL</span>
           </span>
         </div>
         <span className="text-[10px] text-cyan font-mono flex items-center gap-1.5 bg-cyan/10 border border-cyan/30 px-2 py-0.5 rounded">
           <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse" />
-          SIMULATION // ON-PREM NODE
+          SIM // ON-PREM NODE
         </span>
       </div>
 
