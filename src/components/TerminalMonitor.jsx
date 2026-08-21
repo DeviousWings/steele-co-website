@@ -92,7 +92,7 @@ export default function TerminalMonitor() {
         </div>
         <span className="text-[10px] text-cyan font-mono flex items-center gap-1.5 bg-cyan/10 border border-cyan/30 px-2 py-0.5 rounded">
           <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse" />
-          LIVE // ON-PREM NODE
+          SIMULATION // ON-PREM NODE
         </span>
       </div>
 
