@@ -23,7 +23,7 @@ export default function Footer({ onOpenDraft, onOpenContract, setActiveTab, onOp
               </div>
               <div>
                 <div className="font-bold text-base tracking-wider text-slate-100 flex items-center gap-2">
-                  STEELE CO.
+                 STEELE TECH.
                   <span className="text-cyan-400 text-xs px-1.5 py-0.5 border border-cyan-500/30 rounded bg-cyan-950/40">HARDWARE</span>
                 </div>
                 <div className="text-[10px] text-slate-400 tracking-widest uppercase">Sovereign Data Infrastructure</div>
@@ -37,6 +37,7 @@ export default function Footer({ onOpenDraft, onOpenContract, setActiveTab, onOp
               very little free time, and every hour saved wrestling with React code at 2 AM is an extra hour I
               get to spend playing with my kids and hanging out with my family. Hardware is my trade—AI was
               just my shortcut home for dinner!
+              <br/>
               <br/>
               Steele Tech. is a division of Steele Co. Pioneering data sovereignty and secure infrastructure.
               <span className="text-slate-400 font-mono text-[11px] block mt-2">
@@ -147,7 +148,7 @@ export default function Footer({ onOpenDraft, onOpenContract, setActiveTab, onOp
             <ul className="space-y-2.5">
               <li>
                 <button onClick={() => handleNav('about')} className="hover:text-white transition-colors text-left">
-                  About Steele Co. <span className="text-[10px] text-slate-400 font-mono">(Trade Skills & Family)</span>
+                  About STEELE TECH. <span className="text-[10px] text-slate-400 font-mono">(Trade Skills & Family)</span>
                 </button>
               </li>
               <li>
