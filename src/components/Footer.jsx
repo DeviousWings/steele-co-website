@@ -161,12 +161,6 @@ export default function Footer({ onOpenDraft, onOpenContract, setActiveTab, onOp
                   Contact & Secure Comms <span className="text-[10px] text-cyan-400 font-mono">(PGP & Inquiries)</span>
                 </button>
               </li>
-              <li>
-                <button onClick={() => handleNav('about')} className="hover:text-white transition-colors text-left">
-                  Contact & Secure Comms <span className="text-[10px] text-cyan-400 font-mono">(PGP & Inquiries)</span>
-                </button>
-              </li>
-              {/* Added Link Block */}
               <li className="pt-2">
                 <a 
                   href="https://black-forge-space-industries.vercel.app" 
@@ -178,11 +172,6 @@ export default function Footer({ onOpenDraft, onOpenContract, setActiveTab, onOp
                 </a>
                 <p className="text-[10px] text-slate-500 mt-0.5">SLA Fabrication & Hardware Hub</p>
               </li>
-              {/* End Added Link Block */}
-            </ul>
-
-            {/* External Links Section with Top Hairline Border */}
-            <div className="pt-4 border-t border-slate-800 space-y-2 text-xs">
             </ul>
 
             {/* External Links Section with Top Hairline Border */}
