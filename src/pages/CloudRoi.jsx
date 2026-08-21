@@ -8,7 +8,7 @@ export default function CloudRoi({ setActiveTab }) {
         <h1 className="text-3xl font-black uppercase text-white">Cloud Bleed vs. Fixed On-Prem ROI Calculator</h1>
         <p className="text-xs text-muted max-w-3xl">
           Calculate how much revenue your household or business leaks into monthly cloud subscriptions
-          versus a one-time Steele Co. sovereign rack purchase.
+          versus a one-time STEELE TECH. sovereign rack purchase.
         </p>
       </div>
 
