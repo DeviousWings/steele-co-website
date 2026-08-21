@@ -21,7 +21,7 @@ export default function About() {
           <span className="text-cyan">Digital sovereignty</span> is the mission.
         </h1>
         <p className="text-base text-muted max-w-3xl leading-relaxed">
-          Inspired by the practical, no-BS ethos of pioneers like <a href="https://rossmanngroup.com/louis-rossmann">Louis Rossmann</a> and the <a href="https://consumerrights.wiki/w/Main_Page">Right to Repair</a> movement, Steele Co. wasn't built in a corporate boardroom—it was built out of necessity, frustration with cloud tethers, and a fundamental belief in physical ownership.
+          Inspired by the practical, no-BS ethos of pioneers like <a href="https://rossmanngroup.com/louis-rossmann">Louis Rossmann</a> and the <a href="https://consumerrights.wiki/w/Main_Page">Right to Repair</a> movement, STEELE TECH. wasn't built in a corporate boardroom—it was built out of necessity, frustration with cloud tethers, and a fundamental belief in physical ownership.
         </p>
       </div>
 
@@ -73,7 +73,7 @@ export default function About() {
       <div className="space-y-6">
         <h2 className="text-lg font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2 border-b border-hairline pb-3">
           <ShieldCheck className="w-5 h-5 text-emerald" />
-          <span>The Steele Co. Operational Guarantees</span>
+          <span>The STEELE TECH. Operational Guarantees</span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -132,7 +132,7 @@ export default function About() {
       Independent Infrastructure Advocacy
     </div>
     <p className="text-xs text-muted max-w-xl">
-      Steele Co. operates entirely free of cloud vendor lock-in, tracking cookies, and corporate backing. Every video build log, hardware teardown, and open-source protocol draft is funded independently.
+      STEELE TECH. operates entirely free of cloud vendor lock-in, tracking cookies, and corporate backing. Every video build log, hardware teardown, and open-source protocol draft is funded independently.
     </p>
   </div>
   <div className="flex items-center gap-3 whitespace-nowrap">
