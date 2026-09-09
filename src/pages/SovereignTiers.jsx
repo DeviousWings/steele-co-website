@@ -1,23 +1,23 @@
 import { useMemo, useState } from 'react'
-import { Send, SlidersHorizontal, ShieldCheck, Wrench } from 'lucide-react'
+import { Send, SlidersHorizontal, ShieldCheck, Wrench, Lock } from 'lucide-react'
 import { TIERS, UPGRADES, STORAGE_OPTIONS } from '../data/tiersData'
 
 const MAINTENANCE_OPTIONS = [
-  { id: 'none', label: 'Self-Managed (No Plan)', monthly: 0, desc: 'Full root access. You handle OS updates & backups.' },
-  { id: 'sentinel', label: 'Sentinel Care', monthly: 49, desc: '24/7 read-only thermals & client-gated patch tunnels.' },
-  { id: 'enterprise', label: 'Enterprise Care', monthly: 149, desc: 'Priority drive swap, cluster care & local AI tuning.' },
+  { id: 'none', label: 'Self-Managed (No Plan)', monthly: 0, desc: 'Full root access. You retain total sovereignty over updates & local backups.' },
+  { id: 'sentinel', label: 'Sentinel Care', monthly: 49, desc: '24/7 read-only thermal checks & client-gated secure patch tunnels.' },
+  { id: 'enterprise', label: 'Enterprise Care', monthly: 149, desc: 'Priority drive swap, cluster health tracking, and custom local AI tuning.' },
 ]
 
 export default function SovereignTiers({ onRequestQuote }) {
   const [build, setBuild] = useState({
     tier: 'tier2',
     upsUpgrade: true,
-    dualGpu: true,
-    liquidCooling: true,
+    dualGpu: false,
+    liquidCooling: false,
     acousticPanels: true,
     tenGbSwitch: true,
     storageCapacity: '32TB',
-    maintenancePlan: 'sentinel', // Default to Sentinel Care
+    maintenancePlan: 'sentinel',
   })
 
   const toggle = (key) => setBuild((prev) => ({ ...prev, [key]: !prev[key] }))
@@ -35,11 +35,10 @@ export default function SovereignTiers({ onRequestQuote }) {
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 lg:py-12 space-y-12">
       <div className="border-b border-hairline pb-6 space-y-2">
-        <div className="text-xs text-cyan font-bold uppercase tracking-widest">// INFRASTRUCTURE CATALOG</div>
-        <h1 className="text-3xl font-black uppercase text-white">Sovereign Deployment Tiers & Hardware BOM</h1>
+        <div className="text-xs text-cyan font-bold uppercase tracking-widest">// PLEBS SECURITY // ANTI-CLOUD INFRASTRUCTURE</div>
+        <h1 className="text-3xl font-black uppercase text-white">Sovereign Deployment Tiers & Local Hardware BOM</h1>
         <p className="text-xs text-muted max-w-3xl">
-          Transparent fixed-rate pricing. Every package includes custom length cable trimming, thermal
-          testing, acoustic dampening, and full root hardware access.
+          Zero Big Tech cloud dependencies. Zero telemetry. Every system is hard-engineered for absolute data ownership, local ZFS redundancy, and local AI/NVR control.
         </p>
       </div>
 
@@ -57,20 +56,23 @@ export default function SovereignTiers({ onRequestQuote }) {
           {/* Step 1: Baseline Chassis Platform */}
           <div className="space-y-2">
             <label className="text-xs font-bold text-muted uppercase">1. Select Baseline Chassis Platform</label>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {TIERS.map((t) => (
                 <button
                   key={t.id}
                   type="button"
                   onClick={() => setBuild((prev) => ({ ...prev, tier: t.id }))}
-                  className={`p-3 rounded text-left border transition-all text-xs cursor-pointer ${
+                  className={`p-3 rounded text-left border transition-all text-xs cursor-pointer flex flex-col justify-between ${
                     build.tier === t.id
                       ? 'bg-panel border-cyan text-white shadow-[0_0_10px_rgba(0,229,255,0.15)]'
                       : 'bg-obsidian border-hairline text-muted hover:border-muted'
                   }`}
                 >
-                  <div className="font-bold">{t.label}</div>
-                  <div className="text-[10px] text-cyan mt-1">Base: ${t.base.toLocaleString()}</div>
+                  <div>
+                    <div className="font-bold">{t.name}</div>
+                    <div className="text-[10px] text-muted mt-1 leading-tight">{t.desc}</div>
+                  </div>
+                  <div className="text-[11px] text-cyan font-bold mt-3">Base: ${t.base.toLocaleString()}</div>
                 </button>
               ))}
             </div>
@@ -78,7 +80,7 @@ export default function SovereignTiers({ onRequestQuote }) {
 
           {/* Step 2: Thermal, Power & Compute Upgrades */}
           <div className="space-y-3 border-t border-hairline pt-4">
-            <label className="text-xs font-bold text-muted uppercase">2. Thermal, Power & Compute Upgrades</label>
+            <label className="text-xs font-bold text-muted uppercase">2. Hardware, Power & Thermal Upgrades</label>
             <div className="space-y-2">
               {UPGRADES.map((item) => (
                 <div
@@ -105,7 +107,7 @@ export default function SovereignTiers({ onRequestQuote }) {
 
           {/* Step 3: Local Encrypted Storage Capacity */}
           <div className="space-y-2 border-t border-hairline pt-4">
-            <label className="text-xs font-bold text-muted uppercase">3. Local Encrypted Storage Capacity</label>
+            <label className="text-xs font-bold text-muted uppercase">3. Local Encrypted Storage Capacity (ZFS Array)</label>
             <div className="grid grid-cols-4 gap-2 text-xs">
               {STORAGE_OPTIONS.map((s) => (
                 <button
@@ -133,7 +135,7 @@ export default function SovereignTiers({ onRequestQuote }) {
                 <span>4. Optional Zero-Trust Maintenance Plan</span>
               </label>
               <span className="text-[10px] text-cyan font-mono font-bold uppercase">
-                // Pipe vs. Payload Protected
+                // Air-Gap Protected
               </span>
             </div>
 
@@ -164,7 +166,6 @@ export default function SovereignTiers({ onRequestQuote }) {
               ))}
             </div>
           </div>
-
         </div>
 
         {/* Right Column: Live Price & Summary Box */}
@@ -214,12 +215,14 @@ export default function SovereignTiers({ onRequestQuote }) {
             <div className="p-3 bg-surface border border-hairline rounded flex items-start gap-2.5 text-[10px] text-muted">
               <ShieldCheck className="w-4 h-4 text-emerald shrink-0 mt-0.5" />
               <span>
-                <strong>Zero-Trust Guarantee:</strong> Managed Care only monitors read-only hardware thermals and disk S.M.A.R.T. logs. Remote updates require client-gated tunnel activation.
+                <strong>Plebs Security Guarantee:</strong> No corporate telemetry or forced cloud tunneling. All core compute loops execute locally under your direct hardware ownership.
               </span>
             </div>
+
             <button
               onClick={() => onRequestQuote(build, price)}
-              className="w-full py-3.5 bg-cyan hover:bg-cyan/80 text-obsidian font-black text-xs uppercase tracking-wider rounded transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)] flex justify-center items-center gap-2 cursor-pointer">
+              className="w-full py-3.5 bg-cyan hover:bg-cyan/80 text-obsidian font-black text-xs uppercase tracking-wider rounded transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)] flex justify-center items-center gap-2 cursor-pointer"
+            >
               <Send className="w-4 h-4" />
               <span>Request Installation Booking</span>
             </button>
