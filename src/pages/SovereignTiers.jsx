@@ -1,22 +1,22 @@
 import { useMemo, useState } from 'react'
-import { Send, SlidersHorizontal, ShieldCheck, Wrench, Lock } from 'lucide-react'
+import { Send, SlidersHorizontal, ShieldCheck, Wrench } from 'lucide-react'
 import { TIERS, UPGRADES, STORAGE_OPTIONS } from '../data/tiersData'
 
 const MAINTENANCE_OPTIONS = [
-  { id: 'none', label: 'Self-Managed (No Plan)', monthly: 0, desc: 'Full root access. You retain total sovereignty over updates & local backups.' },
-  { id: 'sentinel', label: 'Sentinel Care', monthly: 49, desc: '24/7 read-only thermal checks & client-gated secure patch tunnels.' },
-  { id: 'enterprise', label: 'Enterprise Care', monthly: 149, desc: 'Priority drive swap, cluster health tracking, and custom local AI tuning.' },
+  { id: 'none', label: 'Self-Managed (No Plan)', monthly: 0, desc: 'Full root access. You handle updates & local backups.' },
+  { id: 'sentinel', label: 'Sentinel Care', monthly: 49, desc: '24/7 read-only thermals & client-gated patch tunnels.' },
+  { id: 'enterprise', label: 'Enterprise Care', monthly: 149, desc: 'Priority drive swap, cluster care & local AI tuning.' },
 ]
 
 export default function SovereignTiers({ onRequestQuote }) {
   const [build, setBuild] = useState({
-    tier: 'tier2',
+    tier: 'tier1',
+    routerModem: true,
+    smartHomeHub: true,
+    cloudBackupOpt: true,
     upsUpgrade: true,
-    dualGpu: false,
-    liquidCooling: false,
-    acousticPanels: true,
-    tenGbSwitch: true,
-    storageCapacity: '32TB',
+    dualGpu: true,
+    storageCapacity: '16TB', // 3rd option selected by default
     maintenancePlan: 'sentinel',
   })
 
@@ -35,10 +35,10 @@ export default function SovereignTiers({ onRequestQuote }) {
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 lg:py-12 space-y-12">
       <div className="border-b border-hairline pb-6 space-y-2">
-        <div className="text-xs text-cyan font-bold uppercase tracking-widest">// PLEBS SECURITY // ANTI-CLOUD INFRASTRUCTURE</div>
-        <h1 className="text-3xl font-black uppercase text-white">Sovereign Deployment Tiers & Local Hardware BOM</h1>
+        <div className="text-xs text-cyan font-bold uppercase tracking-widest">// INFRASTRUCTURE CATALOG</div>
+        <h1 className="text-3xl font-black uppercase text-white">Sovereign Deployment Tiers & Hardware BOM</h1>
         <p className="text-xs text-muted max-w-3xl">
-          Zero Big Tech cloud dependencies. Zero telemetry. Every system is hard-engineered for absolute data ownership, local ZFS redundancy, and local AI/NVR control.
+          Fixed-rate pricing engineered for absolute data ownership, local backup, and optional private AI acceleration.
         </p>
       </div>
 
@@ -78,9 +78,9 @@ export default function SovereignTiers({ onRequestQuote }) {
             </div>
           </div>
 
-          {/* Step 2: Thermal, Power & Compute Upgrades */}
+          {/* Step 2: Non-Negotiables & Upgrades */}
           <div className="space-y-3 border-t border-hairline pt-4">
-            <label className="text-xs font-bold text-muted uppercase">2. Hardware, Power & Thermal Upgrades</label>
+            <label className="text-xs font-bold text-muted uppercase">2. Network Hardware & Options (All Selected by Default)</label>
             <div className="space-y-2">
               {UPGRADES.map((item) => (
                 <div
@@ -107,8 +107,8 @@ export default function SovereignTiers({ onRequestQuote }) {
 
           {/* Step 3: Local Encrypted Storage Capacity */}
           <div className="space-y-2 border-t border-hairline pt-4">
-            <label className="text-xs font-bold text-muted uppercase">3. Local Encrypted Storage Capacity (ZFS Array)</label>
-            <div className="grid grid-cols-4 gap-2 text-xs">
+            <label className="text-xs font-bold text-muted uppercase">3. Local Encrypted Storage Capacity (Mirrored Pairs)</label>
+            <div className="grid grid-cols-3 gap-2 text-xs">
               {STORAGE_OPTIONS.map((s) => (
                 <button
                   key={s.size}
@@ -121,7 +121,7 @@ export default function SovereignTiers({ onRequestQuote }) {
                   }`}
                 >
                   <div>{s.size}</div>
-                  <div className="text-[9px] mt-0.5">{s.label}</div>
+                  <div className="text-[9px] mt-0.5">+${s.price}</div>
                 </button>
               ))}
             </div>
@@ -134,9 +134,6 @@ export default function SovereignTiers({ onRequestQuote }) {
                 <Wrench className="w-3.5 h-3.5 text-cyan" />
                 <span>4. Optional Zero-Trust Maintenance Plan</span>
               </label>
-              <span className="text-[10px] text-cyan font-mono font-bold uppercase">
-                // Air-Gap Protected
-              </span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
@@ -195,7 +192,7 @@ export default function SovereignTiers({ onRequestQuote }) {
                 </div>
                 <div className="flex justify-between border-b border-hairline/60 pb-1">
                   <span>Storage Vault:</span>
-                  <span className="font-bold">{build.storageCapacity} Local ZFS Raid-Z2</span>
+                  <span className="font-bold">{build.storageCapacity} Mirrored Pair</span>
                 </div>
                 <div className="flex justify-between border-b border-hairline/60 pb-1">
                   <span>Maintenance Service:</span>
@@ -215,7 +212,7 @@ export default function SovereignTiers({ onRequestQuote }) {
             <div className="p-3 bg-surface border border-hairline rounded flex items-start gap-2.5 text-[10px] text-muted">
               <ShieldCheck className="w-4 h-4 text-emerald shrink-0 mt-0.5" />
               <span>
-                <strong>Plebs Security Guarantee:</strong> No corporate telemetry or forced cloud tunneling. All core compute loops execute locally under your direct hardware ownership.
+                <strong>Sovereign Guarantee:</strong> All core hardware configurations include network-wide ad-blocking and local storage management under your direct ownership.
               </span>
             </div>
 
