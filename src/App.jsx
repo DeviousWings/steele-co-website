@@ -24,7 +24,7 @@ import ConsumerRights from './pages/ConsumerRights'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home')
-  
+
   // Modal & Drawer State
   const [quoteOpen, setQuoteOpen] = useState(false)
   const [contractOpen, setContractOpen] = useState(false)
@@ -35,25 +35,48 @@ export default function App() {
   // Configuration state passed from SovereignTiers
   const [currentConfig, setCurrentConfig] = useState(null)
 
-const handleOpenQuoteWithConfig = (buildData, calculatedPrice) => {
-    setCurrentConfig({
-      tier: buildData.tier,
-      storage: buildData.storageCapacity,
-      maintenance: buildData.maintenancePlan,
-      estimatedPrice: calculatedPrice,
-      // Pass all step 2 toggle upgrades explicitly
-      upsUpgrade: buildData.upsUpgrade ? 'Yes' : 'No',
-      dualGpu: buildData.dualGpu ? 'Yes' : 'No',
-      liquidCooling: buildData.liquidCooling ? 'Yes' : 'No',
-      acousticPanels: buildData.acousticPanels ? 'Yes' : 'No',
-      tenGbSwitch: buildData.tenGbSwitch ? 'Yes' : 'No',
-    })
+  // Handles quote requests from BOTH configurators:
+  // - Desk Node (DeskNodeConfigurator): passes { tier: 'Desk Node', smartHome, surveillance, storage }
+  // - SOHO Vault / Home Core (legacy BOM configurator): passes { tier: 'tier2'|'tier3', upsUpgrade, dualGpu, ... }
+  const handleOpenQuoteWithConfig = (buildData, calculatedPrice) => {
+    const isDeskNode = buildData.tier === 'Desk Node'
+
+    if (isDeskNode) {
+      setCurrentConfig({
+        tier: 'Desk Node',
+        storage: buildData.storage || 'None',
+        maintenance: 'N/A (labor-based quote)',
+        estimatedPrice: calculatedPrice,
+        smartHome: buildData.smartHome ? 'Yes' : 'No',
+        surveillance: buildData.surveillance ? 'Yes' : 'No',
+        // Keep these keys present so QuoteModal's optional fields don't break
+        upsUpgrade: 'N/A',
+        dualGpu: 'N/A',
+        liquidCooling: 'N/A',
+        acousticPanels: 'N/A',
+        tenGbSwitch: 'N/A',
+      })
+    } else {
+      setCurrentConfig({
+        tier: buildData.tier,
+        storage: buildData.storageCapacity,
+        maintenance: buildData.maintenancePlan,
+        estimatedPrice: calculatedPrice,
+        upsUpgrade: buildData.upsUpgrade ? 'Yes' : 'No',
+        dualGpu: buildData.dualGpu ? 'Yes' : 'No',
+        liquidCooling: buildData.liquidCooling ? 'Yes' : 'No',
+        acousticPanels: buildData.acousticPanels ? 'Yes' : 'No',
+        tenGbSwitch: buildData.tenGbSwitch ? 'Yes' : 'No',
+        smartHome: 'N/A',
+        surveillance: 'N/A',
+      })
+    }
     setQuoteOpen(true)
   }
 
   return (
     <div className="min-h-screen bg-obsidian text-slate-200 flex flex-col font-sans">
-      
+
       {/* Top Navigation */}
       <Navbar
         activeTab={activeTab}
@@ -75,17 +98,17 @@ const handleOpenQuoteWithConfig = (buildData, calculatedPrice) => {
         {activeTab === 'faq' && <Faq />}
         {activeTab === 'vision' && <FutureVision onOpenQuote={() => { setCurrentConfig(null); setQuoteOpen(true); }} />}
         {activeTab === 'consumer-rights' && (
-          <ConsumerRights 
-            onOpenDraft={() => setDraftOpen(true)} 
-            onOpenQuote={() => { setCurrentConfig(null); setQuoteOpen(true); }} 
+          <ConsumerRights
+            onOpenDraft={() => setDraftOpen(true)}
+            onOpenQuote={() => { setCurrentConfig(null); setQuoteOpen(true); }}
           />
         )}
       </main>
 
       {/* Footer */}
-      <Footer 
-        onOpenDraft={() => setDraftOpen(true)} 
-        setActiveTab={setActiveTab} 
+      <Footer
+        onOpenDraft={() => setDraftOpen(true)}
+        setActiveTab={setActiveTab}
       />
 
       {/* Dev Log / Roadmap Slide-Over Drawer */}
@@ -96,9 +119,9 @@ const handleOpenQuoteWithConfig = (buildData, calculatedPrice) => {
 
       {/* Modals */}
       {draftOpen && (
-        <MasterDraftModal 
-          onClose={() => setDraftOpen(false)} 
-          onPrintClick={() => setPdfNoticeOpen(true)} 
+        <MasterDraftModal
+          onClose={() => setDraftOpen(false)}
+          onPrintClick={() => setPdfNoticeOpen(true)}
         />
       )}
       {quoteOpen && <QuoteModal onClose={() => setQuoteOpen(false)} selectedConfig={currentConfig} />}
