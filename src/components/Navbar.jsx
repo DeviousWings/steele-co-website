@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Server, Shield, BookOpen, Terminal, ChevronDown, ChevronUp, Coffee } from 'lucide-react'
+import { Server, Shield, BookOpen, ChevronDown, ChevronUp, Coffee } from 'lucide-react'
 
 const NAV_STRUCTURE = [
   { id: 'home', type: 'link', label: 'Home // Positioning', mobileLabel: 'Home' },
@@ -24,7 +24,7 @@ const NAV_STRUCTURE = [
   },
 ]
 
-export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDraft, onOpenContract, onOpenDevLog }) {
+export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDraft, onOpenContract }) {
   const [openDropdown, setOpenDropdown] = useState(null)
   const navRef = useRef(null)
 
@@ -75,11 +75,6 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
             <Coffee className="w-3.5 h-3.5" />
             <span>SUPPORT RESEARCH ↗</span>
           </a>
-          <span className="text-hairline">|</span>
-          <button onClick={onOpenDevLog} className="text-cyan hover:underline flex items-center gap-1 transition-colors">
-            <Terminal className="w-3.5 h-3.5" />
-            <span>LIVE DEV LOG</span>
-          </button>
           <span className="text-hairline">|</span>
           <button onClick={onOpenDraft} className="text-gold hover:underline flex items-center gap-1">
             <BookOpen className="w-3.5 h-3.5" />
@@ -143,7 +138,6 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
                     <ChevronDown className="w-3.5 h-3.5 text-muted group-hover:text-slate-200" />
                   )}
                 </button>
-
                 {isOpen && (
                   <div className="absolute left-0 mt-2 w-72 bg-panel border border-hairline rounded shadow-2xl py-2 z-50 animate-in fade-in duration-150">
                     {group.items.map((item) => (
@@ -168,14 +162,6 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
 
         {/* Right Action Buttons */}
         <div className="flex items-center gap-2">
-          <button
-            onClick={onOpenDevLog}
-            className="hidden sm:flex border border-cyan/40 text-cyan hover:bg-cyan/10 font-mono px-3 py-2.5 rounded text-xs uppercase tracking-wider transition-all items-center gap-2"
-          >
-            <Terminal className="w-3.5 h-3.5" />
-            <span>Dev Log</span>
-          </button>
-
           <button
             onClick={onOpenQuote}
             className="bg-cyan hover:bg-cyan/80 text-obsidian font-bold px-4 py-2.5 rounded text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(0,229,255,0.25)] flex items-center gap-2"
@@ -208,13 +194,6 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
           <Coffee className="w-3 h-3" />
           Support
         </a>
-        <button
-          onClick={onOpenDevLog}
-          className="px-3 py-1.5 rounded whitespace-nowrap text-[11px] bg-surface text-cyan border border-cyan/30 font-bold flex items-center gap-1"
-        >
-          <Terminal className="w-3 h-3" />
-          Dev Log
-        </button>
       </div>
     </>
   )
