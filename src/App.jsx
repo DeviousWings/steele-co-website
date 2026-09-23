@@ -3,7 +3,6 @@ import { useState } from 'react'
 // Layout & Section Components
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import BuildLogDrawer from './components/BuildLogDrawer'
 
 // Modals
 import QuoteModal from './components/QuoteModal'
@@ -24,18 +23,17 @@ import ConsumerRights from './pages/ConsumerRights'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home')
-  
-  // Modal & Drawer State
+
+  // Modal state
   const [quoteOpen, setQuoteOpen] = useState(false)
   const [contractOpen, setContractOpen] = useState(false)
   const [draftOpen, setDraftOpen] = useState(false)
   const [pdfNoticeOpen, setPdfNoticeOpen] = useState(false)
-  // const [isDevLogOpen, setIsDevLogOpen] = useState(false)
 
   // Configuration state passed from SovereignTiers
   const [currentConfig, setCurrentConfig] = useState(null)
 
-const handleOpenQuoteWithConfig = (buildData, calculatedPrice) => {
+  const handleOpenQuoteWithConfig = (buildData, calculatedPrice) => {
     setCurrentConfig({
       tier: buildData.tier,
       storage: buildData.storageCapacity,
@@ -61,7 +59,6 @@ const handleOpenQuoteWithConfig = (buildData, calculatedPrice) => {
         onOpenQuote={() => { setCurrentConfig(null); setQuoteOpen(true); }}
         onOpenDraft={() => setDraftOpen(true)}
         onOpenContract={() => setContractOpen(true)}
-        onOpenDevLog={() => setIsDevLogOpen(true)}
       />
 
       {/* Main Page Views */}
@@ -88,12 +85,6 @@ const handleOpenQuoteWithConfig = (buildData, calculatedPrice) => {
         setActiveTab={setActiveTab} 
       />
 
-      {/* Dev Log / Roadmap Slide-Over Drawer */}
-      <BuildLogDrawer
-        isOpen={isDevLogOpen}
-        onClose={() => setIsDevLogOpen(false)}
-      />
-
       {/* Modals */}
       {draftOpen && (
         <MasterDraftModal 
@@ -104,7 +95,6 @@ const handleOpenQuoteWithConfig = (buildData, calculatedPrice) => {
       {quoteOpen && <QuoteModal onClose={() => setQuoteOpen(false)} selectedConfig={currentConfig} />}
       {contractOpen && <ContractModal onClose={() => setContractOpen(false)} />}
       {pdfNoticeOpen && <PdfNoticeModal onClose={() => setPdfNoticeOpen(false)} />}
-
     </div>
   )
 }
