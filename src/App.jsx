@@ -30,7 +30,7 @@ export default function App() {
   const [contractOpen, setContractOpen] = useState(false)
   const [draftOpen, setDraftOpen] = useState(false)
   const [pdfNoticeOpen, setPdfNoticeOpen] = useState(false)
-  const [isDevLogOpen, setIsDevLogOpen] = useState(false)
+  // const [isDevLogOpen, setIsDevLogOpen] = useState(false)
 
   // Configuration state passed from SovereignTiers
   const [currentConfig, setCurrentConfig] = useState(null)
