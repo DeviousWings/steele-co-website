@@ -3,7 +3,7 @@ import { useState } from 'react'
 // Layout & Section Components
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import BuildLogDrawer from './components/BuildLogDrawer'
+
 
 // Modals
 import QuoteModal from './components/QuoteModal'
@@ -111,12 +111,7 @@ export default function App() {
         setActiveTab={setActiveTab}
       />
 
-      {/* Dev Log / Roadmap Slide-Over Drawer */}
-      <BuildLogDrawer
-        isOpen={isDevLogOpen}
-        onClose={() => setIsDevLogOpen(false)}
-      />
-
+      
       {/* Modals */}
       {draftOpen && (
         <MasterDraftModal
