@@ -2,10 +2,7 @@ import { useMemo, useState } from 'react'
 import { Send, SlidersHorizontal, ShieldCheck, Wrench, ExternalLink } from 'lucide-react'
 import { TIERS, UPGRADES, STORAGE_OPTIONS } from '../data/tiersData'
 import homeServerImg from '../images/home_server.png'
-<<<<<<< HEAD
-=======
 import DeskNodeConfigurator from '../components/DeskNodeConfigurator'
->>>>>>> origin/dev
 
 const MAINTENANCE_OPTIONS = [
   { id: 'none', label: 'Self-Managed (No Plan)', monthly: 0, desc: 'Full root access. You handle OS updates & backups.' },
@@ -58,7 +55,10 @@ export default function SovereignTiers({ onRequestQuote }) {
           <button
             key={t.id}
             type="button"
-            onClick={() => setSelectedTier(t.id)}
+            onClick={() => {
+              setSelectedTier(t.id)
+              if (t.id !== 'tier1') setBuild((prev) => ({ ...prev, tier: t.id }))
+            }}
             className={`p-3 rounded text-left border transition-all text-xs cursor-pointer ${
               selectedTier === t.id
                 ? 'bg-panel border-cyan text-white shadow-[0_0_10px_rgba(0,229,255,0.15)]'
@@ -246,36 +246,11 @@ export default function SovereignTiers({ onRequestQuote }) {
                 <span>Request Installation Booking</span>
               </button>
             </div>
-<<<<<<< HEAD
-
-            {/* Blueprint Modal Trigger Button */}
-            <button
-              type="button"
-              onClick={() => setIsBlueprintOpen(true)}
-              className="w-full py-2.5 bg-obsidian hover:bg-panel text-cyan border border-cyan/40 hover:border-cyan font-bold text-xs uppercase tracking-wider rounded transition-all flex justify-center items-center gap-2 cursor-pointer"
-            >
-              <SlidersHorizontal className="w-4 h-4" />
-              <span>View Architecture Blueprint</span>
-            </button>
-
-            <button
-              onClick={() => onRequestQuote(build, price)}
-              className="w-full py-3.5 bg-cyan hover:bg-cyan/80 text-obsidian font-black text-xs uppercase tracking-wider rounded transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)] flex justify-center items-center gap-2 cursor-pointer">
-              <Send className="w-4 h-4" />
-              <span>Request Installation Booking</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Blueprint Modal Overlay with Direct Open-in-New-Tab Link */}
-=======
           </div>
         </div>
       )}
 
       {/* Blueprint Modal Overlay */}
->>>>>>> origin/dev
       {isBlueprintOpen && (
         <div className="fixed inset-0 z-50 bg-obsidian/85 backdrop-blur-md flex items-center justify-center p-4">
           <div className="bg-surface border-2 border-cyan rounded-xl max-w-4xl w-full p-6 space-y-4 shadow-[0_0_30px_rgba(0,229,255,0.2)]">
