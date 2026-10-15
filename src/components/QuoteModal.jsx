@@ -5,6 +5,8 @@ import { useForm, ValidationError } from '@formspree/react'
 export default function QuoteModal({ onClose, selectedConfig }) {
   const [state, handleSubmit] = useForm('xgawyenw')
 
+  const isDeskNode = selectedConfig?.tier === 'Desk Node'
+
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex justify-center items-center p-4 overflow-y-auto">
       <div className="bg-slate-900 border border-cyan-400 rounded-xl max-w-lg w-full p-6 space-y-6 shadow-[0_0_35px_rgba(0,229,255,0.25)] text-slate-200 my-8 relative pointer-events-auto">
@@ -48,29 +50,51 @@ export default function QuoteModal({ onClose, selectedConfig }) {
               <div className="p-3 bg-slate-950 border border-cyan-500/40 rounded-lg space-y-2 font-mono text-[11px]">
                 <div className="text-cyan-400 font-bold uppercase flex items-center gap-1.5">
                   <Cpu className="w-3.5 h-3.5" />
-                  <span>Configured BOM Total: ${selectedConfig.estimatedPrice?.toLocaleString()}</span>
+                  <span>Estimated Total: ${selectedConfig.estimatedPrice?.toLocaleString()}</span>
                 </div>
-                <div className="text-slate-400 grid grid-cols-2 gap-1 text-[10px]">
-                  <div>Platform: <span className="text-slate-200 uppercase">{selectedConfig.tier}</span></div>
-                  <div>Storage: <span className="text-slate-200">{selectedConfig.storage}</span></div>
-                  <div>Plan: <span className="text-amber-400 capitalize">{selectedConfig.maintenance}</span></div>
-                  <div>UPS Backup: <span className="text-slate-200">{selectedConfig.upsUpgrade}</span></div>
-                  <div>Dual GPU: <span className="text-slate-200">{selectedConfig.dualGpu}</span></div>
-                  <div>Liquid Cool: <span className="text-slate-200">{selectedConfig.liquidCooling}</span></div>
-                  <div>Acoustic Panel: <span className="text-slate-200">{selectedConfig.acousticPanels}</span></div>
-                  <div>10Gb Switch: <span className="text-slate-200">{selectedConfig.tenGbSwitch}</span></div>
-                </div>
+
+                {isDeskNode ? (
+                  <div className="text-slate-400 grid grid-cols-2 gap-1 text-[10px]">
+                    <div>Platform: <span className="text-slate-200 uppercase">Desk Node</span></div>
+                    <div>Storage: <span className="text-slate-200">{selectedConfig.storage}</span></div>
+                    <div>Smart Home: <span className="text-slate-200">{selectedConfig.smartHome}</span></div>
+                    <div>Surveillance: <span className="text-slate-200">{selectedConfig.surveillance}</span></div>
+                    <div className="col-span-2 text-amber-400 text-[9px] mt-1">
+                      Router priced separately after consultation. Estimate reflects labor + hardware only.
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-slate-400 grid grid-cols-2 gap-1 text-[10px]">
+                    <div>Platform: <span className="text-slate-200 uppercase">{selectedConfig.tier}</span></div>
+                    <div>Storage: <span className="text-slate-200">{selectedConfig.storage}</span></div>
+                    <div>Plan: <span className="text-amber-400 capitalize">{selectedConfig.maintenance}</span></div>
+                    <div>UPS Backup: <span className="text-slate-200">{selectedConfig.upsUpgrade}</span></div>
+                    <div>Dual GPU: <span className="text-slate-200">{selectedConfig.dualGpu}</span></div>
+                    <div>Liquid Cool: <span className="text-slate-200">{selectedConfig.liquidCooling}</span></div>
+                    <div>Acoustic Panel: <span className="text-slate-200">{selectedConfig.acousticPanels}</span></div>
+                    <div>10Gb Switch: <span className="text-slate-200">{selectedConfig.tenGbSwitch}</span></div>
+                  </div>
+                )}
 
                 {/* Hidden Inputs — still submitted via FormData on handleSubmit */}
                 <input type="hidden" name="Selected_Tier" value={selectedConfig.tier || 'N/A'} />
                 <input type="hidden" name="Storage_Capacity" value={selectedConfig.storage || 'N/A'} />
                 <input type="hidden" name="Maintenance_Plan" value={selectedConfig.maintenance || 'N/A'} />
                 <input type="hidden" name="Estimated_Price" value={`$${selectedConfig.estimatedPrice?.toLocaleString()}` || 'N/A'} />
-                <input type="hidden" name="Upgrade_UPS" value={selectedConfig.upsUpgrade || 'No'} />
-                <input type="hidden" name="Upgrade_Dual_GPU" value={selectedConfig.dualGpu || 'No'} />
-                <input type="hidden" name="Upgrade_Liquid_Cooling" value={selectedConfig.liquidCooling || 'No'} />
-                <input type="hidden" name="Upgrade_Acoustic_Panels" value={selectedConfig.acousticPanels || 'No'} />
-                <input type="hidden" name="Upgrade_10Gb_Switch" value={selectedConfig.tenGbSwitch || 'No'} />
+                {isDeskNode ? (
+                  <>
+                    <input type="hidden" name="Smart_Home" value={selectedConfig.smartHome || 'No'} />
+                    <input type="hidden" name="Surveillance" value={selectedConfig.surveillance || 'No'} />
+                  </>
+                ) : (
+                  <>
+                    <input type="hidden" name="Upgrade_UPS" value={selectedConfig.upsUpgrade || 'No'} />
+                    <input type="hidden" name="Upgrade_Dual_GPU" value={selectedConfig.dualGpu || 'No'} />
+                    <input type="hidden" name="Upgrade_Liquid_Cooling" value={selectedConfig.liquidCooling || 'No'} />
+                    <input type="hidden" name="Upgrade_Acoustic_Panels" value={selectedConfig.acousticPanels || 'No'} />
+                    <input type="hidden" name="Upgrade_10Gb_Switch" value={selectedConfig.tenGbSwitch || 'No'} />
+                  </>
+                )}
               </div>
             )}
 
