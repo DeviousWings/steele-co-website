@@ -3,6 +3,7 @@ import { useState } from 'react'
 // Layout & Section Components
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import BuildLogDrawer from './components/BuildLogDrawer'
 
 // Modals
 import QuoteModal from './components/QuoteModal'
@@ -24,34 +25,16 @@ import ConsumerRights from './pages/ConsumerRights'
 export default function App() {
   const [activeTab, setActiveTab] = useState('home')
 
-<<<<<<< HEAD
-  // Modal state
-=======
   // Modal & Drawer State
->>>>>>> origin/dev
   const [quoteOpen, setQuoteOpen] = useState(false)
   const [contractOpen, setContractOpen] = useState(false)
   const [draftOpen, setDraftOpen] = useState(false)
   const [pdfNoticeOpen, setPdfNoticeOpen] = useState(false)
+  const [isDevLogOpen, setIsDevLogOpen] = useState(false)
 
   // Configuration state passed from SovereignTiers
   const [currentConfig, setCurrentConfig] = useState(null)
 
-<<<<<<< HEAD
-  const handleOpenQuoteWithConfig = (buildData, calculatedPrice) => {
-    setCurrentConfig({
-      tier: buildData.tier,
-      storage: buildData.storageCapacity,
-      maintenance: buildData.maintenancePlan,
-      estimatedPrice: calculatedPrice,
-      // Pass all step 2 toggle upgrades explicitly
-      upsUpgrade: buildData.upsUpgrade ? 'Yes' : 'No',
-      dualGpu: buildData.dualGpu ? 'Yes' : 'No',
-      liquidCooling: buildData.liquidCooling ? 'Yes' : 'No',
-      acousticPanels: buildData.acousticPanels ? 'Yes' : 'No',
-      tenGbSwitch: buildData.tenGbSwitch ? 'Yes' : 'No',
-    })
-=======
   // Handles quote requests from BOTH configurators:
   // - Desk Node (DeskNodeConfigurator): passes { tier: 'Desk Node', smartHome, surveillance, storage }
   // - SOHO Vault / Home Core (legacy BOM configurator): passes { tier: 'tier2'|'tier3', upsUpgrade, dualGpu, ... }
@@ -88,7 +71,6 @@ export default function App() {
         surveillance: 'N/A',
       })
     }
->>>>>>> origin/dev
     setQuoteOpen(true)
   }
 
@@ -102,6 +84,7 @@ export default function App() {
         onOpenQuote={() => { setCurrentConfig(null); setQuoteOpen(true); }}
         onOpenDraft={() => setDraftOpen(true)}
         onOpenContract={() => setContractOpen(true)}
+        onOpenDevLog={() => setIsDevLogOpen(true)}
       />
 
       {/* Main Page Views */}
@@ -128,6 +111,12 @@ export default function App() {
         setActiveTab={setActiveTab}
       />
 
+      {/* Dev Log / Roadmap Slide-Over Drawer */}
+      <BuildLogDrawer
+        isOpen={isDevLogOpen}
+        onClose={() => setIsDevLogOpen(false)}
+      />
+
       {/* Modals */}
       {draftOpen && (
         <MasterDraftModal
@@ -138,6 +127,7 @@ export default function App() {
       {quoteOpen && <QuoteModal onClose={() => setQuoteOpen(false)} selectedConfig={currentConfig} />}
       {contractOpen && <ContractModal onClose={() => setContractOpen(false)} />}
       {pdfNoticeOpen && <PdfNoticeModal onClose={() => setPdfNoticeOpen(false)} />}
+
     </div>
   )
 }
