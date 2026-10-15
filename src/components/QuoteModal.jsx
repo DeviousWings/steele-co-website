@@ -57,11 +57,10 @@ export default function QuoteModal({ onClose, selectedConfig }) {
                   <div className="text-slate-400 grid grid-cols-2 gap-1 text-[10px]">
                     <div>Platform: <span className="text-slate-200 uppercase">Desk Node</span></div>
                     <div>Storage: <span className="text-slate-200">{selectedConfig.storage}</span></div>
+                    <div>Plan: <span className="text-amber-400">{selectedConfig.maintenance}</span></div>
+                    <div>Router: <span className="text-slate-200">{selectedConfig.router}</span></div>
                     <div>Smart Home: <span className="text-slate-200">{selectedConfig.smartHome}</span></div>
-                    <div>Surveillance: <span className="text-slate-200">{selectedConfig.surveillance}</span></div>
-                    <div className="col-span-2 text-amber-400 text-[9px] mt-1">
-                      Router priced separately after consultation. Estimate reflects labor + hardware only.
-                    </div>
+                    <div>SimpliSafe: <span className="text-slate-200">{selectedConfig.surveillance}</span></div>
                   </div>
                 ) : (
                   <div className="text-slate-400 grid grid-cols-2 gap-1 text-[10px]">
@@ -83,8 +82,9 @@ export default function QuoteModal({ onClose, selectedConfig }) {
                 <input type="hidden" name="Estimated_Price" value={`$${selectedConfig.estimatedPrice?.toLocaleString()}` || 'N/A'} />
                 {isDeskNode ? (
                   <>
+                    <input type="hidden" name="Router" value={selectedConfig.router || 'No'} />
                     <input type="hidden" name="Smart_Home" value={selectedConfig.smartHome || 'No'} />
-                    <input type="hidden" name="Surveillance" value={selectedConfig.surveillance || 'No'} />
+                    <input type="hidden" name="SimpliSafe" value={selectedConfig.surveillance || 'No'} />
                   </>
                 ) : (
                   <>

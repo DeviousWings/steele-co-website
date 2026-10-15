@@ -3,6 +3,7 @@ import { Send, SlidersHorizontal, ShieldCheck, Wrench, ExternalLink } from 'luci
 import { TIERS, UPGRADES, STORAGE_OPTIONS } from '../data/tiersData'
 import homeServerImg from '../images/home_server.png'
 import DeskNodeConfigurator from '../components/DeskNodeConfigurator'
+import { DESK_NODE_BASE } from '../data/deskNodeData'
 
 const MAINTENANCE_OPTIONS = [
   { id: 'none', label: 'Self-Managed (No Plan)', monthly: 0, desc: 'Full root access. You handle OS updates & backups.' },
@@ -67,7 +68,7 @@ export default function SovereignTiers({ onRequestQuote }) {
           >
             <div className="font-bold">{t.label}</div>
             <div className="text-[10px] text-cyan mt-1">
-              {t.id === 'tier1' ? 'Labor + hardware, itemized below' : `Base: $${t.base.toLocaleString()}`}
+              {t.id === 'tier1' ? `Base: ±$${DESK_NODE_BASE.price.toLocaleString()}` : `Base: $${t.base.toLocaleString()}`}
             </div>
           </button>
         ))}

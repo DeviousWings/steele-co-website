@@ -45,8 +45,9 @@ export default function App() {
       setCurrentConfig({
         tier: 'Desk Node',
         storage: buildData.storage || 'None',
-        maintenance: 'N/A (labor-based quote)',
+        maintenance: buildData.maintenance || 'Self-Managed (No Plan)',
         estimatedPrice: calculatedPrice,
+        router: buildData.router ? 'Yes' : 'No',
         smartHome: buildData.smartHome ? 'Yes' : 'No',
         surveillance: buildData.surveillance ? 'Yes' : 'No',
         // Keep these keys present so QuoteModal's optional fields don't break

@@ -1,38 +1,38 @@
 import { useMemo, useState } from 'react'
-import { Send, Clock, HardDrive, ShieldCheck } from 'lucide-react'
+import { Send, Clock, HardDrive, ShieldCheck, Wrench } from 'lucide-react'
 import {
-  LABOR_RATE,
   DESK_NODE_BASE,
   DESK_NODE_OPTIONS,
   DESK_NODE_STORAGE,
-  DESK_NODE_ROUTER_NOTE,
+  DESK_NODE_CARE,
+  SIMPLISAFE_INSTALL,
 } from '../data/deskNodeData'
 
 export default function DeskNodeConfigurator({ onRequestQuote }) {
-  const [selected, setSelected] = useState({ smartHome: false, surveillance: false })
-  const [storage, setStorage] = useState(null) // null = no storage selected
+  const [selected, setSelected] = useState({ router: false, smartHome: false })
+  const [storage, setStorage] = useState(null)
+  const [maintenancePlan, setMaintenancePlan] = useState('none')
+  const [simpliSafe, setSimpliSafe] = useState(false)
 
   const toggleOption = (key) => setSelected((prev) => ({ ...prev, [key]: !prev[key] }))
 
+  const storageItem = DESK_NODE_STORAGE.find((s) => s.size === storage) || null
+  const care = DESK_NODE_CARE.find((plan) => plan.id === maintenancePlan)
+
   const calc = useMemo(() => {
-    let hours = DESK_NODE_BASE.hours
-    let hardwareCost = DESK_NODE_BASE.hardwareCost
-
+    let total = DESK_NODE_BASE.price
     DESK_NODE_OPTIONS.forEach((opt) => {
-      if (selected[opt.key]) {
-        hours += opt.hours
-        hardwareCost += opt.hardwareCost
-      }
+      if (selected[opt.key]) total += opt.price
     })
+    if (storageItem) total += storageItem.drivePairCost
+    if (simpliSafe) total += SIMPLISAFE_INSTALL.price
+    return { total }
+  }, [selected, storageItem, simpliSafe])
 
-    const storageItem = DESK_NODE_STORAGE.find((s) => s.size === storage)
-    if (storageItem) hardwareCost += storageItem.drivePairCost
-
-    const laborCost = hours * LABOR_RATE
-    const total = laborCost + hardwareCost
-
-    return { hours, laborCost, hardwareCost, total }
-  }, [selected, storage])
+  const selectedOptions = [
+    ...DESK_NODE_OPTIONS.filter((opt) => selected[opt.key]),
+    ...(simpliSafe ? [SIMPLISAFE_INSTALL] : []),
+  ]
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -40,21 +40,21 @@ export default function DeskNodeConfigurator({ onRequestQuote }) {
         <div className="border-b border-hairline pb-4">
           <div className="text-xs text-cyan font-bold uppercase tracking-widest">// TIER 1 CONFIGURATOR</div>
           <h2 className="text-xl font-black uppercase text-white mt-1">Desk Node</h2>
-          <p className="text-xs text-muted mt-2 leading-relaxed">{DESK_NODE_BASE.desc}</p>
+          <p className="text-xs text-muted mt-2 leading-relaxed">
+            Minimum is the base build. Add a router, your own cloud, or smart home to reach the top of this tier. Prices are averages.
+          </p>
         </div>
 
-        <div className="p-3 bg-panel border border-hairline rounded flex justify-between items-start gap-3 text-xs">
+        <div className="p-3 bg-panel border border-cyan/60 rounded flex justify-between items-start gap-3 text-xs">
           <div>
             <div className="font-bold text-white flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-cyan" />
-              <span>Base Build & Ad-Blocking Core</span>
+              <span>{DESK_NODE_BASE.label}</span>
             </div>
-            <div className="text-muted mt-1">{DESK_NODE_BASE.hardwareDesc}</div>
+            <div className="text-muted mt-1">{DESK_NODE_BASE.desc}</div>
+            <div className="text-[10px] text-muted mt-1">{DESK_NODE_BASE.hardwareDesc}</div>
           </div>
-          <div className="text-right shrink-0">
-            <div className="text-cyan font-bold">{DESK_NODE_BASE.hours} hrs labor</div>
-            <div className="text-muted">+${DESK_NODE_BASE.hardwareCost} hw</div>
-          </div>
+          <span className="text-xs font-bold text-cyan whitespace-nowrap">±${DESK_NODE_BASE.price.toLocaleString()}</span>
         </div>
 
         <div className="space-y-2">
@@ -63,35 +63,28 @@ export default function DeskNodeConfigurator({ onRequestQuote }) {
             <div
               key={opt.key}
               onClick={() => toggleOption(opt.key)}
-              className={`p-3 rounded border cursor-pointer flex justify-between items-start gap-3 transition-all text-xs ${
+              className={`p-3 rounded border cursor-pointer flex justify-between items-center transition-all ${
                 selected[opt.key] ? 'bg-panel border-cyan/60 text-white' : 'bg-obsidian border-hairline text-muted'
               }`}
             >
-              <div>
-                <div className="font-bold flex items-center gap-2">
+              <div className="space-y-0.5">
+                <div className="text-xs font-bold flex items-center gap-2">
                   <span className={selected[opt.key] ? 'text-cyan' : 'text-muted'}>
                     {selected[opt.key] ? '[✓]' : '[ ]'}
                   </span>
                   <span>{opt.label}</span>
-                  {opt.isAverage && (
-                    <span className="text-[9px] text-gold border border-gold/30 bg-gold/10 px-1.5 py-0.5 rounded">
-                      AVG ESTIMATE
-                    </span>
-                  )}
                 </div>
-                <div className="text-[10px] text-muted mt-1 leading-normal">{opt.desc}</div>
+                <div className="text-[10px] text-muted">{opt.desc}</div>
               </div>
-              <div className="text-right shrink-0 font-bold text-cyan whitespace-nowrap">
-                +{opt.hours} hrs
-              </div>
+              <span className="text-xs font-bold text-cyan whitespace-nowrap ml-2">±${opt.price.toLocaleString()}</span>
             </div>
           ))}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-2 border-t border-hairline pt-4">
           <label className="text-xs font-bold text-muted uppercase flex items-center gap-1.5">
             <HardDrive className="w-3.5 h-3.5 text-cyan" />
-            <span>Cloud Storage (Optional, Mirrored NAS)</span>
+            <span>Your Cloud — Mirrored NAS, reachable without Google or Microsoft</span>
           </label>
           <div className="grid grid-cols-4 gap-2 text-xs">
             <button
@@ -101,7 +94,8 @@ export default function DeskNodeConfigurator({ onRequestQuote }) {
                 storage === null ? 'bg-cyan text-obsidian font-bold border-cyan' : 'bg-obsidian border-hairline text-muted'
               }`}
             >
-              None
+              <div>None</div>
+              <div className="text-[9px] mt-0.5">Included</div>
             </button>
             {DESK_NODE_STORAGE.map((s) => (
               <button
@@ -113,16 +107,54 @@ export default function DeskNodeConfigurator({ onRequestQuote }) {
                 }`}
               >
                 <div>{s.size}</div>
-                <div className="text-[9px] mt-0.5">+${s.drivePairCost}</div>
+                <div className="text-[9px] mt-0.5">±${s.drivePairCost.toLocaleString()}</div>
               </button>
             ))}
           </div>
-          <p className="text-[10px] text-muted">NAS enclosure cost not yet included — finalized per build during consultation.</p>
+          <p className="text-[10px] text-muted">Drive-pair average only. NAS enclosure is finalized on the booking.</p>
         </div>
 
-        <div className="p-3 bg-obsidian border border-hairline rounded text-[10px] text-muted flex items-start gap-2">
-          <ShieldCheck className="w-3.5 h-3.5 text-gold shrink-0 mt-0.5" />
-          <span>{DESK_NODE_ROUTER_NOTE}</span>
+        <div className="space-y-3 border-t border-hairline pt-4">
+          <label className="text-xs font-bold text-muted uppercase flex items-center gap-1.5">
+            <Wrench className="w-3.5 h-3.5 text-cyan" />
+            <span>Care Plan</span>
+          </label>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+            {DESK_NODE_CARE.map((plan) => (
+              <button
+                key={plan.id}
+                type="button"
+                onClick={() => setMaintenancePlan(plan.id)}
+                className={`p-3 rounded text-left border transition-all text-xs cursor-pointer ${
+                  maintenancePlan === plan.id
+                    ? 'bg-panel border-cyan text-white shadow-[0_0_10px_rgba(0,229,255,0.15)]'
+                    : 'bg-obsidian border-hairline text-muted hover:border-muted'
+                }`}
+              >
+                <div className="font-bold flex justify-between items-center gap-2">
+                  <span>{plan.label}</span>
+                  <span className="text-cyan text-[10px] font-mono">{plan.monthly === 0 ? '$0/mo' : `$${plan.monthly}/mo`}</span>
+                </div>
+                <div className="text-[10px] text-muted mt-1 leading-normal">{plan.desc}</div>
+              </button>
+            ))}
+          </div>
+
+          <div
+            onClick={() => setSimpliSafe((prev) => !prev)}
+            className={`p-3 rounded border cursor-pointer flex justify-between items-center transition-all ${
+              simpliSafe ? 'bg-panel border-cyan/60 text-white' : 'bg-obsidian border-hairline text-muted'
+            }`}
+          >
+            <div className="space-y-0.5">
+              <div className="text-xs font-bold flex items-center gap-2">
+                <ShieldCheck className="w-3.5 h-3.5 text-cyan" />
+                <span>{SIMPLISAFE_INSTALL.label}</span>
+              </div>
+              <div className="text-[10px] text-muted">{SIMPLISAFE_INSTALL.desc}</div>
+            </div>
+            <span className="text-xs font-bold text-cyan whitespace-nowrap ml-2">±${SIMPLISAFE_INSTALL.price.toLocaleString()}</span>
+          </div>
         </div>
       </div>
 
@@ -131,13 +163,15 @@ export default function DeskNodeConfigurator({ onRequestQuote }) {
           <div className="border-b border-hairline pb-4 flex justify-between items-center">
             <div>
               <div className="text-xs text-cyan font-bold uppercase">Estimated Total Hardware Investment</div>
-              <div className="text-3xl font-black text-white mt-1">${calc.total.toLocaleString()}</div>
-              <div className="text-xs text-gold font-mono font-bold mt-1">
-                {calc.hours} hrs labor × ${LABOR_RATE}/hr
-              </div>
+              <div className="text-3xl font-black text-white mt-1">±${calc.total.toLocaleString()}</div>
+              {care && care.monthly > 0 && (
+                <div className="text-xs text-gold font-mono font-bold mt-1">
+                  + ${care.monthly}/mo ({care.label})
+                </div>
+              )}
             </div>
             <span className="text-[10px] px-2 py-1 rounded bg-emerald/20 text-emerald border border-emerald/40 font-bold">
-              LABOR + HARDWARE
+              AVERAGE ESTIMATE
             </span>
           </div>
 
@@ -145,33 +179,53 @@ export default function DeskNodeConfigurator({ onRequestQuote }) {
             <div className="font-bold text-muted uppercase">Selected Configuration Breakdown:</div>
             <div className="space-y-1.5 text-[11px] text-slate-200">
               <div className="flex justify-between border-b border-hairline/60 pb-1">
-                <span>Labor ({calc.hours} hrs)</span>
-                <span className="font-bold">${calc.laborCost.toLocaleString()}</span>
+                <span>Baseline Platform:</span>
+                <span className="font-bold uppercase text-cyan">Desk Node</span>
               </div>
               <div className="flex justify-between border-b border-hairline/60 pb-1">
-                <span>Hardware</span>
-                <span className="font-bold text-cyan">${calc.hardwareCost.toLocaleString()}</span>
+                <span>Storage Vault:</span>
+                <span className="font-bold">{storageItem ? storageItem.label : 'None'}</span>
               </div>
               <div className="flex justify-between border-b border-hairline/60 pb-1">
-                <span>Base build</span>
-                <span className="font-bold">Included</span>
+                <span>Maintenance Service:</span>
+                <span className="font-bold text-gold">
+                  {care?.label} ({care?.monthly === 0 ? '$0/mo' : `$${care?.monthly}/mo`})
+                </span>
               </div>
-              {DESK_NODE_OPTIONS.filter((opt) => selected[opt.key]).map((opt) => (
+              <div className="flex justify-between text-emerald">
+                <span>• {DESK_NODE_BASE.label}</span>
+                <span>±${DESK_NODE_BASE.price.toLocaleString()}</span>
+              </div>
+              {selectedOptions.map((opt) => (
                 <div key={opt.key} className="flex justify-between text-emerald">
                   <span>• {opt.label}</span>
-                  <span>+{opt.hours} hrs</span>
+                  <span>±${opt.price.toLocaleString()}</span>
                 </div>
               ))}
-              <div className="flex justify-between">
-                <span>Mirrored storage</span>
-                <span className="font-bold">{storage || 'None'}</span>
-              </div>
+              {storageItem && (
+                <div className="flex justify-between text-emerald">
+                  <span>• Drive pair</span>
+                  <span>±${storageItem.drivePairCost.toLocaleString()}</span>
+                </div>
+              )}
             </div>
           </div>
 
           <button
             type="button"
-            onClick={() => onRequestQuote?.({ tier: 'Desk Node', ...selected, storage }, calc.total)}
+            onClick={() =>
+              onRequestQuote?.(
+                {
+                  tier: 'Desk Node',
+                  router: selected.router,
+                  smartHome: selected.smartHome,
+                  surveillance: simpliSafe,
+                  storage: storageItem ? storageItem.label : 'None',
+                  maintenance: care?.label || 'Self-Managed (No Plan)',
+                },
+                calc.total,
+              )
+            }
             className="w-full py-3.5 bg-cyan hover:bg-cyan/80 text-obsidian font-black text-xs uppercase tracking-wider rounded transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)] flex justify-center items-center gap-2"
           >
             <Send className="w-4 h-4" />
