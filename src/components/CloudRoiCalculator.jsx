@@ -5,22 +5,22 @@ const STEELE_INVESTMENT = 7800
 
 export default function CloudRoiCalculator({ onBuildClick }) {
   const [inputs, setInputs] = useState({
-    cloudStorageMonthly: 45,
+    cloudStorageMonthly: 40,
     saasAImonthly: 60,
-    securityCloudMonthly: 35,
+    securityCloudMonthly: 30,
     businessCloudServers: 250,
     years: 3,
   })
 
-  const set = (key) => (e) => setInputs((prev) => ({ ...prev, [key]: e.target.value }))
+  const set = (key) => (e) => setInputs((prev) => ({ ...prev, [key]: Number(e.target.value) }))
 
   const calc = useMemo(() => {
     const monthlyBleed =
-      Number(inputs.cloudStorageMonthly) +
-      Number(inputs.saasAImonthly) +
-      Number(inputs.securityCloudMonthly) +
-      Number(inputs.businessCloudServers)
-    const totalBleed = monthlyBleed * 12 * Number(inputs.years)
+      inputs.cloudStorageMonthly +
+      inputs.saasAImonthly +
+      inputs.securityCloudMonthly +
+      inputs.businessCloudServers
+    const totalBleed = monthlyBleed * 12 * inputs.years
     const netSavings = totalBleed - STEELE_INVESTMENT
     const breakEvenMonths = Math.ceil(STEELE_INVESTMENT / (monthlyBleed || 1))
     return { monthlyBleed, totalBleed, netSavings, breakEvenMonths }
@@ -35,16 +35,48 @@ export default function CloudRoiCalculator({ onBuildClick }) {
         </div>
 
         <div className="space-y-4 text-xs">
-          <Slider label="Cloud Storage (iCloud, Google One, Dropbox):" value={inputs.cloudStorageMonthly} max={200} onChange={set('cloudStorageMonthly')} />
-          <Slider label="SaaS AI & API Subscriptions (ChatGPT, Claude):" value={inputs.saasAImonthly} max={300} onChange={set('saasAImonthly')} />
-          <Slider label="Smart Home Cloud Cameras (Ring, Nest, Arlo):" value={inputs.securityCloudMonthly} max={150} onChange={set('securityCloudMonthly')} />
-          <Slider label="Business Cloud Servers (AWS / Azure / Egress fees):" value={inputs.businessCloudServers} max={1000} onChange={set('businessCloudServers')} />
+          <Slider 
+            label="Cloud Storage (iCloud, Google One, Dropbox):" 
+            value={inputs.cloudStorageMonthly} 
+            max={200} 
+            step={10} 
+            onChange={set('cloudStorageMonthly')} 
+          />
+          <Slider 
+            label="SaaS AI & API Subscriptions (ChatGPT, Claude):" 
+            value={inputs.saasAImonthly} 
+            max={300} 
+            step={10} 
+            onChange={set('saasAImonthly')} 
+          />
+          <Slider 
+            label="Smart Home Cloud Cameras (Ring, Nest, Arlo):" 
+            value={inputs.securityCloudMonthly} 
+            max={150} 
+            step={10} 
+            onChange={set('securityCloudMonthly')} 
+          />
+          <Slider 
+            label="Business Cloud Servers (AWS / Azure / Egress fees):" 
+            value={inputs.businessCloudServers} 
+            max={1000} 
+            step={10} 
+            onChange={set('businessCloudServers')} 
+          />
           <div>
             <div className="flex justify-between font-bold">
               <span>Projection Timeline (Years):</span>
               <span className="text-gold font-bold">{inputs.years} Years</span>
             </div>
-            <input type="range" min="1" max="5" value={inputs.years} onChange={set('years')} className="w-full mt-2 accent-gold" />
+            <input 
+              type="range" 
+              min="1" 
+              max="5" 
+              step="1"
+              value={inputs.years} 
+              onChange={set('years')} 
+              className="w-full mt-2 accent-gold cursor-pointer" 
+            />
           </div>
         </div>
       </div>
@@ -87,7 +119,7 @@ export default function CloudRoiCalculator({ onBuildClick }) {
 
         <button
           onClick={onBuildClick}
-          className="w-full py-3 bg-cyan hover:bg-cyan/80 text-obsidian font-black text-xs uppercase tracking-wider rounded transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)]"
+          className="w-full py-3 bg-cyan hover:bg-cyan/80 text-obsidian font-black text-xs uppercase tracking-wider rounded transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)] cursor-pointer"
         >
           Build Your Fixed-Rate Rack
         </button>
@@ -96,14 +128,22 @@ export default function CloudRoiCalculator({ onBuildClick }) {
   )
 }
 
-function Slider({ label, value, max, onChange }) {
+function Slider({ label, value, max, step, onChange }) {
   return (
     <div>
       <div className="flex justify-between font-bold text-slate-200">
         <span>{label}</span>
         <span className="text-cyan">${value}/mo</span>
       </div>
-      <input type="range" min="0" max={max} value={value} onChange={onChange} className="w-full mt-2 accent-cyan" />
+      <input 
+        type="range" 
+        min="0" 
+        max={max} 
+        step={step} 
+        value={value} 
+        onChange={onChange} 
+        className="w-full mt-2 accent-cyan cursor-pointer" 
+      />
     </div>
   )
 }
