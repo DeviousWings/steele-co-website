@@ -1,7 +1,7 @@
 import React from 'react'
 import { Server, Shield, Terminal, Cpu, FileText } from 'lucide-react'
 
-export default function Footer({ onOpenDraft, onOpenContract, setActiveTab, onOpenDevLog }) {
+export default function Footer({ onOpenDraft, onOpenContract, onOpenQuote, setActiveTab }) {
   const handleNav = (tabId) => {
     if (setActiveTab) {
       setActiveTab(tabId)
@@ -30,19 +30,9 @@ export default function Footer({ onOpenDraft, onOpenContract, setActiveTab, onOp
               </div>
             </div>
             
-            {/* Radical Transparency & Family Focus Note */}
             <div className="p-4 bg-slate-900 border border-slate-800 rounded-lg leading-relaxed text-slate-300">
-              <span className="text-cyan-400 font-bold">🤖 Radical Transparency Note:</span> This site was built
-              using a mix of AI assistance and my expert web dev skills. Look, I&apos;m just a guy on a budget with
-              very little free time, and every hour saved wrestling with React code at 2 AM is an extra hour I
-              get to spend playing with my kids and hanging out with my family. Hardware is my trade—AI was
-              just my shortcut home for dinner!
-              <br/>
-              <br/>
-              Steele Tech. is a division of Steele Co. Pioneering data sovereignty and secure infrastructure.
-              <span className="text-slate-400 font-mono text-[11px] block mt-2">
-                Website status: Work in progress, August 2026.
-              </span>
+              Private cloud hardware, installed in your home and owned by you. No subscriptions required, no
+              third-party trackers. Steele Tech. is a division of Steele Co.
             </div>
           </div>
 
@@ -77,17 +67,17 @@ export default function Footer({ onOpenDraft, onOpenContract, setActiveTab, onOp
           <div className="space-y-4">
             <div className="font-mono text-[11px] text-cyan-400 font-bold tracking-widest uppercase flex items-center gap-1.5">
               <Server className="w-3.5 h-3.5" />
-              <span>Infrastructure (Revenue Engine)</span>
+              <span>Plans & Services</span>
             </div>
             <ul className="space-y-2.5">
               <li>
                 <button onClick={() => handleNav('tiers')} className="hover:text-white transition-colors text-left">
-                  Deployment Tiers <span className="text-[10px] text-cyan-400 font-mono">(Desk Node, SOHO, Core)</span>
+                  Plans & Pricing <span className="text-[10px] text-cyan-400 font-mono">(Desk Node, SOHO Vault, Home Core)</span>
                 </button>
               </li>
               <li>
                 <button onClick={() => handleNav('tiers')} className="hover:text-white transition-colors text-left">
-                  BOM Configurator <span className="text-[10px] text-slate-400 font-mono">(/tiers#configurator)</span>
+                  Build Configurator
                 </button>
               </li>
               <li>
@@ -96,7 +86,7 @@ export default function Footer({ onOpenDraft, onOpenContract, setActiveTab, onOp
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNav('tiers')} className="hover:text-white transition-colors text-left text-cyan-400 font-medium">
+                <button onClick={() => (onOpenQuote ? onOpenQuote() : handleNav('tiers'))} className="hover:text-white transition-colors text-left text-cyan-400 font-medium">
                   Request Installation & Consultation ↗
                 </button>
               </li>
@@ -151,16 +141,6 @@ export default function Footer({ onOpenDraft, onOpenContract, setActiveTab, onOp
                   About STEELE TECH. <span className="text-[10px] text-slate-400 font-mono">(Trade Skills & Family)</span>
                 </button>
               </li>
-              <li>
-                <button onClick={() => handleNav('home')} className="hover:text-white transition-colors text-left">
-                  Substack Field Notes & Articles <span className="text-[10px] text-slate-400 font-mono">(Guides)</span>
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('about')} className="hover:text-white transition-colors text-left">
-                  Contact & Secure Comms <span className="text-[10px] text-cyan-400 font-mono">(PGP & Inquiries)</span>
-                </button>
-              </li>
               <li className="pt-2">
                 <a 
                   href="https://black-forge-space-industries.vercel.app" 
@@ -177,17 +157,7 @@ export default function Footer({ onOpenDraft, onOpenContract, setActiveTab, onOp
             {/* External Links Section with Top Hairline Border */}
             <div className="pt-4 border-t border-slate-800 space-y-2 text-xs">
               <div className="font-mono text-[10px] text-cyan-400 uppercase tracking-widest mb-1">
-                Field Media & Support
-              </div>
-              <div>
-                <a 
-                  href="https://youtube.com/@yourchannel" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="hover:text-cyan-400 text-slate-300 transition-colors flex items-center gap-1"
-                >
-                  <span>Watch: On-Prem Builds & Teardowns ↗</span>
-                </a>
+                Support
               </div>
               <div>
                 <a 
@@ -198,15 +168,6 @@ export default function Footer({ onOpenDraft, onOpenContract, setActiveTab, onOp
                 >
                   <span>☕ Support Independent Hardware Research</span>
                 </a>
-              </div>
-              <div className="pt-1">
-                <button 
-                  onClick={onOpenDevLog} 
-                  className="text-cyan-400 hover:underline transition-colors flex items-center gap-1"
-                >
-                  <Terminal className="w-3.5 h-3.5" />
-                  <span>System Dev Log</span>
-                </button>
               </div>
             </div>
           </div>

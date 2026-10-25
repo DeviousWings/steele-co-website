@@ -1,7 +1,7 @@
 import React from 'react'
 import { Wrench, ShieldCheck, Terminal, Cpu, HardDrive, CpuIcon, AlertTriangle } from 'lucide-react'
 
-export default function About() {
+export default function About({ setActiveTab, onOpenQuote, onOpenDraft }) {
   return (
     <div className="max-w-5xl mx-auto px-4 lg:px-8 py-12 space-y-16 text-slate-200">
       {/* Hero Header */}
@@ -11,15 +11,16 @@ export default function About() {
             <Terminal className="w-4 h-4" />
             <span>Origin & Mission // Radical Transparency</span>
           </div>
-          <div className="text-[11px] font-mono px-2.5 py-0.5 rounded bg-surface border border-hairline text-muted">
-            Website still developing: <span className="text-gold font-bold">August 4, 2026</span>
-          </div>
         </div>
         
         <h1 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">
           Hardware is my trade. <br />
           <span className="text-cyan">Digital sovereignty</span> is the mission.
         </h1>
+        <div className="flex flex-wrap gap-2">
+          <button onClick={() => { setActiveTab?.('tiers'); window.scrollTo({ top: 0 }) }} className="px-4 py-2.5 bg-cyan hover:bg-cyan/80 text-obsidian font-bold text-xs uppercase rounded">See Plans & Pricing</button>
+          <button onClick={onOpenQuote} className="px-4 py-2.5 border border-cyan/40 text-cyan font-bold text-xs uppercase rounded hover:bg-surface">Get a Quote</button>
+        </div>
         <p className="text-base text-muted max-w-3xl leading-relaxed">
           Inspired by the practical, no-BS ethos of pioneers like <a href="https://rossmanngroup.com/louis-rossmann">Louis Rossmann</a> and the <a href="https://consumerrights.wiki/w/Main_Page">Right to Repair</a> movement, STEELE TECH. wasn't built in a corporate boardroom—it was built out of necessity, frustration with cloud tethers, and a fundamental belief in physical ownership.
         </p>
@@ -118,12 +119,13 @@ export default function About() {
             Read our complete model legislative framework aimed at outlawing forced cloud tethering, remote bricking, and intrusive hardware telemetry.
           </p>
         </div>
-        <a
-          href="#sdi-act"
+        <button
+          type="button"
+          onClick={onOpenDraft}
           className="shrink-0 bg-cyan hover:bg-cyan/80 text-obsidian font-bold px-4 py-2.5 rounded text-xs uppercase tracking-wider transition-all"
         >
           View Master Draft ↗
-        </a>
+        </button>
       </div>
       {/* Contextual Support & Community Panel */}
 <div className="mt-12 p-6 bg-panel border border-hairline rounded-lg shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">

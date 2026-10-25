@@ -1,30 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Server, Shield, BookOpen, ChevronDown, ChevronUp, Coffee } from 'lucide-react'
+import { Server, Shield, ChevronDown, ChevronUp } from 'lucide-react'
 
 const NAV_STRUCTURE = [
-  { id: 'home', type: 'link', label: 'Home // Positioning', mobileLabel: 'Home' },
+  { id: 'home', type: 'link', label: 'Home', mobileLabel: 'Home' },
+  { id: 'tiers', type: 'link', label: 'Plans & Pricing', mobileLabel: 'Plans' },
+  { id: 'roi', type: 'link', label: 'Cloud Cost Calculator', mobileLabel: 'Cost Calc' },
+  { id: 'faq', type: 'link', label: 'FAQ', mobileLabel: 'FAQ' },
+  { id: 'about', type: 'link', label: 'About', mobileLabel: 'About' },
   {
-    id: 'services',
-    label: 'Services',
+    id: 'learn',
+    label: 'Learn',
     items: [
-      { id: 'tiers', label: 'Sovereign Deployment Tiers & BOM', mobileLabel: 'Tiers & BOM' },
-      { id: 'expose', label: 'Tech Exposé & Inspector', mobileLabel: 'Exposé' },
-      { id: 'roi', label: 'Cloud Bleed vs On-Prem ROI Calculator', mobileLabel: 'Cloud ROI' },
-    ],
-  },
-  {
-    id: 'movement',
-    label: 'Learn // Movement',
-    items: [
+      { id: 'expose', label: 'Tech Exposé & Packet Inspector', mobileLabel: 'Exposé' },
       { id: 'consumer-rights', label: 'Consumer Rights (Ownership & Enjoyment)', mobileLabel: 'Consumer Rights' },
-      { id: 'sdi-act', label: 'The SDI Vault & Act (2026)', mobileLabel: 'SDI Vault' },
+      { id: 'sdi-act', label: 'The SDI Vault & Act (2026)', mobileLabel: 'SDI Act' },
       { id: 'vision', label: 'Future Vision', mobileLabel: 'Vision' },
-      { id: 'about', label: 'About STEELE TECH.', mobileLabel: 'About' },
     ],
   },
 ]
 
-export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDraft, onOpenContract }) {
+export default function Navbar({ activeTab, setActiveTab, onOpenQuote }) {
   const [openDropdown, setOpenDropdown] = useState(null)
   const navRef = useRef(null)
 
@@ -53,34 +48,19 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
 
   return (
     <>
-      {/* Status ticker */}
-      <div className="top-banner bg-panel border-b border-hairline text-xs py-2 px-4 flex justify-between items-center text-muted overflow-x-auto whitespace-nowrap">
+      {/* Top banner */}
+      <div className="top-banner bg-panel border-b border-hairline text-xs py-2 px-4 flex justify-between items-center text-muted overflow-x-auto whitespace-nowrap gap-4">
         <div className="flex items-center gap-3">
           <span className="flex items-center gap-1.5 text-emerald font-bold">
             <span className="w-2 h-2 rounded-full bg-emerald animate-pulse" />
-            SYSTEM STATUS: ON-PREM SOVEREIGN
+            Private cloud, installed in your home
           </span>
           <span className="text-hairline">|</span>
-          <span className="text-gold font-bold">ZERO THIRD-PARTY TRACKERS</span>
-          <span className="text-hairline">|</span>
-          <span className="text-cyan font-bold">ENCRYPTED LOCAL CONTAINMENT</span>
+          <span className="text-gold font-bold">Zero third-party trackers</span>
         </div>
-        <div className="flex items-center gap-4 font-semibold">
-          <a 
-            href="https://buymeacoffee.com/deviouswings" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-gold hover:underline flex items-center gap-1 transition-colors"
-          >
-            <Coffee className="w-3.5 h-3.5" />
-            <span>SUPPORT RESEARCH ↗</span>
-          </a>
-          <span className="text-hairline">|</span>
-          <button onClick={onOpenDraft} className="text-gold hover:underline flex items-center gap-1">
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>SDI ACT MASTER DRAFT: JULY 2026 ↗</span>
-          </button>
-        </div>
+        <button onClick={() => handleSelectTab('tiers')} className="text-cyan font-semibold hover:underline">
+          See plans from $1,850 →
+        </button>
       </div>
 
       {/* Main nav */}
@@ -167,7 +147,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
             className="bg-cyan hover:bg-cyan/80 text-obsidian font-bold px-4 py-2.5 rounded text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(0,229,255,0.25)] flex items-center gap-2"
           >
             <Shield className="w-4 h-4" />
-            <span>Secure Space</span>
+            <span>Get a Quote</span>
           </button>
         </div>
       </nav>
@@ -185,15 +165,6 @@ export default function Navbar({ activeTab, setActiveTab, onOpenQuote, onOpenDra
             {tab.mobileLabel || tab.label}
           </button>
         ))}
-        <a
-          href="https://buymeacoffee.com/deviouswings"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-3 py-1.5 rounded whitespace-nowrap text-[11px] bg-surface text-gold border border-gold/30 font-bold flex items-center gap-1"
-        >
-          <Coffee className="w-3 h-3" />
-          Support
-        </a>
       </div>
     </>
   )

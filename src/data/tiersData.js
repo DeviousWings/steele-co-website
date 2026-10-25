@@ -5,6 +5,8 @@ export const TIERS = [
     name: 'Desk Node',
     base: 1850,
     desc: 'Designed for the common person. Includes mandatory local Router Ad Blocker and private local backup.',
+    audience: 'Individuals & families',
+    includes: ['Network-wide router ad blocker', 'Private local backup for your files & photos', 'Professional install & setup'],
   },
   {
     id: 'tier2',
@@ -12,6 +14,8 @@ export const TIERS = [
     name: 'SOHO Vault',
     base: 5500,
     desc: 'Everything in Desk Node plus small office / home office server infrastructure and multi-VLAN isolation.',
+    audience: 'Home offices & small businesses',
+    includes: ['Everything in Desk Node', 'Small office / home office server', 'Multi-VLAN network isolation'],
   },
   {
     id: 'tier3',
@@ -19,6 +23,8 @@ export const TIERS = [
     name: 'Home Core',
     base: 14500,
     desc: 'For the gurus. A personal data center built to run local LLMs and offline private AI sandboxes.',
+    audience: 'Power users & private AI',
+    includes: ['Personal data center build', 'Runs local LLMs & offline AI', 'Private AI sandboxes'],
   },
 ]
 
