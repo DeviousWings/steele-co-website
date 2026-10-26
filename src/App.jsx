@@ -17,7 +17,6 @@ import Home from './pages/Home'
 import SovereignTiers from './pages/SovereignTiers'
 import SdiActVault from './pages/SdiActVault'
 import TechExpose from './pages/TechExpose'
-import CloudRoi from './pages/CloudRoi'
 import About from './pages/About'
 import Faq from './pages/Faq'
 import FutureVision from './pages/FutureVision'
@@ -88,7 +87,6 @@ export default function App() {
         {activeTab === 'tiers' && <SovereignTiers onRequestQuote={handleOpenQuoteWithConfig} />}
         {activeTab === 'sdi-act' && <SdiActVault onOpenDraft={() => setDraftOpen(true)} />}
         {activeTab === 'expose' && <TechExpose />}
-        {activeTab === 'roi' && <CloudRoi setActiveTab={setActiveTab} />}
         {activeTab === 'about' && <About setActiveTab={setActiveTab} onOpenQuote={openQuote} onOpenDraft={() => setDraftOpen(true)} />}
         {activeTab === 'faq' && <Faq setActiveTab={setActiveTab} onOpenQuote={openQuote} />}
         {activeTab === 'vision' && <FutureVision onOpenQuote={openQuote} />}

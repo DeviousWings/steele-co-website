@@ -5,9 +5,9 @@ const STEELE_INVESTMENT = 7800
 
 export default function CloudRoiCalculator({ onBuildClick }) {
   const [inputs, setInputs] = useState({
-    cloudStorageMonthly: 45,
+    cloudStorageMonthly: 50,
     saasAImonthly: 60,
-    securityCloudMonthly: 35,
+    securityCloudMonthly: 40,
     businessCloudServers: 250,
     years: 3,
   })
@@ -103,7 +103,7 @@ function Slider({ label, value, max, onChange }) {
         <span>{label}</span>
         <span className="text-cyan">${value}/mo</span>
       </div>
-      <input type="range" min="0" max={max} value={value} onChange={onChange} className="w-full mt-2 accent-cyan" />
+      <input type="range" min="0" max={max} step={10} value={value} onChange={onChange} className="w-full mt-2 accent-cyan" />
     </div>
   )
 }

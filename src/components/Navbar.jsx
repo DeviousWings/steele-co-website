@@ -4,7 +4,6 @@ import { Server, Shield, ChevronDown, ChevronUp } from 'lucide-react'
 const NAV_STRUCTURE = [
   { id: 'home', type: 'link', label: 'Home', mobileLabel: 'Home' },
   { id: 'tiers', type: 'link', label: 'Plans & Pricing', mobileLabel: 'Plans' },
-  { id: 'roi', type: 'link', label: 'Cloud Cost Calculator', mobileLabel: 'Cost Calc' },
   { id: 'faq', type: 'link', label: 'FAQ', mobileLabel: 'FAQ' },
   { id: 'about', type: 'link', label: 'About', mobileLabel: 'About' },
   {
