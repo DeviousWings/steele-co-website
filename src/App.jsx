@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // Layout & Section Components
 import Navbar from './components/Navbar'
@@ -24,6 +24,11 @@ import ConsumerRights from './pages/ConsumerRights'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home')
+
+  // Jump to top whenever the visitor switches pages (SPA has no real routes).
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [activeTab])
 
   // Modal & Drawer State
   const [quoteOpen, setQuoteOpen] = useState(false)
