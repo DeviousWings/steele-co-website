@@ -122,7 +122,7 @@ export default function SovereignTiers({ onRequestQuote }) {
           >
             <div className="font-bold">{t.label}</div>
             <div className="text-[10px] text-cyan mt-1">
-              {t.id === 'tier1' ? `Base: ±$${DESK_NODE_BASE.price.toLocaleString()}` : `Base: $${t.base.toLocaleString()}`}
+              {t.id === 'tier1' ? `Base: from $${DESK_NODE_BASE.price.toLocaleString()}` : `Base: $${t.base.toLocaleString()}`}
             </div>
           </button>
         ))}

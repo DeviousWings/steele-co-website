@@ -1,13 +1,14 @@
-// Desk Node — Tier 1. Prices are averages (hours × $150).
-// Parts on the base are recovered inside the base hours, not as a separate hardware total.
+// Desk Node — Tier 1. Option prices are averages (hours × $150).
+// Base is the published floor ($1,850): parts + labor packaged as one starting price.
+// Options below add on top of the base.
 
 export const LABOR_RATE = 150
 
 export const DESK_NODE_BASE = {
   label: 'Base Build & Ad-Blocking Core',
   hours: 4,
-  price: 600,
-  desc: 'Network core assembly, Raspberry Pi 5 + AdGuard Home imaging and configuration, TP-Link switch install, full system test. Average 4 hours.',
+  price: 1850, // published floor — parts + labor packaged, not hours × rate
+  desc: 'Network core assembly, Raspberry Pi 5 + AdGuard Home imaging and configuration, TP-Link switch install, full system test. Hardware and labor are packaged into the published $1,850 starting price.',
   hardwareDesc: 'Raspberry Pi 5 (board/case/PSU/microSD) + TP-Link TL-SG108 8-port switch',
 }
 

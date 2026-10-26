@@ -54,7 +54,7 @@ export default function DeskNodeConfigurator({ onRequestQuote }) {
             <div className="text-muted mt-1">{DESK_NODE_BASE.desc}</div>
             <div className="text-[10px] text-muted mt-1">{DESK_NODE_BASE.hardwareDesc}</div>
           </div>
-          <span className="text-xs font-bold text-cyan whitespace-nowrap">±${DESK_NODE_BASE.price.toLocaleString()}</span>
+          <span className="text-xs font-bold text-cyan whitespace-nowrap">${DESK_NODE_BASE.price.toLocaleString()}</span>
         </div>
 
         <div className="space-y-2">
@@ -194,7 +194,7 @@ export default function DeskNodeConfigurator({ onRequestQuote }) {
               </div>
               <div className="flex justify-between text-emerald">
                 <span>• {DESK_NODE_BASE.label}</span>
-                <span>±${DESK_NODE_BASE.price.toLocaleString()}</span>
+                <span>${DESK_NODE_BASE.price.toLocaleString()}</span>
               </div>
               {selectedOptions.map((opt) => (
                 <div key={opt.key} className="flex justify-between text-emerald">

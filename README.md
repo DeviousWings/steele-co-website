@@ -35,7 +35,7 @@ $$
 Where:
 
 * $C_{\text{monthly}} = C_{\text{storage}} + C_{\text{SaaS/AI}} + C_{\text{cameras}} + C_{\text{egress}}$ represents the total monthly cloud subscription bleed.
-* $I_{\text{steele}}$ represents the one-time fixed capital investment for the Steele Co. hardware deployment (e.g., $\$7,800$ for Tier 2 SOHO Vault).
+* $I_{\text{steele}}$ represents the one-time fixed capital investment for the Steele Co. hardware deployment (e.g., from $\$5,500$ for Tier 2 SOHO Vault).
 
 ### 2. Investment Break-Even Timeline
 
@@ -89,9 +89,9 @@ steele-co-website/
 
 | Platform Tier | Chassis Form | Baseline Storage | Target Environment | Base Rate |
 | --- | --- | --- | --- | --- |
-| **Tier 1: Sovereign Desk Node** | 4U Desktop Acoustic | Up to 32TB ZFS | Private Journaling, Local Smart Home | $\$2,450$ |
-| **Tier 2: Enterprise SOHO Vault** | 12U/24U Liquid-Cooled | Up to 64TB ZFS | Law Offices, CPAs, Remote Executives | $\$7,800$ |
-| **Tier 3: Omniscient Home Core** | High-Density Rack Array | Up to 128TB ZFS | Estates, Offline AI Vision, 10Gbps LAN | $\$18,500$ |
+| **Tier 1: Sovereign Desk Node** | 4U Desktop Acoustic | Up to 32TB ZFS | Private Journaling, Local Smart Home | from $\$1,850$ |
+| **Tier 2: Enterprise SOHO Vault** | 12U/24U Liquid-Cooled | Up to 64TB ZFS | Law Offices, CPAs, Remote Executives | from $\$5,500$ |
+| **Tier 3: Omniscient Home Core** | High-Density Rack Array | Up to 128TB ZFS | Estates, Offline AI Vision, 10Gbps LAN | from $\$14,500$ |
 
 ## 📄 Trade Philosophy & Guarantees
 

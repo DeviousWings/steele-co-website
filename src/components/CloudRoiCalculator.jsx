@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { DollarSign } from 'lucide-react'
 
-const STEELE_INVESTMENT = 7800
+const STEELE_INVESTMENT = 5500
 
 export default function CloudRoiCalculator({ onBuildClick }) {
   const [inputs, setInputs] = useState({
@@ -60,7 +60,7 @@ export default function CloudRoiCalculator({ onBuildClick }) {
               <div className="text-[10px] text-muted mt-1">${calc.monthlyBleed}/month perpetual cost</div>
             </div>
             <div className="bg-obsidian p-4 rounded border border-emerald/40">
-              <div className="text-[10px] text-emerald font-bold uppercase">SOHO Vault Rack Cost</div>
+              <div className="text-[10px] text-emerald font-bold uppercase">SOHO Vault from</div>
               <div className="text-2xl font-black text-emerald mt-1">${STEELE_INVESTMENT.toLocaleString()}</div>
               <div className="text-[10px] text-muted mt-1">One-time capital expense (100% owned)</div>
             </div>
