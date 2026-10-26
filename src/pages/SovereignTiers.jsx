@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Send, SlidersHorizontal, ShieldCheck, Wrench, ExternalLink } from 'lucide-react'
+import { Check, Send, SlidersHorizontal, ShieldCheck, Wrench, ExternalLink } from 'lucide-react'
 import { TIERS, UPGRADES, STORAGE_OPTIONS } from '../data/tiersData'
 import homeServerImg from '../images/home_server.png'
 import DeskNodeConfigurator from '../components/DeskNodeConfigurator'
@@ -16,14 +16,21 @@ export default function SovereignTiers({ onRequestQuote }) {
 
   const [build, setBuild] = useState({
     tier: 'tier2',
-    upsUpgrade: true,
-    dualGpu: true,
-    liquidCooling: true,
-    acousticPanels: true,
-    tenGbSwitch: true,
-    storageCapacity: '32TB',
+    routerModem: false,
+    smartHomeHub: false,
+    cloudBackupOpt: false,
+    upsUpgrade: false,
+    dualGpu: false,
+    storageCapacity: '4TB',
     maintenancePlan: 'sentinel',
   })
+
+  // Keep the visible tab and the underlying build in sync.
+  const selectTier = (id) => {
+    setSelectedTier(id)
+    if (id !== 'tier1') setBuild((prev) => ({ ...prev, tier: id }))
+    document.getElementById('configurator')?.scrollIntoView({ behavior: 'smooth' })
+  }
 
   const [isBlueprintOpen, setIsBlueprintOpen] = useState(false)
 
@@ -42,12 +49,62 @@ export default function SovereignTiers({ onRequestQuote }) {
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 lg:py-12 space-y-12">
       <div className="border-b border-hairline pb-6 space-y-2">
-        <div className="text-xs text-cyan font-bold uppercase tracking-widest">// INFRASTRUCTURE CATALOG</div>
-        <h1 className="text-3xl font-black uppercase text-white">Sovereign Deployment Tiers & Hardware BOM</h1>
+        <div className="text-xs text-cyan font-bold uppercase tracking-widest">Plans & Pricing</div>
+        <h1 className="text-3xl font-black uppercase text-white">Pick the plan that fits your home</h1>
         <p className="text-xs text-muted max-w-3xl">
           Transparent fixed-rate pricing. Every package includes custom length cable trimming, thermal
           testing, acoustic dampening, and full root hardware access.
         </p>
+      </div>
+
+      {/* Plain plan cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {TIERS.map((t) => (
+          <div
+            key={t.id}
+            className={`bg-surface border rounded-xl p-6 flex flex-col gap-4 ${
+              t.id === 'tier2' ? 'border-cyan shadow-[0_0_15px_rgba(0,229,255,0.15)]' : 'border-hairline'
+            }`}
+          >
+            <div className="space-y-1">
+              <div className="text-[10px] text-cyan font-bold uppercase tracking-widest">{t.audience}</div>
+              <h2 className="text-xl font-black text-white">{t.name}</h2>
+              <div className="text-2xl font-black text-white">
+                ${t.base.toLocaleString()}
+                <span className="text-xs text-muted font-normal"> starting</span>
+              </div>
+            </div>
+            <p className="text-xs text-muted leading-relaxed">{t.desc}</p>
+            <ul className="space-y-1.5 text-xs text-slate-200 flex-1">
+              {t.includes?.map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <Check className="w-3.5 h-3.5 text-emerald shrink-0 mt-0.5" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <button
+              type="button"
+              onClick={() => onRequestQuote({ tier: t.name, planOnly: true }, t.base)}
+              className="w-full py-3 bg-cyan hover:bg-cyan/80 text-obsidian font-black text-xs uppercase tracking-wider rounded transition-all cursor-pointer"
+            >
+              Get a Quote
+            </button>
+            <button
+              type="button"
+              onClick={() => selectTier(t.id)}
+              className="text-[11px] text-cyan hover:underline cursor-pointer"
+            >
+              Customize this build ↓
+            </button>
+          </div>
+        ))}
+      </div>
+
+      <div id="configurator" className="border-t border-hairline pt-8 space-y-2">
+        <div className="text-xs text-cyan font-bold uppercase tracking-widest">Optional</div>
+        <h2 className="text-xl font-black uppercase text-white">Customize your build</h2>
+        <p className="text-xs text-muted">Add storage, upgrades, and a care plan to see a live estimate.</p>
       </div>
 
       {/* Tier Selector — shared across all tiers */}
@@ -56,10 +113,7 @@ export default function SovereignTiers({ onRequestQuote }) {
           <button
             key={t.id}
             type="button"
-            onClick={() => {
-              setSelectedTier(t.id)
-              if (t.id !== 'tier1') setBuild((prev) => ({ ...prev, tier: t.id }))
-            }}
+            onClick={() => selectTier(t.id)}
             className={`p-3 rounded text-left border transition-all text-xs cursor-pointer ${
               selectedTier === t.id
                 ? 'bg-panel border-cyan text-white shadow-[0_0_10px_rgba(0,229,255,0.15)]'
@@ -85,14 +139,14 @@ export default function SovereignTiers({ onRequestQuote }) {
             <div className="flex items-center justify-between border-b border-hairline pb-4">
               <div className="flex items-center gap-2 text-sm font-bold uppercase text-white">
                 <SlidersHorizontal className="w-4 h-4 text-cyan" />
-                <span>Interactive Bill of Materials Configurator</span>
+                <span>Build Configurator</span>
               </div>
               <span className="text-xs text-muted">Live Price Matrix</span>
             </div>
 
             {/* Thermal, Power & Compute Upgrades */}
             <div className="space-y-3">
-              <label className="text-xs font-bold text-muted uppercase">Thermal, Power & Compute Upgrades</label>
+              <label className="text-xs font-bold text-muted uppercase">Upgrades</label>
               <div className="space-y-2">
                 {UPGRADES.map((item) => (
                   <div
@@ -120,7 +174,7 @@ export default function SovereignTiers({ onRequestQuote }) {
             {/* Local Encrypted Storage Capacity */}
             <div className="space-y-2 border-t border-hairline pt-4">
               <label className="text-xs font-bold text-muted uppercase">Local Encrypted Storage Capacity</label>
-              <div className="grid grid-cols-4 gap-2 text-xs">
+              <div className="grid grid-cols-3 gap-2 text-xs">
                 {STORAGE_OPTIONS.map((s) => (
                   <button
                     key={s.size}
@@ -244,7 +298,7 @@ export default function SovereignTiers({ onRequestQuote }) {
                 onClick={() => onRequestQuote(build, price)}
                 className="w-full py-3.5 bg-cyan hover:bg-cyan/80 text-obsidian font-black text-xs uppercase tracking-wider rounded transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)] flex justify-center items-center gap-2 cursor-pointer">
                 <Send className="w-4 h-4" />
-                <span>Request Installation Booking</span>
+                <span>Get a Quote for This Build</span>
               </button>
             </div>
           </div>

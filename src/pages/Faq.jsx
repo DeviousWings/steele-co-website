@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { HelpCircle, ChevronDown, ShieldCheck, Key, Lock, Wrench, Terminal } from 'lucide-react'
 
-export default function Faq() {
+export default function Faq({ setActiveTab, onOpenQuote }) {
   const [openFaq, setOpenFaq] = useState(null)
 
   const toggleFaq = (index) => {
@@ -85,6 +85,18 @@ export default function Faq() {
             )}
           </div>
         ))}
+      </div>
+
+      {/* Conversion CTA */}
+      <div className="p-6 bg-panel border border-cyan/40 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4">
+        <div>
+          <div className="text-base font-bold text-white">Ready to own your data?</div>
+          <p className="text-xs text-muted">Compare plans or tell us about your home and we'll put together a quote.</p>
+        </div>
+        <div className="flex gap-2 shrink-0">
+          <button onClick={() => { setActiveTab?.('tiers'); window.scrollTo({ top: 0 }) }} className="px-4 py-2.5 border border-cyan/40 text-cyan font-bold text-xs uppercase rounded hover:bg-surface">See Plans</button>
+          <button onClick={onOpenQuote} className="px-4 py-2.5 bg-cyan hover:bg-cyan/80 text-obsidian font-bold text-xs uppercase rounded">Get a Quote</button>
+        </div>
       </div>
 
       {/* Footer Banner */}

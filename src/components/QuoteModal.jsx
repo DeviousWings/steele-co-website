@@ -53,7 +53,11 @@ export default function QuoteModal({ onClose, selectedConfig }) {
                   <span>Estimated Total: ${selectedConfig.estimatedPrice?.toLocaleString()}</span>
                 </div>
 
-                {isDeskNode ? (
+                {selectedConfig.planOnly ? (
+                  <div className="text-slate-400 text-[10px]">
+                    Plan: <span className="text-slate-200 uppercase">{selectedConfig.tier}</span> (starting price)
+                  </div>
+                ) : isDeskNode ? (
                   <div className="text-slate-400 grid grid-cols-2 gap-1 text-[10px]">
                     <div>Platform: <span className="text-slate-200 uppercase">Desk Node</span></div>
                     <div>Storage: <span className="text-slate-200">{selectedConfig.storage}</span></div>
@@ -67,11 +71,7 @@ export default function QuoteModal({ onClose, selectedConfig }) {
                     <div>Platform: <span className="text-slate-200 uppercase">{selectedConfig.tier}</span></div>
                     <div>Storage: <span className="text-slate-200">{selectedConfig.storage}</span></div>
                     <div>Plan: <span className="text-amber-400 capitalize">{selectedConfig.maintenance}</span></div>
-                    <div>UPS Backup: <span className="text-slate-200">{selectedConfig.upsUpgrade}</span></div>
-                    <div>Dual GPU: <span className="text-slate-200">{selectedConfig.dualGpu}</span></div>
-                    <div>Liquid Cool: <span className="text-slate-200">{selectedConfig.liquidCooling}</span></div>
-                    <div>Acoustic Panel: <span className="text-slate-200">{selectedConfig.acousticPanels}</span></div>
-                    <div>10Gb Switch: <span className="text-slate-200">{selectedConfig.tenGbSwitch}</span></div>
+                    <div className="col-span-2">Upgrades: <span className="text-slate-200">{selectedConfig.upgrades}</span></div>
                   </div>
                 )}
 
@@ -80,7 +80,7 @@ export default function QuoteModal({ onClose, selectedConfig }) {
                 <input type="hidden" name="Storage_Capacity" value={selectedConfig.storage || 'N/A'} />
                 <input type="hidden" name="Maintenance_Plan" value={selectedConfig.maintenance || 'N/A'} />
                 <input type="hidden" name="Estimated_Price" value={`$${selectedConfig.estimatedPrice?.toLocaleString()}` || 'N/A'} />
-                {isDeskNode ? (
+                {selectedConfig.planOnly ? null : isDeskNode ? (
                   <>
                     <input type="hidden" name="Router" value={selectedConfig.router || 'No'} />
                     <input type="hidden" name="Smart_Home" value={selectedConfig.smartHome || 'No'} />
@@ -88,11 +88,7 @@ export default function QuoteModal({ onClose, selectedConfig }) {
                   </>
                 ) : (
                   <>
-                    <input type="hidden" name="Upgrade_UPS" value={selectedConfig.upsUpgrade || 'No'} />
-                    <input type="hidden" name="Upgrade_Dual_GPU" value={selectedConfig.dualGpu || 'No'} />
-                    <input type="hidden" name="Upgrade_Liquid_Cooling" value={selectedConfig.liquidCooling || 'No'} />
-                    <input type="hidden" name="Upgrade_Acoustic_Panels" value={selectedConfig.acousticPanels || 'No'} />
-                    <input type="hidden" name="Upgrade_10Gb_Switch" value={selectedConfig.tenGbSwitch || 'No'} />
+                    <input type="hidden" name="Upgrades" value={selectedConfig.upgrades || 'None'} />
                   </>
                 )}
               </div>
