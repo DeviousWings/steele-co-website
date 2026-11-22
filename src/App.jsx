@@ -21,6 +21,7 @@ import About from './pages/About'
 import Faq from './pages/Faq'
 import FutureVision from './pages/FutureVision'
 import ConsumerRights from './pages/ConsumerRights'
+import AiConsulting from './pages/AiConsulting'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home')
@@ -100,6 +101,9 @@ export default function App() {
             onOpenDraft={() => setDraftOpen(true)}
             onOpenQuote={openQuote}
           />
+        )}
+        {activeTab === 'ai-consulting' && (
+          <AiConsulting setActiveTab={setActiveTab} onOpenQuote={openQuote} />
         )}
       </main>
 

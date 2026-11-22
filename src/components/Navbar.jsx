@@ -5,6 +5,7 @@ const NAV_STRUCTURE = [
   { id: 'home', type: 'link', label: 'Home', mobileLabel: 'Home' },
   { id: 'tiers', type: 'link', label: 'Plans & Pricing', mobileLabel: 'Plans' },
   { id: 'faq', type: 'link', label: 'FAQ', mobileLabel: 'FAQ' },
+  { id: 'ai-consulting', type: 'link', label: 'AI Consulting', mobileLabel: 'AI' },
   { id: 'about', type: 'link', label: 'About', mobileLabel: 'About' },
   {
     id: 'learn',

@@ -1,4 +1,4 @@
-import { CheckCircle, ChevronRight, HardDrive, Home as HomeIcon, Lock, Server, ShieldCheck, Wrench } from 'lucide-react'
+import { Brain, CheckCircle, ChevronRight, HardDrive, Home as HomeIcon, Lock, Server, ShieldCheck, Wrench } from 'lucide-react'
 import TerminalMonitor from '../components/TerminalMonitor'
 import CloudRoiCalculator from '../components/CloudRoiCalculator'
 
@@ -113,6 +113,40 @@ export default function Home({ setActiveTab }) {
         <CloudRoiCalculator onBuildClick={() => setActiveTab('tiers')} />
       </section>
 
+      {/* Steele AI section */}
+      <section className="bg-surface border border-hairline rounded-xl p-6 lg:p-8 space-y-6">
+        <div className="space-y-2">
+          <div className="text-xs text-cyan font-bold uppercase tracking-widest">// STEELE AI</div>
+          <h2 className="text-2xl lg:text-3xl font-bold uppercase text-white">
+            Strategy and implementation for private AI systems
+          </h2>
+          <p className="text-sm text-muted max-w-3xl leading-relaxed">
+            Once you own the hardware, the next step is putting it to work. Steele AI helps you design,
+            deploy, and operate local AI systems that keep models and data on your property.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <AiCard
+            title="Private Architecture"
+            desc="Design local-first AI stacks sized to your hardware and use cases — offline assistants, document tools, or internal knowledge systems."
+          />
+          <AiCard
+            title="Deployment & Integration"
+            desc="Install and configure models on your equipment, then wire them into the workflows you already use."
+          />
+          <AiCard
+            title="Training & Advisory"
+            desc="Hands-on guidance and clear runbooks so your team can operate and expand the system independently."
+          />
+        </div>
+
+        <button onClick={() => setActiveTab('ai-consulting')} className={primaryBtn + ' w-fit'}>
+          <span>Explore AI Consulting</span>
+          <ChevronRight className="w-4 h-4" />
+        </button>
+      </section>
+
       {/* Closing CTA */}
       <section className="bg-panel border border-cyan/30 rounded-xl p-8 lg:p-12 text-center space-y-5">
         <h2 className="text-2xl lg:text-4xl font-black uppercase text-white">Keep your data on your property.</h2>
@@ -191,6 +225,15 @@ function Guarantee({ title, desc }) {
         <span>{title}</span>
       </div>
       <div className="text-[11px] text-muted mt-0.5">{desc}</div>
+    </div>
+  )
+}
+
+function AiCard({ title, desc }) {
+  return (
+    <div className="bg-panel border border-hairline rounded-xl p-5 space-y-2">
+      <h3 className="text-sm font-bold text-white uppercase">{title}</h3>
+      <p className="text-xs text-muted leading-relaxed">{desc}</p>
     </div>
   )
 }
