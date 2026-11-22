@@ -103,7 +103,7 @@ export default function App() {
           />
         )}
         {activeTab === 'ai-consulting' && (
-          <AiConsulting setActiveTab={setActiveTab} onOpenQuote={openQuote} />
+          <AiConsulting setActiveTab={setActiveTab} />
         )}
       </main>
 
