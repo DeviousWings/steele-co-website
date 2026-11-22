@@ -81,6 +81,11 @@ export default function Footer({ onOpenDraft, onOpenContract, onOpenQuote, setAc
                 </button>
               </li>
               <li>
+                <button onClick={() => handleNav('ai-consulting')} className="hover:text-white transition-colors text-left">
+                  AI Consulting <span className="text-[10px] text-cyan-400 font-mono">(Steele AI)</span>
+                </button>
+              </li>
+              <li>
                 <button onClick={() => handleNav('tiers')} className="hover:text-white transition-colors text-left">
                   Managed Care Plans <span className="text-[10px] text-emerald-400 font-mono">($0, $49, $149)</span>
                 </button>
