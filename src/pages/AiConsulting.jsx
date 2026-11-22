@@ -5,7 +5,9 @@ const primaryBtn =
 const secondaryBtn =
   'bg-panel hover:bg-panel/70 text-slate-200 border border-hairline font-bold px-6 py-3.5 rounded text-xs uppercase tracking-wider transition-all flex items-center gap-2'
 
-export default function AiConsulting({ setActiveTab, onOpenQuote }) {
+const AI_CONSULTANT_URL = 'https://practical-intelligence-6m8.madethis.app/'
+
+export default function AiConsulting({ setActiveTab }) {
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 lg:py-12 space-y-16">
       {/* Hero */}
@@ -29,10 +31,15 @@ export default function AiConsulting({ setActiveTab, onOpenQuote }) {
         </p>
 
         <div className="flex flex-wrap gap-4 pt-2">
-          <button onClick={onOpenQuote} className={primaryBtn}>
+          <a
+            href={AI_CONSULTANT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={primaryBtn}
+          >
             <span>Request a Consultation</span>
             <ChevronRight className="w-4 h-4" />
-          </button>
+          </a>
           <button onClick={() => setActiveTab('tiers')} className={secondaryBtn}>
             <span>View Hardware Plans</span>
           </button>
@@ -100,10 +107,15 @@ export default function AiConsulting({ setActiveTab, onOpenQuote }) {
           scope recommendation and fixed pricing.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
-          <button onClick={onOpenQuote} className={primaryBtn}>
+          <a
+            href={AI_CONSULTANT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={primaryBtn}
+          >
             <span>Request a Consultation</span>
             <ChevronRight className="w-4 h-4" />
-          </button>
+          </a>
           <button onClick={() => setActiveTab('home')} className={secondaryBtn}>
             <span>Back to Home</span>
           </button>
